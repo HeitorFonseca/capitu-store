@@ -1,0 +1,37 @@
+<div class="panel-header">
+  <div class="header text-center">
+    <h2 class="title">Cadastrar Estampas</h2>
+
+  </div>
+</div>
+<div class="main-content">
+  <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+              <h4 class="card-title">Cadastro</h4>
+          </div>
+          <div class="card-body">
+              <form (ngSubmit)="onRegisterClick(Referencia, Preco)">
+                  <div class="form-group">
+                    <label for="referencia">Referencia</label>
+                    <input type="text" #Referencia class="form-control" id="referencia" aria-describedby="emailHelp" placeholder="Digite a Referencia da estampa">
+                  </div>
+                  <div class="form-group">
+                    <label for="preco">Preço</label>
+                    <input type="text" #Preco class="form-control" id="preco" placeholder="Preço">
+                  </div>
+                  
+                  <div class="form-group">
+                    <img [src]="imgUrl" style="width: 200px; height: 200px;">   
+                    <input class="form-control-file input-underline input-lg" type="file" (change)="fileChange($event.target.files)" 
+                      placeholder="Carregar estampa" id="fotoEstampa" name="fotoEstampa" #Image accept="image/"/>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">Cadastrar</button>
+                </form>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

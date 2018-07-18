@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 
 import { CadastrarProdutoComponent } from '../../components/cadastrar-produto/cadastrar-produto.component'
+import { PedidoComponent } from '../../components/pedido/pedido.component'
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { CadastrarProdutoComponent } from '../../components/cadastrar-produto/ca
     TableListComponent,
     TypographyComponent,
     NotificationsComponent,
-    CadastrarProdutoComponent
+    CadastrarProdutoComponent,
+    PedidoComponent
   ]
 })
 

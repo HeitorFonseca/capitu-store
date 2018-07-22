@@ -11,8 +11,13 @@ export class PedidoComponent implements OnInit {
   mCount = 0;
   gCount = 0;
   ggCount = 0;
-  vestidoCount = 0;
-  
+  vestidoCurtoCount = 0;
+  vestidoLongoCount = 0;
+  golaChockerCount = 0;
+  kitMeFCount = 0;
+  masculinoCount = 0;
+  filhoCount = 0;
+
   constructor() { }
 
   ngOnInit() {
@@ -50,11 +55,52 @@ export class PedidoComponent implements OnInit {
     this.ggCount = (this.ggCount == 0 ? 0 : this.ggCount-1);
   }
 
-  incrementVestido(){
-    this.vestidoCount++;        
+  incrementVestidoCurto(){
+    this.vestidoCurtoCount++;        
   }
 
-  decrementVestido() {
-    this.vestidoCount = (this.vestidoCount == 0 ? 0 : this.vestidoCount-1);
+  decrementVestidoCurto() {
+    this.vestidoCurtoCount = (this.vestidoCurtoCount == 0 ? 0 : this.vestidoCurtoCount-1);
   }
+
+  incrementVestidoLongo(){
+    this.vestidoLongoCount++;        
+  }
+
+  decrementVestidoLongo() {
+    this.vestidoLongoCount = (this.vestidoLongoCount == 0 ? 0 : this.vestidoLongoCount-1);
+  }
+
+  incrementGolaChocker(){
+    this.golaChockerCount++;        
+  }
+
+  decrementGolaChocker() {
+    this.golaChockerCount = (this.golaChockerCount == 0 ? 0 : this.golaChockerCount-1);
+  }
+
+  incrementKitMeF(){
+    this.kitMeFCount++;        
+  }
+
+  decrementKitMeF() {
+    this.kitMeFCount = (this.kitMeFCount == 0 ? 0 : this.kitMeFCount-1);
+  }
+
+  incrementMasculino(){
+    this.masculinoCount++;        
+  }
+
+  decrementMasculino() {
+    this.masculinoCount = (this.masculinoCount == 0 ? 0 : this.masculinoCount-1);
+  }
+
+  incrementFilho(){
+    this.filhoCount++;        
+  }
+
+  decrementFilho() {
+    this.filhoCount = (this.filhoCount == 0 ? 0 : this.filhoCount-1);
+  }
+  
 }

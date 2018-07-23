@@ -1,0 +1,38 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-5" *ngFor="let product of products">
+      <div class="card" >
+        <div class="card-header">
+          <h5 class="title">{{product.Reference}}</h5>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Referencia </label>
+                  <input type="text" class="form-control" placeholder="Referencia" value="{{product.Reference}}">
+                </div>
+              </div>
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label>Preço</label>
+                  <input type="text" class="form-control" placeholder="Preço" value="{{product.Price}}">
+                </div>
+              </div>
+            </div>           
+          </form>
+          <div class="row">
+            <div>              
+              <div *ngIf="product.imageToShow">
+              <img style="width: 250px; height: 250px;" [src]="product.imageToShow">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

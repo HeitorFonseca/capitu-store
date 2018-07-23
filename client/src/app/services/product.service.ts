@@ -33,4 +33,19 @@ export class ProductService {
     return this.http.post<any>(this.domain + 'product/register',  fd, {headers: headers}).pipe(map(res => res));
   }
 
+  getProductsImgs(img): Observable<Blob>{
+    let params = new HttpParams()
+
+    params = params.append("Img", img);
+
+    return this.http.get(this.domain + 'product/estampas/img', { params:params,  responseType: "blob"}).pipe(map(res => res));
+  }
+
+  // Function to register projects
+  registerOrder(order) {
+
+    return this.http.post<any>(this.domain + 'order/register', order).map(res => res);
+  
+  }
+
 }

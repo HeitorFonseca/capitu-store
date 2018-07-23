@@ -23,7 +23,8 @@ import { ProductService } from './services/product.service'
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    // Ng2AutoCompleteModule
   ],
   declarations: [
     AppComponent,

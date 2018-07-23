@@ -9,7 +9,7 @@ import {ProductService} from '../../services/product.service'
 })
 export class CadastrarProdutoComponent implements OnInit {
   
-  imgUrl: string;
+  imgUrl: string = "../assets/img/uploadImage.png";
   fileToUpload: File = null;
 
   constructor(private productService: ProductService) { }

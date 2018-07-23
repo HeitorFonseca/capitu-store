@@ -25,7 +25,8 @@
           "./assets/demo/demo.css"
       ],
       "scripts": [
-        "../node_modules/chart.js/dist/Chart.min.js"
+        "../node_modules/chart.js/dist/Chart.min.js",
+        "../node_modules/ng2-auto-complete/dist/ng2-auto-complete.umd.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

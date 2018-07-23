@@ -8,6 +8,7 @@ var cors = require('cors');
 var multer  = require('multer');
 
 var productRouter = require('./routes/products');
+var orderRouter = require('./routes/orders');
 // var authRouter = require('./routes/authentication');
 // var samplingPoints = require('./routes/samplingPoints');
 // var analyses = require('./routes/analyses');
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, '/client')));
 app.use('/', express.static(path.join(__dirname, '/client')));
 
 app.use('/api/product', productRouter);
+app.use('/api/order', orderRouter);
 // app.use('/api/authentication', authRouter);
 // app.use('/api/points', samplingPoints);
 // app.use('/api/analyses', analyses);

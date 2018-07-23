@@ -1,36 +1,23 @@
 var express = require('express');
 var router = express.Router();
 
-var Product = require('../models/product');
+var Order = require('../models/order');
 
-// handle file upload
-var multer = require('multer')
 
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './img/estampas/')
-    },
-    filename: function (req, file, cb) {
-        cb(null, "IMG-" + Date.now() + '.jpg') //Appending .jpg
-    }
-})
-
-var upload = multer({ storage: storage });
-
-/* GET all products */
+/* GET all Orders */
 router.get('/', function (req, res, next) {
-    console.log("get all here");
-    Product.find({})
+    console.log("get all order here");
+    Order.find({})
         .then(result => res.json(result))
         .catch(err => console.log(err))
 });
 
-/* GET single Product by id */
-router.get('/:userId', function (req, res, next) {
-    console.log("get Product by id");
+/* GET single Order by id */
+router.get('/:orderId', function (req, res, next) {
+    console.log("get Order by id");
     var query = { OwnerId: req.query.userId };
     console.log(query);
-    Product.find(query, function (err, properties) {
+    Order.find(query, function (err, properties) {
         if (err) {
             res.json(err);
         }
@@ -39,32 +26,31 @@ router.get('/:userId', function (req, res, next) {
     });
 });
 
-router.post('/register', upload.single("fileToUpload"), function (req, res) {
+router.post('/register',  function (req, res) {
     console.log("1:", req.body);
-    // console.log("2:", req.file);
 
-    let prod = new Product({
+    let order = new Order({
+        ClientName: req.body.ClientName,
         Reference: req.body.Reference,
-        Price: req.body.Price,
-        Img: req.file.filename
+        Sizes: req.body.Sizes
     })
 
-    console.log("produto:", prod);
+    console.log("order:", order);
 
-    Product.create(prod, function (err, post) {
+    Order.create(order, function (err, post) {
 
         if (err) {
             console.log("something");
             // Check if error is an error indicating duplicate account
             if (err.code === 11000) {
-                res.json({ success: false, message: 'Produto ja existe' }); // Return error
+                res.json({ success: false, message: 'Pedido ja existe' }); // Return error
             } else {
                 console.log(err);
-                res.json({ success: false, message: 'Não foi possivel salvar o produto. Error: ', err }); // Return error if not related to validation
+                res.json({ success: false, message: 'Não foi possivel salvar o Pedido. Error: ', err }); // Return error if not related to validation
             }
         } else {
             console.log("cadastrou");
-            res.json({ success: true, message: 'Produto registrado!' }); // Return success
+            res.json({ success: true, message: 'Pedido registrado!' }); // Return success
         }
     });
 });

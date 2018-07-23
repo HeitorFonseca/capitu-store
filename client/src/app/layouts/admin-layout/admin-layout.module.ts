@@ -9,8 +9,12 @@ import { ChartsModule } from 'ng2-charts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
+
+
 import { CadastrarProdutoComponent } from '../../components/cadastrar-produto/cadastrar-produto.component'
 import { PedidoComponent } from '../../components/pedido/pedido.component'
+import { ProdutosComponent  } from '../../components/produtos/produtos.component'
 
 @NgModule({
   imports: [
@@ -19,13 +23,15 @@ import { PedidoComponent } from '../../components/pedido/pedido.component'
     FormsModule,
     ChartsModule,
     NgbModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    Ng2AutoCompleteModule
   ],
   declarations: [
     DashboardComponent,
     UserProfileComponent,
     CadastrarProdutoComponent,
-    PedidoComponent
+    PedidoComponent,
+    ProdutosComponent
   ]
 })
 

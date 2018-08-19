@@ -8,7 +8,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
 export class ProductService {
 
   
-  domain = "http://localhost:3000/api/";
+  // domain = "http://localhost:3000/api/";
+  domain = "";
 
   constructor(private http: HttpClient, 
     private router: Router) { }

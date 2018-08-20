@@ -9,9 +9,7 @@ var multer  = require('multer');
 
 var productRouter = require('./routes/products');
 var orderRouter = require('./routes/orders');
-// var authRouter = require('./routes/authentication');
-// var samplingPoints = require('./routes/samplingPoints');
-// var analyses = require('./routes/analyses');
+
 
 var app = express();
 
@@ -22,28 +20,28 @@ app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-f
 app.use(bodyParser.json()); // parse application/json
 app.use(cors());
 app.use(express.static(path.join(__dirname, '/client/dist')));
-app.use('/', express.static(path.join(__dirname, '/client/dist')));
+//app.use('/', express.static(path.join(__dirname, '/client/dist')));
 
-app.use('/api/product', productRouter);
-app.use('/api/order', orderRouter);
-// app.use('/api/authentication', authRouter);
-// app.use('/api/points', samplingPoints);
-// app.use('/api/analyses', analyses);
+app.use('/product', productRouter);
+app.use('/order', orderRouter);
 
-console.log("dirname:",__dirname + '\\client\\dist\\index.html');
-app.use(express.static(path.join(__dirname, '\\client\\dist')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '\\client\\dist\\index.html'));
+  console.log("THURUUUU HEREEEEEE\n");
+  res.sendFile(path.join(__dirname + '/client/dist/index.html'));
 });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  console.log("THURUUUU HEREEEEEE2\n");
+
   next(createError(404));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
+  console.log("THURUUUU HEREEEEEE1\n");
+
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -53,9 +51,15 @@ app.use(function(err, req, res, next) {
   res.send(err.status);
 });
 
-// mongoose.connect('mongodb://localhost/Capitu', { promiseLibrary: require('bluebird') })
-//   .then(() =>  console.log('connection successful'))
-//   .catch((err) => console.error(err));
+
+mongoose.connect('mongodb://heitorfaraujo:capitustore123456@ds227332.mlab.com:27332/capitustore', { promiseLibrary: require('bluebird') })
+  .then(() =>  console.log('connection successful'))
+  .catch((err) => console.error(err));
+
+
+  // mongoose.connect('mongodb://localhost/Capitu', { promiseLibrary: require('bluebird') })
+  // .then(() =>  console.log('connection successful'))
+  // .catch((err) => console.error(err));
 
 
 module.exports = app;

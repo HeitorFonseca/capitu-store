@@ -31,7 +31,7 @@ export class ProductService {
     fd.append('Price', product.Price);
     fd.append('Img', product.Img);
 
-    return this.http.post<any>(this.domain + 'product/register',  fd, {headers: headers}).pipe(map(res => res));
+    return this.http.post<any>('product/register',  fd, {headers: headers}).pipe(map(res => res));
   }
 
   getProductsImgs(img): Observable<Blob>{
@@ -39,13 +39,13 @@ export class ProductService {
 
     params = params.append("Img", img);
 
-    return this.http.get(this.domain + 'product/estampas/img', { params:params,  responseType: "blob"}).pipe(map(res => res));
+    return this.http.get('product/estampas/img', { params:params,  responseType: "blob"}).pipe(map(res => res));
   }
 
   // Function to register projects
   registerOrder(order) {
 
-    return this.http.post<any>(this.domain + 'order/register', order).map(res => res);
+    return this.http.post<any>('order/register', order).map(res => res);
   
   }
 

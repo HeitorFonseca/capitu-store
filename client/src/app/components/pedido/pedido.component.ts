@@ -41,19 +41,19 @@ export class PedidoComponent implements OnInit {
       for (let prod of this.products) {
         this.referenceArray.push(prod.Reference);
 
-        this.productService.getProductsImgs(prod.Img).subscribe(data => {
+        // this.productService.getProductsImgs(prod.Img).subscribe(data => {
 
-          let reader = new FileReader();
+        //   let reader = new FileReader();
 
-          reader.addEventListener("load", () => {
-            prod.imageToShow = reader.result;
-          }, false);
+        //   reader.addEventListener("load", () => {
+        //     prod.imageToShow = reader.result;
+        //   }, false);
       
-          if (data) {
-            reader.readAsDataURL(data);
-          }
+        //   if (data) {
+        //     reader.readAsDataURL(data);
+        //   }
          
-        });
+        // });
 
       }
 

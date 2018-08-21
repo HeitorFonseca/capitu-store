@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import {ProductService} from '../../services/product.service'
+
 
 @Component({
   selector: 'app-cadastrar-produto',
@@ -9,8 +10,13 @@ import {ProductService} from '../../services/product.service'
 })
 export class CadastrarProdutoComponent implements OnInit {
   
+  @ViewChild('Referencia') referencia: ElementRef;
+  @ViewChild('Preco') preco: ElementRef;
+
   imgUrl: string = "../assets/img/uploadImage.png";
   fileToUpload: File = null;
+  message: string = '';
+  messageClass: string;
 
   constructor(private productService: ProductService) { }
 
@@ -23,25 +29,39 @@ export class CadastrarProdutoComponent implements OnInit {
 
     var reader = new FileReader();
 
-    reader.onload = (event: any) => {
+    reader.onloadend = (event: any) => {
       this.imgUrl = event.target.result;
+      console.log("base:",  this.imgUrl );
     }
 
     reader.readAsDataURL(this.fileToUpload);
   }
 
 
-  onRegisterClick(referencia, Preco) {
+  onRegisterClick(referencia, preco) {
 
-    console.log("cadastrar produto, ", referencia.value, Preco.value, this.fileToUpload);
+    // console.log("cadastrar produto, ", referencia.value, Preco.value, this.fileToUpload, this.imgUrl);
 
     let reqProduct = {
       Reference: referencia.value,
-      Price: Preco.value,
-      Img: this.fileToUpload.name
+      Price: preco.value,
+      Img: this.imgUrl
     }
-    this.productService.registerProduct(reqProduct, this.fileToUpload).subscribe(data => {
+
+    console.log(reqProduct);
+    this.productService.registerProduct(reqProduct).subscribe(data => {
       console.log("produto registrado:", data);
+
+      if (data.success) {
+      this.message = "Produto " + referencia.value + " cadastrado";
+      this.messageClass = 'alert alert-success';
+      
+      this.imgUrl = "../assets/img/uploadImage.png";
+      } else {
+        this.message = data.message;
+        this.messageClass = 'alert alert-danger';
+      }
+      
     })
   }
 }

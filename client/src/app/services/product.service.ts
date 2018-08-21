@@ -20,18 +20,9 @@ export class ProductService {
   }
 
   // Function to register projects
-  registerProduct(product, file) {
+  registerProduct(product) {
 
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
-
-    const fd = new  FormData();
-    fd.append('fileToUpload', file, file.name);
-    fd.append('Reference', product.Reference);
-    fd.append('Price', product.Price);
-    fd.append('Img', product.Img);
-
-    return this.http.post<any>('product/register',  fd, {headers: headers}).pipe(map(res => res));
+    return this.http.post<any>('product/register',  product).pipe(map(res => res));
   }
 
   getProductsImgs(img): Observable<Blob>{

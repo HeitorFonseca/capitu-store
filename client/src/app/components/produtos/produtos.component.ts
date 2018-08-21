@@ -15,8 +15,6 @@ export class ProdutosComponent implements OnInit {
 
   constructor(private productService: ProductService) { }
 
-
-
   ngOnInit() {
 
     this.productService.getProducts().subscribe(data => {
@@ -24,22 +22,21 @@ export class ProdutosComponent implements OnInit {
 
       this.products = data as Array<Product>;
 
-      for (let product of this.products) {
-        this.productService.getProductsImgs(product.Img).subscribe(data => {
+      // for (let product of this.products) {
+      //   this.productService.getProductsImgs(product.Img).subscribe(data => {
 
-          let reader = new FileReader();
+      //     let reader = new FileReader();
 
-          reader.addEventListener("load", () => {
-            product.imageToShow = reader.result;
-          }, false);
+      //     reader.addEventListener("load", () => {
+      //       product.imageToShow = reader.result;
+      //     }, false);
       
-          if (data) {
-            reader.readAsDataURL(data);
-          }
-
+      //     if (data) {
+      //       reader.readAsDataURL(data);
+      //     }
          
-        });
-      }
+      //   });
+      // }
     })
   }
 

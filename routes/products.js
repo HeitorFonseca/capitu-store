@@ -39,19 +39,19 @@ router.get('/:userId', function (req, res, next) {
     });
 });
 
-router.post('/register', upload.single("fileToUpload"), function (req, res) {
+router.post('/register', function (req, res) {
     console.log("1:", req.body);
     // console.log("2:", req.file);
 
-    let prod = new Product({
-        Reference: req.body.Reference,
-        Price: req.body.Price,
-        Img: req.file.filename
-    })
+    // let prod = new Product({
+    //     Reference: req.body.Reference,
+    //     Price: req.body.Price,
+    //     Img: req.file.filename
+    // })
 
-    console.log("produto:", prod);
+    // console.log("produto:", prod);
 
-    Product.create(prod, function (err, post) {
+    Product.create(req.body, function (err, post) {
 
         if (err) {
             console.log("something");
@@ -83,15 +83,6 @@ router.get('/estampas/:img', function(req, res){
           console.log('Sent:');
         }
       });
-
-    // res.sendFile(req.user.avatarName, {
-    //     root: path.join(__dirname+'/../img/estampas/1531977405098.jpg'),
-    //     headers: {'Content-Type': 'image/jpg'}
-    // }, function (err) {
-    //     if (err) {
-    //         console.log(err);
-    //     }
-    // });
 });
 
 

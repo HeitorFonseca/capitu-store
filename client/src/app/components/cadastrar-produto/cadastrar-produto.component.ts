@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
-import {ProductService} from '../../services/product.service'
+import { ProductService } from '../../services/product.service'
 
 
 @Component({
@@ -9,11 +9,11 @@ import {ProductService} from '../../services/product.service'
   styleUrls: ['./cadastrar-produto.component.scss']
 })
 export class CadastrarProdutoComponent implements OnInit {
-  
+
   @ViewChild('Referencia') referencia: ElementRef;
   @ViewChild('Preco') preco: ElementRef;
 
-  imgUrl: string = "../assets/img/uploadImage.png";
+  imgUrl: string = "../../assets/img/uploadImage.png";
   fileToUpload: File = null;
   message: string = '';
   messageClass: string;
@@ -21,7 +21,7 @@ export class CadastrarProdutoComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
-    
+
   }
 
   fileChange(files: FileList) {
@@ -31,7 +31,7 @@ export class CadastrarProdutoComponent implements OnInit {
 
     reader.onloadend = (event: any) => {
       this.imgUrl = event.target.result;
-      console.log("base:",  this.imgUrl );
+      console.log("base:", this.imgUrl);
     }
 
     reader.readAsDataURL(this.fileToUpload);
@@ -52,16 +52,15 @@ export class CadastrarProdutoComponent implements OnInit {
     this.productService.registerProduct(reqProduct).subscribe(data => {
       console.log("produto registrado:", data);
 
-      if (data.success) {
+
       this.message = "Produto " + referencia.value + " cadastrado";
       this.messageClass = 'alert alert-success';
-      
-      this.imgUrl = "../assets/img/uploadImage.png";
-      } else {
-        this.message = data.message;
-        this.messageClass = 'alert alert-danger';
-      }
-      
+
+      this.imgUrl = "../../assets/img/uploadImage.png";
+
+    }, err => {
+      this.message = err.error.message;
+      this.messageClass = 'alert alert-danger';
     })
   }
 }

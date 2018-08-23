@@ -36564,7 +36564,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var CadastrarProdutoComponent = /** @class */ (function () {
     function CadastrarProdutoComponent(productService) {
         this.productService = productService;
-        this.imgUrl = "../assets/img/uploadImage.png";
+        this.imgUrl = "../../assets/img/uploadImage.png";
         this.fileToUpload = null;
         this.message = '';
     }
@@ -36591,15 +36591,12 @@ var CadastrarProdutoComponent = /** @class */ (function () {
         console.log(reqProduct);
         this.productService.registerProduct(reqProduct).subscribe(function (data) {
             console.log("produto registrado:", data);
-            if (data.success) {
-                _this.message = "Produto " + referencia.value + " cadastrado";
-                _this.messageClass = 'alert alert-success';
-                _this.imgUrl = "../assets/img/uploadImage.png";
-            }
-            else {
-                _this.message = data.message;
-                _this.messageClass = 'alert alert-danger';
-            }
+            _this.message = "Produto " + referencia.value + " cadastrado";
+            _this.messageClass = 'alert alert-success';
+            _this.imgUrl = "../../assets/img/uploadImage.png";
+        }, function (err) {
+            _this.message = err.error.message;
+            _this.messageClass = 'alert alert-danger';
         });
     };
     __decorate([
@@ -36675,7 +36672,7 @@ var PedidoComponent = /** @class */ (function () {
     }
     PedidoComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.productService.getProducts().subscribe(function (data) {
+        this.productService.getProducts(1, 10).subscribe(function (data) {
             console.log(data);
             _this.products = data;
             for (var _i = 0, _a = _this.products; _i < _a.length; _i++) {
@@ -36812,7 +36809,7 @@ var PedidoComponent = /** @class */ (function () {
 /***/ "./src/app/components/produtos/produtos.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"panel-header panel-header-sm\">\n</div>\n<div class=\"main-content\">\n  <div class=\"row\">\n    <div class=\"col-md-5\" *ngFor=\"let product of products\">\n      <div class=\"card\" >\n        <div class=\"card-header\">\n          <h5 class=\"title\">{{product.Reference}}</h5>\n        </div>\n        <div class=\"card-body\">\n          <form>\n            <div class=\"row\">\n              <div class=\"col-md-5 pr-1\">\n                <div class=\"form-group\">\n                  <label>Referencia </label>\n                  <input type=\"text\" class=\"form-control\" placeholder=\"Referencia\" value=\"{{product.Reference}}\">\n                </div>\n              </div>\n              <div class=\"col-md-3 px-1\">\n                <div class=\"form-group\">\n                  <label>Preço</label>\n                  <input type=\"text\" class=\"form-control\" placeholder=\"Preço\" value=\"{{product.Price}}\">\n                </div>\n              </div>\n            </div>           \n          </form>\n          <div class=\"row\">\n            <div>              \n              <div *ngIf=\"product.Img\">\n              <img style=\"width: 250px; height: 250px;\" [src]=\"product.Img\">\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"panel-header\">\n  <div class=\"header text-center\">\n    <h2 class=\"title\">Produtos</h2>\n  </div>\n\n  <div class=\"row pl-2\">\n    <form class=\"ml-2 pl-2\">\n      <div class=\"input-group no-border\">\n        <input type=\"text\" value=\"\" class=\"form-control\" placeholder=\"Search...\">\n        <div class=\"input-group-append\">\n          <div class=\"input-group-text\" (click)=\"onSearchClick(searchText)\">\n            <i class=\"now-ui-icons ui-1_zoom-bold\"></i>\n          </div>\n        </div>\n      </div>\n    </form>\n  </div>\n</div>\n\n<div class=\"main-content\">\n\n  <div class=\"row\">\n    <div class=\"col-md-5\" *ngFor=\"let product of products; let i = index;\">\n      <div class=\"card\">\n\n        <div class=\"card-header\">\n          <span>{{product.Reference}}</span>\n          <button class=\"btn btn-secondary float-right mr-2\" (click)=\"removeProduct(product.Reference, i)\"> X </button>\n        </div>\n        <div class=\"card-body\">\n          <form>\n            <div class=\"row\">\n              <div class=\"col-md-5 pr-1\">\n                <div class=\"form-group\">\n                  <label>Referencia </label>\n                  <input type=\"text\" class=\"form-control\" placeholder=\"Referencia\" value=\"{{product.Reference}}\">\n                </div>\n              </div>\n              <div class=\"col-md-3 px-1\">\n                <div class=\"form-group\">\n                  <label>Preço</label>\n                  <input type=\"text\" class=\"form-control\" placeholder=\"Preço\" value=\"{{product.Price}}\">\n                </div>\n              </div>\n            </div>\n          </form>\n          <div class=\"row\">\n            <div>\n              <div class=\"ml-2\" *ngIf=\"product.Img\">\n                <img style=\"width: 250px; height: 250px;\" [src]=\"product.Img\">\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"row show-hide-message\">\n        <div [ngClass]=\"messageClass\">\n          {{ message }}\n        </div>\n      </div>\n    </div>\n\n    <!-- pager -->\n    <!-- <ul *ngIf=\"pager.pages && pager.pages.length\" class=\"pagination\">\n      <li class=\"page-item\">\n        <a (click)=\"setPage(1)\">First</a>\n      </li>\n      <li class=\"page-item\">\n        <a (click)=\"setPage(pager.currentPage - 1)\">Previous</a>\n      </li>\n      <li *ngFor=\"let page of pager.pages\" class=\"page-item\">\n        <a (click)=\"setPage(page)\">{{page}}</a>\n      </li>\n      <li class=\"page-item\">\n        <a (click)=\"setPage(pager.currentPage + 1)\">Next</a>\n      </li>\n      <li class=\"page-item\">\n        <a (click)=\"setPage(pager.totalPages)\">Last</a>\n      </li>\n    </ul> -->\n    <nav aria-label=\"Page navigation example\">\n      <ul class=\"pagination\">\n        <li class=\"page-item\">\n          <a class=\"page-link\" (click)=\"setPage(1)\">First</a>\n        </li>\n        <li class=\"page-item\">\n          <a class=\"page-link\" (click)=\"setPage(pager.currentPage - 1)\">Previous</a>\n        </li>\n        <li class=\"page-item\" *ngFor=\"let page of pager.pages\">\n          <a class=\"page-link\" (click)=\"setPage(page)\"> {{page}} </a>\n        </li>\n        <li class=\"page-item\">\n          <a class=\"page-link\" (click)=\"setPage(pager.currentPage + 1)\"> Next </a>\n        </li>\n        <li class=\"page-item\">\n          <a class=\"page-link\" (click)=\"setPage(pager.totalPages)\">Last</a>\n        </li>\n      </ul>\n    </nav>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -36830,6 +36827,7 @@ module.exports = ""
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProdutosComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_product_service__ = __webpack_require__("./src/app/services/product.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_pager_service__ = __webpack_require__("./src/app/services/pager.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -36841,14 +36839,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var ProdutosComponent = /** @class */ (function () {
-    function ProdutosComponent(productService) {
+    function ProdutosComponent(productService, pagerService) {
         this.productService = productService;
+        this.pagerService = pagerService;
+        this.globalLimit = 8;
         this.referencia = "01";
+        this.message = '';
+        // pager object
+        this.pager = {};
     }
     ProdutosComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.productService.getProducts().subscribe(function (data) {
+        this.productService.getCountProducts().subscribe(function (data) {
+            _this.allItemsCounter = data.counter;
+            _this.setPage(1);
+        }, function (err) {
+            _this.message = err.error.message;
+            _this.messageClass = 'alert alert-danger';
+        });
+        this.productService.getProducts(1, this.globalLimit).subscribe(function (data) {
             console.log(data);
             _this.products = data;
             // for (let product of this.products) {
@@ -36862,7 +36873,35 @@ var ProdutosComponent = /** @class */ (function () {
             //     }
             //   });
             // }
+        }, function (err) {
+            _this.message = err.error.message;
+            _this.messageClass = 'alert alert-danger';
         });
+    };
+    ProdutosComponent.prototype.removeProduct = function (referencia, index) {
+        var _this = this;
+        if (referencia) {
+            this.productService.removeProduct(referencia).subscribe(function (data) {
+                _this.message = data.message;
+                _this.messageClass = 'alert alert-success';
+                _this.products.splice(index, 1);
+            }, function (err) {
+                _this.message = err.error.message;
+                _this.messageClass = 'alert alert-danger';
+            });
+        }
+    };
+    ProdutosComponent.prototype.setPage = function (page) {
+        var _this = this;
+        // get pager object from service
+        this.pager = this.pagerService.getPager(this.allItemsCounter, page, this.globalLimit);
+        console.log("pager:", this.pager);
+        this.productService.getProducts(page, this.globalLimit).subscribe(function (data) {
+            console.log(data);
+            _this.products = data;
+        });
+        // get current page of items
+        // this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
     };
     ProdutosComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -36870,7 +36909,7 @@ var ProdutosComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/components/produtos/produtos.component.html"),
             styles: [__webpack_require__("./src/app/components/produtos/produtos.component.scss")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_product_service__["a" /* ProductService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_product_service__["a" /* ProductService */], __WEBPACK_IMPORTED_MODULE_2__services_pager_service__["a" /* PagerService */]])
     ], ProdutosComponent);
     return ProdutosComponent;
 }());

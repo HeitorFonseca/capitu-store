@@ -15,14 +15,33 @@ export class ProductService {
     private router: Router) { }
 
    // Function to get projects
-  getProducts() {
-    return this.http.get(this.domain + 'product/').pipe(map(res => res));
+  getProducts(page, limit) {
+
+    var params = new HttpParams().set('page', page).set('limit', limit);
+
+    return this.http.get(this.domain + 'product/', {params: params}).pipe(map(res => res));
+  }
+
+  // Function to get projects
+  getCountProducts() {
+    return this.http.get<any>(this.domain + 'product/count').pipe(map(res => res));
   }
 
   // Function to register projects
   registerProduct(product) {
 
     return this.http.post<any>('product/register',  product).pipe(map(res => res));
+  }
+
+   // Function to get projects
+   getProductById(reference) {
+    return this.http.get(this.domain + 'product/' + reference).pipe(map(res => res));
+  }
+
+
+  // Function to register projects
+  removeProduct(reference) {
+    return this.http.delete<any>('product/' + reference).pipe(map(res => res));
   }
 
   getProductsImgs(img): Observable<Blob>{

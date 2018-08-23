@@ -43,14 +43,14 @@ router.post('/register',  function (req, res) {
             console.log("something");
             // Check if error is an error indicating duplicate account
             if (err.code === 11000) {
-                res.json({ success: false, message: 'Pedido ja existe' }); // Return error
+                res.status(400).json({ message: 'Pedido ja existe' }); // Return error
             } else {
                 console.log(err);
-                res.json({ success: false, message: 'Não foi possivel salvar o Pedido. Error: ', err }); // Return error if not related to validation
+                res.status(500).json({ message: 'Não foi possivel salvar o Pedido. Error: ', err }); // Return error if not related to validation
             }
         } else {
             console.log("cadastrou");
-            res.json({ success: true, message: 'Pedido registrado!' }); // Return success
+            res.status(200).json({  message: 'Pedido registrado!' }); // Return success
         }
     });
 });

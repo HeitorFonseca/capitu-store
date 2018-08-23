@@ -13,7 +13,8 @@ import { AppComponent } from './app.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
-import { ProductService } from './services/product.service'
+import { ProductService } from './services/product.service';
+import { PagerService } from './services/pager.service';
 
 @NgModule({
   imports: [
@@ -30,7 +31,7 @@ import { ProductService } from './services/product.service'
     AppComponent,
     AdminLayoutComponent,    
   ],
-  providers: [ProductService],
+  providers: [ProductService, PagerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -34,7 +34,7 @@ export class PedidoComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
-    this.productService.getProducts().subscribe(data => {
+    this.productService.getProducts(1, 10).subscribe(data => {
       console.log(data);
       this.products = data as Array<Product>;
 

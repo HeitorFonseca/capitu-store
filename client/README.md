@@ -89,11 +89,6 @@ Now Ui Dashboard
 │   │   │       ├── admin-layout.component.ts
 │   │   │       ├── admin-layout.module.ts
 │   │   │       └── admin-layout.routing.ts
-│   │   ├── maps
-│   │   │   ├── maps.component.css
-│   │   │   ├── maps.component.html
-│   │   │   ├── maps.component.spec.ts
-│   │   │   └── maps.component.ts
 │   │   ├── notifications
 │   │   │   ├── notifications.component.css
 │   │   │   ├── notifications.component.html
@@ -153,8 +148,6 @@ Twitter: <https://twitter.com/CreativeTim>
 Facebook: <https://www.facebook.com/CreativeTim>
 
 Dribbble: <https://dribbble.com/creativetim>
-
-Google+: <https://plus.google.com/+CreativetimPage>
 
 Instagram: <https://instagram.com/creativetimofficial>
 

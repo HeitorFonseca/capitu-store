@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { ProductService } from '../../services/product.service'
 import { PagerService } from '../../services/pager.service'
@@ -18,7 +19,9 @@ export class ProdutosComponent implements OnInit {
   message: string = '';
   messageClass: string;
 
-  constructor(private productService: ProductService, private pagerService: PagerService) { }
+  constructor(private productService: ProductService, 
+              private pagerService: PagerService,
+              public sanitizer: DomSanitizer) { }
 
   // array of all items to be paged
   private allItems: any[];
@@ -45,23 +48,6 @@ export class ProdutosComponent implements OnInit {
       console.log(data);
 
       this.products = data as Array<Product>;
-
-
-      // for (let product of this.products) {
-      //   this.productService.getProductsImgs(product.Img).subscribe(data => {
-
-      //     let reader = new FileReader();
-
-      //     reader.addEventListener("load", () => {
-      //       product.imageToShow = reader.result;
-      //     }, false);
-
-      //     if (data) {
-      //       reader.readAsDataURL(data);
-      //     }
-
-      //   });
-      // }
     }, err => {
       this.message = err.error.message;
       this.messageClass = 'alert alert-danger';
@@ -75,9 +61,23 @@ export class ProdutosComponent implements OnInit {
     if (referencia) {
       this.productService.removeProduct(referencia).subscribe(data => {
 
-          this.message = data.message;
+          this.message = "Produto " + referencia + " removido";
           this.messageClass = 'alert alert-success';
           this.products.splice(index, 1);
+
+          this.productService.getCountProducts().subscribe(data=> {
+            this.allItemsCounter = data.counter;
+
+            let totalPages = Math.ceil(this.allItemsCounter/this.globalLimit);
+            console.log(totalPages, this.pager.currentPage );
+            if (this.pager.currentPage > totalPages)
+              this.setPage(totalPages);
+      
+          }, err => {
+            this.message = err.error.message;
+            this.messageClass = 'alert alert-danger';
+          });
+      
       
       }, err => {
         this.message = err.error.message;

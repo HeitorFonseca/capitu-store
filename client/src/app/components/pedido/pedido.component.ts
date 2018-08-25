@@ -34,26 +34,12 @@ export class PedidoComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
-    this.productService.getProducts(1, 10).subscribe(data => {
+    this.productService.getProducts(1, 10000).subscribe(data => {
       console.log(data);
       this.products = data as Array<Product>;
 
       for (let prod of this.products) {
         this.referenceArray.push(prod.Reference);
-
-        // this.productService.getProductsImgs(prod.Img).subscribe(data => {
-
-        //   let reader = new FileReader();
-
-        //   reader.addEventListener("load", () => {
-        //     prod.imageToShow = reader.result;
-        //   }, false);
-      
-        //   if (data) {
-        //     reader.readAsDataURL(data);
-        //   }
-         
-        // });
 
       }
 

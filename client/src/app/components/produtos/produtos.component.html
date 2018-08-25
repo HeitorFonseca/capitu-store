@@ -19,6 +19,11 @@
 
 <div class="main-content">
 
+  <div class="row show-hide-message">
+    <div [ngClass]="messageClass">
+      {{ message }}
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-5" *ngFor="let product of products; let i = index;">
       <div class="card">
@@ -30,13 +35,13 @@
         <div class="card-body">
           <form>
             <div class="row">
-              <div class="col-md-5 pr-1">
+              <!-- <div class="col-md-8 pr-1">
                 <div class="form-group">
                   <label>Referencia </label>
                   <input type="text" class="form-control" placeholder="Referencia" value="{{product.Reference}}">
                 </div>
-              </div>
-              <div class="col-md-3 px-1">
+              </div> -->
+              <div class="col-md-6 px-1">
                 <div class="form-group">
                   <label>Preço</label>
                   <input type="text" class="form-control" placeholder="Preço" value="{{product.Price}}">
@@ -47,37 +52,17 @@
           <div class="row">
             <div>
               <div class="ml-2" *ngIf="product.Img">
-                <img style="width: 250px; height: 250px;" [src]="product.Img">
+                <img style="width: 200px; height: 200px;" [src]="sanitizer.bypassSecurityTrustUrl(product.Img)">
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="row show-hide-message">
-        <div [ngClass]="messageClass">
-          {{ message }}
-        </div>
-      </div>
     </div>
-
+  </div>
+  <div class="row">
     <!-- pager -->
-    <!-- <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-      <li class="page-item">
-        <a (click)="setPage(1)">First</a>
-      </li>
-      <li class="page-item">
-        <a (click)="setPage(pager.currentPage - 1)">Previous</a>
-      </li>
-      <li *ngFor="let page of pager.pages" class="page-item">
-        <a (click)="setPage(page)">{{page}}</a>
-      </li>
-      <li class="page-item">
-        <a (click)="setPage(pager.currentPage + 1)">Next</a>
-      </li>
-      <li class="page-item">
-        <a (click)="setPage(pager.totalPages)">Last</a>
-      </li>
-    </ul> -->
+
     <nav aria-label="Page navigation example">
       <ul class="pagination">
         <li class="page-item">

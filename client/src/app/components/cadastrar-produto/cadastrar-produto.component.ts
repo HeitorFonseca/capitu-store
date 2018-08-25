@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { ProductService } from '../../services/product.service'
+import { Ng2ImgMaxService } from 'ng2-img-max';
 
 
 @Component({
@@ -13,12 +15,14 @@ export class CadastrarProdutoComponent implements OnInit {
   @ViewChild('Referencia') referencia: ElementRef;
   @ViewChild('Preco') preco: ElementRef;
 
-  imgUrl: string = "../../assets/img/uploadImage.png";
+  imgUrl: string = "../../../assets/img/uploadImage.png";
   fileToUpload: File = null;
   message: string = '';
   messageClass: string;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+               private ng2ImgMaxService: Ng2ImgMaxService,
+               public sanitizer: DomSanitizer) { }
 
   ngOnInit() {
 
@@ -29,12 +33,12 @@ export class CadastrarProdutoComponent implements OnInit {
 
     var reader = new FileReader();
 
-    reader.onloadend = (event: any) => {
-      this.imgUrl = event.target.result;
-      console.log("base:", this.imgUrl);
-    }
+    this.ng2ImgMaxService.resize([this.fileToUpload], 170, 170).subscribe((result)=>{
 
-    reader.readAsDataURL(this.fileToUpload);
+      this.fileToUpload = new File([result], result.name);
+      this.getImagePreview(this.fileToUpload);
+    });
+
   }
 
 
@@ -48,10 +52,9 @@ export class CadastrarProdutoComponent implements OnInit {
       Img: this.imgUrl
     }
 
-    console.log(reqProduct);
+    //console.log(reqProduct);
     this.productService.registerProduct(reqProduct).subscribe(data => {
       console.log("produto registrado:", data);
-
 
       this.message = "Produto " + referencia.value + " cadastrado";
       this.messageClass = 'alert alert-success';
@@ -62,5 +65,13 @@ export class CadastrarProdutoComponent implements OnInit {
       this.message = err.error.message;
       this.messageClass = 'alert alert-danger';
     })
+  }
+
+  getImagePreview(file: File) {
+    const reader: FileReader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.imgUrl = reader.result;
+    };
   }
 }

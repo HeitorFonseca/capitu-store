@@ -52,9 +52,9 @@ mongoose.connect('mongodb://heitorfaraujo:capitustore123456@ds227332.mlab.com:27
   .catch((err) => console.error(err));
 
 
-  // mongoose.connect('mongodb://localhost/Capitu', { promiseLibrary: require('bluebird') })
-  // .then(() =>  console.log('connection successful'))
-  // .catch((err) => console.error(err));
+// mongoose.connect('mongodb://localhost/Capitu', { promiseLibrary: require('bluebird') })
+// .then(() =>  console.log('connection successful'))
+// .catch((err) => console.error(err));
 
 
 module.exports = app;

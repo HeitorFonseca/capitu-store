@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
 
 
 import { CadastrarProdutoComponent } from '../../components/cadastrar-produto/cadastrar-produto.component'
@@ -24,7 +25,9 @@ import { ProdutosComponent  } from '../../components/produtos/produtos.component
     ChartsModule,
     NgbModule,
     ToastrModule.forRoot(),
-    Ng2AutoCompleteModule
+    Ng2AutoCompleteModule,
+    Ng2ImgMaxModule,
+    
   ],
   declarations: [
     DashboardComponent,

@@ -55,7 +55,8 @@ export class CadastrarProdutoComponent implements OnInit {
     let reqProduct = {
       Reference: referencia.value,
       Price: preco.value,
-      Img: this.imgUrl
+      Img: this.imgUrl,
+      Category: this.category
     }
 
     //console.log(reqProduct);

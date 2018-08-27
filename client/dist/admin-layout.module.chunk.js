@@ -40687,7 +40687,8 @@ var CadastrarProdutoComponent = /** @class */ (function () {
         var reqProduct = {
             Reference: referencia.value,
             Price: preco.value,
-            Img: this.imgUrl
+            Img: this.imgUrl,
+            Category: this.category
         };
         //console.log(reqProduct);
         this.productService.registerProduct(reqProduct).subscribe(function (data) {

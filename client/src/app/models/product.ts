@@ -3,5 +3,6 @@ export class Product {
     Price:string;
     Img: string;
     createdAt: string;
+    Category: string;
     imageToShow;
 }

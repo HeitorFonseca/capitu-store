@@ -5,6 +5,11 @@
   </div>
 </div>
 <div class="main-content">
+  <div class="row show-hide-message">
+    <div [ngClass]="messageClass">
+      {{ message }}
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-8">
       <div class="card">
@@ -16,10 +21,8 @@
 
             <div class="form-group">
               <label for="referencia">Referencia</label>
-              <input auto-complete type="text" #Referencia class="form-control" [source]="referenceArray" [(ngModel)]="myData" 
-              [ngModelOptions]="{standalone: true}"
-               (valueChanged)="valueChanged($event)"
-              placeholder="Digite a Referencia da estampa">              
+              <input auto-complete type="text" #Referencia class="form-control" [source]="referenceArray" [(ngModel)]="myData" [ngModelOptions]="{standalone: true}"
+                (valueChanged)="valueChanged($event)" placeholder="Digite a Referencia da estampa">
             </div>
 
             <div class="form-group">
@@ -125,17 +128,31 @@
           <form>
             <div class="form-group">
               <div *ngIf="selectedProduct">
-                <img [src]="selectedProduct.Img" style="width: 200px; height: 200px;">
+                <img [src]="sanitizer.bypassSecurityTrustUrl(selectedProduct.Img)" style="width: 200px; height: 200px;">
               </div>
               <div *ngIf="!selectedProduct">
-                  <img [src]="" style="width: 200px; height: 200px;">
+                <img [src]="" style="width: 200px; height: 200px;">
               </div>
             </div>
             <div class="form-group">
-              <label for="preco">Preço</label>
-              <input type="text" #Preco class="form-control" id="preco" placeholder="Preço">
+              <div *ngIf="selectedProduct">
+                <label for="preco">Preço</label>
+                <input type="text" [(ngModel)]="selectedProduct.Price" [ngModelOptions]="{standalone: true}" class="form-control" id="preco"
+                  placeholder="Preço">
+              </div>
+
+            </div>
+            <div class="form-group">
+              <input type="button" value="Adicionar" (click)="addReference(selectedProduct.Reference)">
             </div>
           </form>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div *ngFor="let obj of objRefSize">
+            <label> {{obj.reference}} - {{obj.size}} </label>
+          </div>
         </div>
       </div>
     </div>

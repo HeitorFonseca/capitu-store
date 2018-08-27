@@ -20,12 +20,18 @@ export class CadastrarProdutoComponent implements OnInit {
   message: string = '';
   messageClass: string;
 
+  categories: Array<string> = new Array<string>(
+    "T-Shirt", "Vestido Curto", "Vestido Longo", "Gola chocker", "Kit Mae-Filho", "Masculino", "Filho"
+  );
+  category;
+
+
   constructor(private productService: ProductService,
-               private ng2ImgMaxService: Ng2ImgMaxService,
-               public sanitizer: DomSanitizer) { }
+    private ng2ImgMaxService: Ng2ImgMaxService,
+    public sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-
+    this.category = this.categories[0];
   }
 
   fileChange(files: FileList) {
@@ -33,7 +39,7 @@ export class CadastrarProdutoComponent implements OnInit {
 
     var reader = new FileReader();
 
-    this.ng2ImgMaxService.resize([this.fileToUpload], 170, 170).subscribe((result)=>{
+    this.ng2ImgMaxService.resize([this.fileToUpload], 170, 170).subscribe((result) => {
 
       this.fileToUpload = new File([result], result.name);
       this.getImagePreview(this.fileToUpload);
@@ -65,6 +71,12 @@ export class CadastrarProdutoComponent implements OnInit {
       this.message = err.error.message;
       this.messageClass = 'alert alert-danger';
     })
+  }
+
+
+  selectCategory(catValue : any) {
+    console.log("category:", catValue);
+    this.category = catValue;   
   }
 
   getImagePreview(file: File) {

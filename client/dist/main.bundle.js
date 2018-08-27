@@ -804,6 +804,10 @@ var ProductService = /** @class */ (function () {
         params = params.append("Img", img);
         return this.http.get('product/estampas/img', { params: params, responseType: "blob" }).pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["h" /* map */])(function (res) { return res; }));
     };
+    // Function to get orders
+    ProductService.prototype.getOrders = function () {
+        return this.http.get(this.domain + 'order/').pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["h" /* map */])(function (res) { return res; }));
+    };
     // Function to register projects
     ProductService.prototype.registerOrder = function (order) {
         return this.http.post('order/register', order).map(function (res) { return res; });

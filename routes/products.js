@@ -79,7 +79,7 @@ router.delete('/:id', function (req, res, next) {
         if (err) {
             res.status(500).json({ message: "Não foi possivel remover o produto" });
         }
-        console.log(Product);
+        //console.log(Product);
         res.status(200).json({ message: "Produto removido" });
     });
 });

@@ -6,8 +6,8 @@ var ProductSchema = new mongoose.Schema({
     Reference: { type: String, required: true, unique: true },
     Price: { type: String },
     Img: {type: String, required: true},
+    Category: {type: String, required: true},
     createdAt: {type: Date, default: Date.now},    
-
 });
 
 ProductSchema.pre('save', function(next){

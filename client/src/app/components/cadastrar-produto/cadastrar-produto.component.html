@@ -26,7 +26,14 @@
               <label for="preco">Preço</label>
               <input type="text" #Preco class="form-control" id="preco" placeholder="Preço">
             </div>
-
+            <div>
+              <label class="pr-3">Categoria</label>
+              <select (change)="selectCategory($event.target.value)">
+                <option *ngFor="let category of categories" value={{category}}>
+                  {{category}}
+                </option>
+              </select>
+            </div>
             <div class="form-group">
               <img [src]="sanitizer.bypassSecurityTrustUrl(imgUrl)" style="width: 200px; height: 200px;">
               <input class="form-control-file input-underline input-lg" type="file" (change)="fileChange($event.target.files)" placeholder="Carregar estampa"

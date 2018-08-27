@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { ProductService } from '../../services/product.service'
 import { Product } from '../../models/product'
@@ -28,10 +29,19 @@ export class PedidoComponent implements OnInit {
   mySource;
 
   products: Array<Product>;
-  referenceArray: Array<string> = new Array<string>();
-  selectedProduct:Product;
+  referencesToOrder: Array<string> = new Array<string>();
+  sizesToOrder: Array<string> = new Array<string>();
 
-  constructor(private productService: ProductService) { }
+  referenceArray: Array<string> = new Array<string>();
+  selectedProduct: Product;
+
+  message: string = '';
+  messageClass: string;
+
+  objRefSize: Array<any> = new Array<any>();
+
+  constructor(private productService: ProductService,
+    public sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.productService.getProducts(1, 10000).subscribe(data => {
@@ -52,15 +62,33 @@ export class PedidoComponent implements OnInit {
     let sizes = this.getSizes();
 
     let reqOrder = {
-      Reference: reference.value,
+      References: this.referencesToOrder,
       ClientName: clientName.value,
-      Sizes: sizes
+      Sizes: this.sizesToOrder
     }
 
     console.log(reqOrder);
     this.productService.registerOrder(reqOrder).subscribe(data => {
       console.log("pedido registrado:", data);
+      this.message = "Pedido para " + clientName.value + " Registrado!";
+      this.messageClass = "alert alert-success";
+    }, err => {
+      this.message = "Voce esqueceu de colocar algum campo?";
+      this.messageClass = "alert alert-danger";
     })
+  }
+
+  addReference(reference: any) {
+    if (this.getSizes() == '') {
+      this.message = "Selecione um tamanho";
+      this.messageClass = "alert alert-danger";
+    } else {
+      this.referencesToOrder.push(reference);
+      let sz = this.getSizes();
+      this.objRefSize.push({ reference: reference, size: sz })
+      this.sizesToOrder.push(sz);
+      this.resetCounters();
+    }
   }
 
   getSizes() {
@@ -68,26 +96,31 @@ export class PedidoComponent implements OnInit {
 
     if (this.pCount > 0)
       sizes = sizes + this.pCount + "P"
-      if (this.mCount > 0)
-      sizes = (sizes == '' ? sizes + this.mCount + "M" :  sizes + " " + this.mCount + " M" );
-      if (this.gCount > 0)
-      sizes = ( sizes == '' ? sizes + this.gCount + "G" :  sizes + " " + this.gCount + " G");
-      if (this.ggCount > 0)
-      sizes = (sizes == '' ? sizes + this.ggCount + "GG":  sizes + " " + this.ggCount + " GG");
-      if (this.vestidoCurtoCount > 0)
-      sizes = (sizes == '' ? sizes + this.vestidoCurtoCount + "Vestido(s) curto": sizes + " " + this.vestidoCurtoCount + " Vestido(s) curto");
-      if (this.vestidoLongoCount > 0)
-      sizes = (sizes == '' ? sizes + this.vestidoLongoCount + "Vestido(s) longo": sizes + " " + this.vestidoLongoCount + " Vestido(s) longo");
-      if (this.golaChockerCount > 0)
-      sizes = sizes == '' ? sizes + this.golaChockerCount + "Gola Chocker" : sizes + " " + this.golaChockerCount + " Gola Chocker";
-      if (this.kitMeFCount > 0)
-      sizes = sizes == '' ? sizes + this.kitMeFCount + "Kit Mãe e filha" :  sizes + " " + this.kitMeFCount + " Kit Mãe e filha";
-      if (this.masculinoCount > 0)
-      sizes = sizes == '' ? sizes + this.masculinoCount + "Masculino" :  sizes + " " + this.masculinoCount + " Masculino";
-      if (this.filhoCount > 0)
-      sizes = sizes == '' ? sizes + this.filhoCount + "Filho" : sizes + " " + this.filhoCount + " Filho";
+    if (this.mCount > 0)
+      sizes = (sizes == '' ? sizes + this.mCount + "M" : sizes + " " + this.mCount + "M");
+    if (this.gCount > 0)
+      sizes = (sizes == '' ? sizes + this.gCount + "G" : sizes + " " + this.gCount + "G");
+    if (this.ggCount > 0)
+      sizes = (sizes == '' ? sizes + this.ggCount + "GG" : sizes + " " + this.ggCount + "GG");
+    if (this.vestidoCurtoCount > 0)
+      sizes = (sizes == '' ? sizes + this.vestidoCurtoCount + "Vestido curto" : sizes + " " + this.vestidoCurtoCount + "Vestido curto");
+    if (this.vestidoLongoCount > 0)
+      sizes = (sizes == '' ? sizes + this.vestidoLongoCount + "Vestido longo" : sizes + " " + this.vestidoLongoCount + "Vestido longo");
+    if (this.golaChockerCount > 0)
+      sizes = sizes == '' ? sizes + this.golaChockerCount + "Gola Chocker" : sizes + " " + this.golaChockerCount + "Gola Chocker";
+    if (this.kitMeFCount > 0)
+      sizes = sizes == '' ? sizes + this.kitMeFCount + "Kit Mae e filha" : sizes + " " + this.kitMeFCount + "Kit Mae e filha";
+    if (this.masculinoCount > 0)
+      sizes = sizes == '' ? sizes + this.masculinoCount + "Masculino" : sizes + " " + this.masculinoCount + "Masculino";
+    if (this.filhoCount > 0)
+      sizes = sizes == '' ? sizes + this.filhoCount + "Filho" : sizes + " " + this.filhoCount + "Filho";
 
-      return sizes;
+    return sizes;
+  }
+
+  resetCounters() {
+    this.pCount = this.mCount = this.gCount = this.ggCount = this.vestidoCurtoCount = this.vestidoLongoCount =
+      this.golaChockerCount = this.masculinoCount = this.filhoCount = this.kitMeFCount = 0;
   }
 
   incrementP() {

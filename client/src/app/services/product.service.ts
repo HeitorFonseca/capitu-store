@@ -18,7 +18,6 @@ export class ProductService {
   getProducts(page, limit) {
 
     var params = new HttpParams().set('page', page).set('limit', limit);
-
     return this.http.get(this.domain + 'product/', {params: params}).pipe(map(res => res));
   }
 
@@ -29,7 +28,6 @@ export class ProductService {
 
   // Function to register projects
   registerProduct(product) {
-
     return this.http.post<any>('product/register',  product).pipe(map(res => res));
   }
 
@@ -46,17 +44,17 @@ export class ProductService {
 
   getProductsImgs(img): Observable<Blob>{
     let params = new HttpParams()
-
     params = params.append("Img", img);
-
     return this.http.get('product/estampas/img', { params:params,  responseType: "blob"}).pipe(map(res => res));
   }
 
+   // Function to get orders
+   getOrders() {
+    return this.http.get(this.domain + 'order/').pipe(map(res => res));
+  }
   // Function to register projects
   registerOrder(order) {
-
-    return this.http.post<any>('order/register', order).map(res => res);
-  
+    return this.http.post<any>('order/register', order).map(res => res);  
   }
 
 }

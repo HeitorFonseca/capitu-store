@@ -65,19 +65,19 @@
 
     <nav aria-label="Page navigation example">
       <ul class="pagination">
-        <li class="page-item">
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
           <a class="page-link" (click)="setPage(1)">First</a>
         </li>
-        <li class="page-item">
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
           <a class="page-link" (click)="setPage(pager.currentPage - 1)">Previous</a>
         </li>
-        <li class="page-item" *ngFor="let page of pager.pages">
+        <li class="page-item" [ngClass]="{active:pager.currentPage === page}" *ngFor="let page of pager.pages" >
           <a class="page-link" (click)="setPage(page)"> {{page}} </a>
         </li>
-        <li class="page-item">
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
           <a class="page-link" (click)="setPage(pager.currentPage + 1)"> Next </a>
         </li>
-        <li class="page-item">
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
           <a class="page-link" (click)="setPage(pager.totalPages)">Last</a>
         </li>
       </ul>

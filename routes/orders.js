@@ -7,22 +7,27 @@ var Order = require('../models/order');
 /* GET all Orders */
 router.get('/', function (req, res, next) {
     console.log("get all order here");
-    Order.find({})
-        .then(result => res.json(result))
-        .catch(err => console.log(err))
+    Order.find({}, function(err, orders) {
+        
+        if(err)
+            res.status(500).json({message: "Erro ao retornar os pedidos"});
+        else {                      
+            res.status(200).json(orders);
+        }        
+    });
 });
 
 /* GET single Order by id */
-router.get('/:orderId', function (req, res, next) {
+router.get('/:referenceId', function (req, res, next) {
     console.log("get Order by id");
-    var query = { OwnerId: req.query.userId };
+    var query = { Reference: req.params.referenceId };
     console.log(query);
-    Order.find(query, function (err, properties) {
+    Order.find(query, function (err, order) {
         if (err) {
             res.json(err);
         }
-        console.log(properties);
-        res.json(properties);
+        console.log(order);
+        res.json(order);
     });
 });
 
@@ -31,7 +36,7 @@ router.post('/register',  function (req, res) {
 
     let order = new Order({
         ClientName: req.body.ClientName,
-        Reference: req.body.Reference,
+        References: req.body.References,
         Sizes: req.body.Sizes
     })
 
@@ -53,31 +58,6 @@ router.post('/register',  function (req, res) {
             res.status(200).json({  message: 'Pedido registrado!' }); // Return success
         }
     });
-});
-
-
-router.get('/estampas/:img', function(req, res){
-
-    console.log("GET ESTAMPAS: ", __dirname + "\\..\\img\\estampas\\" + req.query.Img);
-    console.log(req.query);
-    
-    res.sendFile(req.query.Img,{root: __dirname +  "\\..\\img\\estampas" },function (err) {
-        if (err) {
-            console.log('Sent:', err);
-          // next(err);
-        } else {
-          console.log('Sent:');
-        }
-      });
-
-    // res.sendFile(req.user.avatarName, {
-    //     root: path.join(__dirname+'/../img/estampas/1531977405098.jpg'),
-    //     headers: {'Content-Type': 'image/jpg'}
-    // }, function (err) {
-    //     if (err) {
-    //         console.log(err);
-    //     }
-    // });
 });
 
 

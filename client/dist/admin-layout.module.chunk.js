@@ -40626,7 +40626,7 @@ module.exports = function(module) {
 /***/ "./src/app/components/cadastrar-produto/cadastrar-produto.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"panel-header\">\n  <div class=\"header text-center\">\n    <h2 class=\"title\">Cadastrar Estampas</h2>\n\n  </div>\n</div>\n<div class=\"main-content\">\n  <div class=\"row\">\n    <div class=\"col-md-8\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n          <h4 class=\"card-title\">Cadastro </h4>\n        </div>\n        <div class=\"row show-hide-message\">\n          <div [ngClass]=\"messageClass\">\n            {{ message }}\n          </div>\n        </div>\n        <div class=\"card-body\">\n          <form (ngSubmit)=\"onRegisterClick(Referencia, Preco)\">\n            <div class=\"form-group\">\n              <label for=\"referencia\">Referencia</label>\n              <input type=\"text\" #Referencia class=\"form-control\" id=\"referencia\" aria-describedby=\"emailHelp\" placeholder=\"Digite a Referencia da estampa\">\n            </div>\n            <div class=\"form-group\">\n              <label for=\"preco\">Preço</label>\n              <input type=\"text\" #Preco class=\"form-control\" id=\"preco\" placeholder=\"Preço\">\n            </div>\n\n            <div class=\"form-group\">\n              <img [src]=\"sanitizer.bypassSecurityTrustUrl(imgUrl)\" style=\"width: 200px; height: 200px;\">\n              <input class=\"form-control-file input-underline input-lg\" type=\"file\" (change)=\"fileChange($event.target.files)\" placeholder=\"Carregar estampa\"\n                id=\"fotoEstampa\" name=\"fotoEstampa\" #Image accept=\"image/\" />\n            </div>\n\n            <button type=\"submit\" class=\"btn btn-primary\">Cadastrar</button>\n\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"panel-header\">\n  <div class=\"header text-center\">\n    <h2 class=\"title\">Cadastrar Estampas</h2>\n\n  </div>\n</div>\n<div class=\"main-content\">\n  <div class=\"row\">\n    <div class=\"col-md-8\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n          <h4 class=\"card-title\">Cadastro </h4>\n        </div>\n        <div class=\"row show-hide-message\">\n          <div [ngClass]=\"messageClass\">\n            {{ message }}\n          </div>\n        </div>\n        <div class=\"card-body\">\n          <form (ngSubmit)=\"onRegisterClick(Referencia, Preco)\">\n            <div class=\"form-group\">\n              <label for=\"referencia\">Referencia</label>\n              <input type=\"text\" #Referencia class=\"form-control\" id=\"referencia\" aria-describedby=\"emailHelp\" placeholder=\"Digite a Referencia da estampa\">\n            </div>\n            <div class=\"form-group\">\n              <label for=\"preco\">Preço</label>\n              <input type=\"text\" #Preco class=\"form-control\" id=\"preco\" placeholder=\"Preço\">\n            </div>\n            <div>\n              <label class=\"pr-3\">Categoria</label>\n              <select (change)=\"selectCategory($event.target.value)\">\n                <option *ngFor=\"let category of categories\" value={{category}}>\n                  {{category}}\n                </option>\n              </select>\n            </div>\n            <div class=\"form-group\">\n              <img [src]=\"sanitizer.bypassSecurityTrustUrl(imgUrl)\" style=\"width: 200px; height: 200px;\">\n              <input class=\"form-control-file input-underline input-lg\" type=\"file\" (change)=\"fileChange($event.target.files)\" placeholder=\"Carregar estampa\"\n                id=\"fotoEstampa\" name=\"fotoEstampa\" #Image accept=\"image/\" />\n            </div>\n\n            <button type=\"submit\" class=\"btn btn-primary\">Cadastrar</button>\n\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -40667,8 +40667,10 @@ var CadastrarProdutoComponent = /** @class */ (function () {
         this.imgUrl = "../../../assets/img/uploadImage.png";
         this.fileToUpload = null;
         this.message = '';
+        this.categories = new Array("T-Shirt", "Vestido Curto", "Vestido Longo", "Gola chocker", "Kit Mae-Filho", "Masculino", "Filho");
     }
     CadastrarProdutoComponent.prototype.ngOnInit = function () {
+        this.category = this.categories[0];
     };
     CadastrarProdutoComponent.prototype.fileChange = function (files) {
         var _this = this;
@@ -40697,6 +40699,10 @@ var CadastrarProdutoComponent = /** @class */ (function () {
             _this.message = err.error.message;
             _this.messageClass = 'alert alert-danger';
         });
+    };
+    CadastrarProdutoComponent.prototype.selectCategory = function (catValue) {
+        console.log("category:", catValue);
+        this.category = catValue;
     };
     CadastrarProdutoComponent.prototype.getImagePreview = function (file) {
         var _this = this;
@@ -40734,7 +40740,7 @@ var CadastrarProdutoComponent = /** @class */ (function () {
 /***/ "./src/app/components/pedido/pedido.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"panel-header\">\n  <div class=\"header text-center\">\n    <h2 class=\"title\">Cadastrar Pedido</h2>\n\n  </div>\n</div>\n<div class=\"main-content\">\n  <div class=\"row\">\n    <div class=\"col-md-8\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n          <h4 class=\"card-title\">Adicionar Pedido</h4>\n        </div>\n        <div class=\"card-body\">\n          <form (ngSubmit)=\"onRegisterClick(Referencia, Cliente)\">\n\n            <div class=\"form-group\">\n              <label for=\"referencia\">Referencia</label>\n              <input auto-complete type=\"text\" #Referencia class=\"form-control\" [source]=\"referenceArray\" [(ngModel)]=\"myData\" \n              [ngModelOptions]=\"{standalone: true}\"\n               (valueChanged)=\"valueChanged($event)\"\n              placeholder=\"Digite a Referencia da estampa\">              \n            </div>\n\n            <div class=\"form-group\">\n              <label for=\"cliente\">Cliente</label>\n              <input type=\"text\" #Cliente class=\"form-control\" id=\"cliente\" placeholder=\"Nome da cliente\">\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementP()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementP()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeP\">{{pCount}} P</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementM()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementM()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeM\">{{mCount}} M</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementG()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementG()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeG\"> {{gCount}} G</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementGG()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementGG()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeGG\"> {{ggCount}} GG</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementVestidoCurto()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementVestidoCurto()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeVestidoCurto\">{{vestidoCurtoCount}} Vestido(s) Curto</label>\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementVestidoLongo()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementVestidoLongo()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeVestidoLongo\">{{vestidoLongoCount}} Vestido(s) Longo</label>\n              </div>\n            </div>\n\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementGolaChocker()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementGolaChocker()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeGolaChocker\">{{golaChockerCount}} Gola Chocker</label>\n              </div>\n            </div>\n\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementKitMeF()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementKitMeF()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeKitMeF\">{{kitMeFCount}} Kit Mãe e Filha</label>\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementMasculino()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementMasculino()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeMasculino\">{{masculinoCount}} Masculino</label>\n              </div>\n            </div>\n\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementFilho()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementFilho()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeFilho\">{{filhoCount}} Filho</label>\n              </div>\n            </div>\n\n            <button type=\"submit\" class=\"btn btn-primary\">Adicionar Pedido</button>\n          </form>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-md-4\">\n      <div class=\"card\">\n        <div class=\"card-body\">\n          <form>\n            <div class=\"form-group\">\n              <div *ngIf=\"selectedProduct\">\n                <img [src]=\"selectedProduct.Img\" style=\"width: 200px; height: 200px;\">\n              </div>\n              <div *ngIf=\"!selectedProduct\">\n                  <img [src]=\"\" style=\"width: 200px; height: 200px;\">\n              </div>\n            </div>\n            <div class=\"form-group\">\n              <label for=\"preco\">Preço</label>\n              <input type=\"text\" #Preco class=\"form-control\" id=\"preco\" placeholder=\"Preço\">\n            </div>\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"panel-header\">\n  <div class=\"header text-center\">\n    <h2 class=\"title\">Cadastrar Pedido</h2>\n\n  </div>\n</div>\n<div class=\"main-content\">\n  <div class=\"row show-hide-message\">\n    <div [ngClass]=\"messageClass\">\n      {{ message }}\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-8\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n          <h4 class=\"card-title\">Adicionar Pedido</h4>\n        </div>\n        <div class=\"card-body\">\n          <form (ngSubmit)=\"onRegisterClick(Referencia, Cliente)\">\n\n            <div class=\"form-group\">\n              <label for=\"referencia\">Referencia</label>\n              <input auto-complete type=\"text\" #Referencia class=\"form-control\" [source]=\"referenceArray\" [(ngModel)]=\"myData\" [ngModelOptions]=\"{standalone: true}\"\n                (valueChanged)=\"valueChanged($event)\" placeholder=\"Digite a Referencia da estampa\">\n            </div>\n\n            <div class=\"form-group\">\n              <label for=\"cliente\">Cliente</label>\n              <input type=\"text\" #Cliente class=\"form-control\" id=\"cliente\" placeholder=\"Nome da cliente\">\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementP()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementP()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeP\">{{pCount}} P</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementM()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementM()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeM\">{{mCount}} M</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementG()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementG()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeG\"> {{gCount}} G</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementGG()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementGG()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeGG\"> {{ggCount}} GG</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementVestidoCurto()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementVestidoCurto()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeVestidoCurto\">{{vestidoCurtoCount}} Vestido(s) Curto</label>\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementVestidoLongo()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementVestidoLongo()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeVestidoLongo\">{{vestidoLongoCount}} Vestido(s) Longo</label>\n              </div>\n            </div>\n\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementGolaChocker()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementGolaChocker()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeGolaChocker\">{{golaChockerCount}} Gola Chocker</label>\n              </div>\n            </div>\n\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementKitMeF()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementKitMeF()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeKitMeF\">{{kitMeFCount}} Kit Mãe e Filha</label>\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementMasculino()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementMasculino()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeMasculino\">{{masculinoCount}} Masculino</label>\n              </div>\n            </div>\n\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementFilho()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementFilho()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeFilho\">{{filhoCount}} Filho</label>\n              </div>\n            </div>\n\n            <button type=\"submit\" class=\"btn btn-primary\">Adicionar Pedido</button>\n          </form>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-md-4\">\n      <div class=\"card\">\n        <div class=\"card-body\">\n          <form>\n            <div class=\"form-group\">\n              <div *ngIf=\"selectedProduct\">\n                <img [src]=\"sanitizer.bypassSecurityTrustUrl(selectedProduct.Img)\" style=\"width: 200px; height: 200px;\">\n              </div>\n              <div *ngIf=\"!selectedProduct\">\n                <img [src]=\"\" style=\"width: 200px; height: 200px;\">\n              </div>\n            </div>\n            <div class=\"form-group\">\n              <div *ngIf=\"selectedProduct\">\n                <label for=\"preco\">Preço</label>\n                <input type=\"text\" [(ngModel)]=\"selectedProduct.Price\" [ngModelOptions]=\"{standalone: true}\" class=\"form-control\" id=\"preco\"\n                  placeholder=\"Preço\">\n              </div>\n\n            </div>\n            <div class=\"form-group\">\n              <input type=\"button\" value=\"Adicionar\" (click)=\"addReference(selectedProduct.Reference)\">\n            </div>\n          </form>\n        </div>\n      </div>\n      <div class=\"card\">\n        <div class=\"card-body\">\n          <div *ngFor=\"let obj of objRefSize\">\n            <label> {{obj.reference}} - {{obj.size}} </label>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -40751,7 +40757,8 @@ module.exports = ""
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PedidoComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_product_service__ = __webpack_require__("./src/app/services/product.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__("./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_product_service__ = __webpack_require__("./src/app/services/product.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -40763,9 +40770,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var PedidoComponent = /** @class */ (function () {
-    function PedidoComponent(productService) {
+    function PedidoComponent(productService, sanitizer) {
         this.productService = productService;
+        this.sanitizer = sanitizer;
         this.arrayOfStrings = ['this', 'is', 'list', 'of', 'string', 'element'];
         this.pCount = 0;
         this.mCount = 0;
@@ -40777,7 +40786,11 @@ var PedidoComponent = /** @class */ (function () {
         this.kitMeFCount = 0;
         this.masculinoCount = 0;
         this.filhoCount = 0;
+        this.referencesToOrder = new Array();
+        this.sizesToOrder = new Array();
         this.referenceArray = new Array();
+        this.message = '';
+        this.objRefSize = new Array();
     }
     PedidoComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -40791,41 +40804,64 @@ var PedidoComponent = /** @class */ (function () {
         });
     };
     PedidoComponent.prototype.onRegisterClick = function (reference, clientName) {
+        var _this = this;
         console.log("cadastrar pedido, ", reference.value, clientName.value);
         var sizes = this.getSizes();
         var reqOrder = {
-            Reference: reference.value,
+            References: this.referencesToOrder,
             ClientName: clientName.value,
-            Sizes: sizes
+            Sizes: this.sizesToOrder
         };
         console.log(reqOrder);
         this.productService.registerOrder(reqOrder).subscribe(function (data) {
             console.log("pedido registrado:", data);
+            _this.message = "Pedido para " + clientName.value + " Registrado!";
+            _this.messageClass = "alert alert-success";
+        }, function (err) {
+            _this.message = "Voce esqueceu de colocar algum campo?";
+            _this.messageClass = "alert alert-danger";
         });
+    };
+    PedidoComponent.prototype.addReference = function (reference) {
+        if (this.getSizes() == '') {
+            this.message = "Selecione um tamanho";
+            this.messageClass = "alert alert-danger";
+        }
+        else {
+            this.referencesToOrder.push(reference);
+            var sz = this.getSizes();
+            this.objRefSize.push({ reference: reference, size: sz });
+            this.sizesToOrder.push(sz);
+            this.resetCounters();
+        }
     };
     PedidoComponent.prototype.getSizes = function () {
         var sizes = '';
         if (this.pCount > 0)
             sizes = sizes + this.pCount + "P";
         if (this.mCount > 0)
-            sizes = (sizes == '' ? sizes + this.mCount + "M" : sizes + " " + this.mCount + " M");
+            sizes = (sizes == '' ? sizes + this.mCount + "M" : sizes + " " + this.mCount + "M");
         if (this.gCount > 0)
-            sizes = (sizes == '' ? sizes + this.gCount + "G" : sizes + " " + this.gCount + " G");
+            sizes = (sizes == '' ? sizes + this.gCount + "G" : sizes + " " + this.gCount + "G");
         if (this.ggCount > 0)
-            sizes = (sizes == '' ? sizes + this.ggCount + "GG" : sizes + " " + this.ggCount + " GG");
+            sizes = (sizes == '' ? sizes + this.ggCount + "GG" : sizes + " " + this.ggCount + "GG");
         if (this.vestidoCurtoCount > 0)
-            sizes = (sizes == '' ? sizes + this.vestidoCurtoCount + "Vestido(s) curto" : sizes + " " + this.vestidoCurtoCount + " Vestido(s) curto");
+            sizes = (sizes == '' ? sizes + this.vestidoCurtoCount + "Vestido curto" : sizes + " " + this.vestidoCurtoCount + "Vestido curto");
         if (this.vestidoLongoCount > 0)
-            sizes = (sizes == '' ? sizes + this.vestidoLongoCount + "Vestido(s) longo" : sizes + " " + this.vestidoLongoCount + " Vestido(s) longo");
+            sizes = (sizes == '' ? sizes + this.vestidoLongoCount + "Vestido longo" : sizes + " " + this.vestidoLongoCount + "Vestido longo");
         if (this.golaChockerCount > 0)
-            sizes = sizes == '' ? sizes + this.golaChockerCount + "Gola Chocker" : sizes + " " + this.golaChockerCount + " Gola Chocker";
+            sizes = sizes == '' ? sizes + this.golaChockerCount + "Gola Chocker" : sizes + " " + this.golaChockerCount + "Gola Chocker";
         if (this.kitMeFCount > 0)
-            sizes = sizes == '' ? sizes + this.kitMeFCount + "Kit Mãe e filha" : sizes + " " + this.kitMeFCount + " Kit Mãe e filha";
+            sizes = sizes == '' ? sizes + this.kitMeFCount + "Kit Mae e filha" : sizes + " " + this.kitMeFCount + "Kit Mae e filha";
         if (this.masculinoCount > 0)
-            sizes = sizes == '' ? sizes + this.masculinoCount + "Masculino" : sizes + " " + this.masculinoCount + " Masculino";
+            sizes = sizes == '' ? sizes + this.masculinoCount + "Masculino" : sizes + " " + this.masculinoCount + "Masculino";
         if (this.filhoCount > 0)
-            sizes = sizes == '' ? sizes + this.filhoCount + "Filho" : sizes + " " + this.filhoCount + " Filho";
+            sizes = sizes == '' ? sizes + this.filhoCount + "Filho" : sizes + " " + this.filhoCount + "Filho";
         return sizes;
+    };
+    PedidoComponent.prototype.resetCounters = function () {
+        this.pCount = this.mCount = this.gCount = this.ggCount = this.vestidoCurtoCount = this.vestidoLongoCount =
+            this.golaChockerCount = this.masculinoCount = this.filhoCount = this.kitMeFCount = 0;
     };
     PedidoComponent.prototype.incrementP = function () {
         this.pCount++;
@@ -40897,7 +40933,8 @@ var PedidoComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/components/pedido/pedido.component.html"),
             styles: [__webpack_require__("./src/app/components/pedido/pedido.component.scss")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_product_service__["a" /* ProductService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_product_service__["a" /* ProductService */],
+            __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["c" /* DomSanitizer */]])
     ], PedidoComponent);
     return PedidoComponent;
 }());
@@ -40909,7 +40946,7 @@ var PedidoComponent = /** @class */ (function () {
 /***/ "./src/app/components/produtos/produtos.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"panel-header\">\n  <div class=\"header text-center\">\n    <h2 class=\"title\">Produtos</h2>\n  </div>\n\n  <div class=\"row pl-2\">\n    <form class=\"ml-2 pl-2\">\n      <div class=\"input-group no-border\">\n        <input type=\"text\" value=\"\" class=\"form-control\" placeholder=\"Search...\">\n        <div class=\"input-group-append\">\n          <div class=\"input-group-text\" (click)=\"onSearchClick(searchText)\">\n            <i class=\"now-ui-icons ui-1_zoom-bold\"></i>\n          </div>\n        </div>\n      </div>\n    </form>\n  </div>\n</div>\n\n<div class=\"main-content\">\n\n  <div class=\"row show-hide-message\">\n    <div [ngClass]=\"messageClass\">\n      {{ message }}\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-5\" *ngFor=\"let product of products; let i = index;\">\n      <div class=\"card\">\n\n        <div class=\"card-header\">\n          <span>{{product.Reference}}</span>\n          <button class=\"btn btn-secondary float-right mr-2\" (click)=\"removeProduct(product.Reference, i)\"> X </button>\n        </div>\n        <div class=\"card-body\">\n          <form>\n            <div class=\"row\">\n              <!-- <div class=\"col-md-8 pr-1\">\n                <div class=\"form-group\">\n                  <label>Referencia </label>\n                  <input type=\"text\" class=\"form-control\" placeholder=\"Referencia\" value=\"{{product.Reference}}\">\n                </div>\n              </div> -->\n              <div class=\"col-md-6 px-1\">\n                <div class=\"form-group\">\n                  <label>Preço</label>\n                  <input type=\"text\" class=\"form-control\" placeholder=\"Preço\" value=\"{{product.Price}}\">\n                </div>\n              </div>\n            </div>\n          </form>\n          <div class=\"row\">\n            <div>\n              <div class=\"ml-2\" *ngIf=\"product.Img\">\n                <img style=\"width: 200px; height: 200px;\" [src]=\"sanitizer.bypassSecurityTrustUrl(product.Img)\">\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"row\">\n    <!-- pager -->\n\n    <nav aria-label=\"Page navigation example\">\n      <ul class=\"pagination\">\n        <li class=\"page-item\">\n          <a class=\"page-link\" (click)=\"setPage(1)\">First</a>\n        </li>\n        <li class=\"page-item\">\n          <a class=\"page-link\" (click)=\"setPage(pager.currentPage - 1)\">Previous</a>\n        </li>\n        <li class=\"page-item\" *ngFor=\"let page of pager.pages\">\n          <a class=\"page-link\" (click)=\"setPage(page)\"> {{page}} </a>\n        </li>\n        <li class=\"page-item\">\n          <a class=\"page-link\" (click)=\"setPage(pager.currentPage + 1)\"> Next </a>\n        </li>\n        <li class=\"page-item\">\n          <a class=\"page-link\" (click)=\"setPage(pager.totalPages)\">Last</a>\n        </li>\n      </ul>\n    </nav>\n  </div>\n</div>"
+module.exports = "<div class=\"panel-header\">\n  <div class=\"header text-center\">\n    <h2 class=\"title\">Produtos</h2>\n  </div>\n\n  <div class=\"row pl-2\">\n    <form class=\"ml-2 pl-2\">\n      <div class=\"input-group no-border\">\n        <input type=\"text\" value=\"\" class=\"form-control\" placeholder=\"Search...\">\n        <div class=\"input-group-append\">\n          <div class=\"input-group-text\" (click)=\"onSearchClick(searchText)\">\n            <i class=\"now-ui-icons ui-1_zoom-bold\"></i>\n          </div>\n        </div>\n      </div>\n    </form>\n  </div>\n</div>\n\n<div class=\"main-content\">\n\n  <div class=\"row show-hide-message\">\n    <div [ngClass]=\"messageClass\">\n      {{ message }}\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-5\" *ngFor=\"let product of products; let i = index;\">\n      <div class=\"card\">\n\n        <div class=\"card-header\">\n          <span>{{product.Reference}}</span>\n          <button class=\"btn btn-secondary float-right mr-2\" (click)=\"removeProduct(product.Reference, i)\"> X </button>\n        </div>\n        <div class=\"card-body\">\n          <form>\n            <div class=\"row\">\n              <!-- <div class=\"col-md-8 pr-1\">\n                <div class=\"form-group\">\n                  <label>Referencia </label>\n                  <input type=\"text\" class=\"form-control\" placeholder=\"Referencia\" value=\"{{product.Reference}}\">\n                </div>\n              </div> -->\n              <div class=\"col-md-6 px-1\">\n                <div class=\"form-group\">\n                  <label>Preço</label>\n                  <input type=\"text\" class=\"form-control\" placeholder=\"Preço\" value=\"{{product.Price}}\">\n                </div>\n              </div>\n            </div>\n          </form>\n          <div class=\"row\">\n            <div>\n              <div class=\"ml-2\" *ngIf=\"product.Img\">\n                <img style=\"width: 200px; height: 200px;\" [src]=\"sanitizer.bypassSecurityTrustUrl(product.Img)\">\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"row\">\n    <!-- pager -->\n\n    <nav aria-label=\"Page navigation example\">\n      <ul class=\"pagination\">\n        <li class=\"page-item\" [ngClass]=\"{disabled:pager.currentPage === 1}\">\n          <a class=\"page-link\" (click)=\"setPage(1)\">First</a>\n        </li>\n        <li class=\"page-item\" [ngClass]=\"{disabled:pager.currentPage === 1}\">\n          <a class=\"page-link\" (click)=\"setPage(pager.currentPage - 1)\">Previous</a>\n        </li>\n        <li class=\"page-item\" [ngClass]=\"{active:pager.currentPage === page}\" *ngFor=\"let page of pager.pages\" >\n          <a class=\"page-link\" (click)=\"setPage(page)\"> {{page}} </a>\n        </li>\n        <li class=\"page-item\" [ngClass]=\"{disabled:pager.currentPage === pager.totalPages}\">\n          <a class=\"page-link\" (click)=\"setPage(pager.currentPage + 1)\"> Next </a>\n        </li>\n        <li class=\"page-item\" [ngClass]=\"{disabled:pager.currentPage === pager.totalPages}\">\n          <a class=\"page-link\" (click)=\"setPage(pager.totalPages)\">Last</a>\n        </li>\n      </ul>\n    </nav>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -41032,7 +41069,7 @@ module.exports = ""
 /***/ "./src/app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"panel-header panel-header-lg\">\n    <canvas baseChart id=\"bigDashboardChart\"\n                [datasets]=\"lineBigDashboardChartData\"\n                [labels]=\"lineBigDashboardChartLabels\"\n                 [colors]=\"lineBigDashboardChartColors\"\n                [options]=\"lineBigDashboardChartOptions\"\n                [chartType]=\"lineBigDashboardChartType\"\n                (chartHover)=\"chartHovered($event)\"\n                (chartClick)=\"chartClicked($event)\"></canvas>\n</div>\n\n<div class=\"main-content\">\n  <div class=\"row\">\n    <div class=\"col-lg-4\">\n      <div class=\"card card-chart\">\n        <div class=\"card-header\">\n          <h5 class=\"card-category\">Global Sales</h5>\n          <h4 class=\"card-title\">Shipped Products</h4>\n          <div ngbDropdown>\n            <button type=\"button\" class=\"btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret\" ngbDropdownToggle>\n              <i class=\"now-ui-icons loader_gear\"></i>\n            </button>\n            <div ngbDropdownMenu class=\"dropdown-menu-right\">\n              <a class=\"dropdown-item\" href=\"#\">Action</a>\n              <a class=\"dropdown-item\" href=\"#\">Another action</a>\n              <a class=\"dropdown-item\" href=\"#\">Something else here</a>\n              <a class=\"dropdown-item text-danger\" href=\"#\">Remove Data</a>\n            </div>\n          </div>\n        </div>\n        <div class=\"card-body\">\n          <div class=\"chart-area\">\n            <canvas baseChart id=\"lineChartExample\"\n                        [datasets]=\"lineChartData\"\n                        [labels]=\"lineChartLabels\"\n                        [colors]=\"lineChartColors\"\n                        [options]=\"lineChartOptions\"\n                        [chartType]=\"lineChartType\"\n                        (chartHover)=\"chartHovered($event)\"\n                        (chartClick)=\"chartClicked($event)\"></canvas>\n          </div>\n        </div>\n        <div class=\"card-footer\">\n          <div class=\"stats\">\n            <i class=\"now-ui-icons arrows-1_refresh-69\"></i> Just Updated\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-lg-4 col-md-6\">\n      <div class=\"card card-chart\">\n        <div class=\"card-header\">\n          <h5 class=\"card-category\">2018 Sales</h5>\n          <h4 class=\"card-title\">All products</h4>\n          <div ngbDropdown>\n            <button type=\"button\" class=\"btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret\" ngbDropdownToggle>\n              <i class=\"now-ui-icons loader_gear\"></i>\n            </button>\n            <div ngbDropdownMenu class=\"dropdown-menu-right\">\n              <a class=\"dropdown-item\" href=\"#\">Action</a>\n              <a class=\"dropdown-item\" href=\"#\">Another action</a>\n              <a class=\"dropdown-item\" href=\"#\">Something else here</a>\n              <a class=\"dropdown-item text-danger\" href=\"#\">Remove Data</a>\n            </div>\n          </div>\n        </div>\n        <div class=\"card-body\">\n          <div class=\"chart-area\">\n            <!-- <canvas id=\"lineChartExampleWithNumbersAndGrid\"></canvas> -->\n            <canvas baseChart id=\"lineChartExampleWithNumbersAndGrid\"\n                        [datasets]=\"lineChartWithNumbersAndGridData\"\n                        [labels]=\"lineChartWithNumbersAndGridLabels\"\n                        [colors]=\"lineChartWithNumbersAndGridColors\"\n                        [options]=\"lineChartWithNumbersAndGridOptions\"\n                        [chartType]=\"lineChartWithNumbersAndGridType\"\n                        (chartHover)=\"chartHovered($event)\"\n                        (chartClick)=\"chartClicked($event)\"></canvas>\n          </div>\n        </div>\n        <div class=\"card-footer\">\n          <div class=\"stats\">\n            <i class=\"now-ui-icons arrows-1_refresh-69\"></i> Just Updated\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-lg-4 col-md-6\">\n      <div class=\"card card-chart\">\n        <div class=\"card-header\">\n          <h5 class=\"card-category\">Email Statistics</h5>\n          <h4 class=\"card-title\">24 Hours Performance</h4>\n        </div>\n        <div class=\"card-body\">\n          <div class=\"chart-area\">\n            <canvas baseChart id=\"barChartSimpleGradientsNumbers\"\n                        [datasets]=\"lineChartGradientsNumbersData\"\n                        [labels]=\"lineChartGradientsNumbersLabels\"\n                        [colors]=\"lineChartGradientsNumbersColors\"\n                        [options]=\"lineChartGradientsNumbersOptions\"\n                        [chartType]=\"lineChartGradientsNumbersType\"\n                        (chartHover)=\"chartHovered($event)\"\n                        (chartClick)=\"chartClicked($event)\"></canvas>\n          </div>\n        </div>\n        <div class=\"card-footer\">\n          <div class=\"stats\">\n            <i class=\"now-ui-icons ui-2_time-alarm\"></i> Last 7 days\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <div class=\"card  card-tasks\">\n        <div class=\"card-header \">\n          <h5 class=\"card-category\">Backend development</h5>\n          <h4 class=\"card-title\">Tasks</h4>\n        </div>\n        <div class=\"card-body \">\n          <div class=\"table-full-width table-responsive\">\n            <table class=\"table\">\n              <tbody>\n                <tr>\n                  <td>\n                    <div class=\"form-check\">\n                      <label class=\"form-check-label\">\n                        <input class=\"form-check-input\" type=\"checkbox\" checked>\n                        <span class=\"form-check-sign\"></span>\n                      </label>\n                    </div>\n                  </td>\n                  <td class=\"text-left\">Sign contract for \"What are conference organizers afraid of?\"</td>\n                  <td class=\"td-actions text-right\">\n                    <button type=\"button\" rel=\"tooltip\" title=\"\" class=\"btn btn-info btn-round btn-icon btn-icon-mini btn-neutral\" data-original-title=\"Edit Task\">\n                      <i class=\"now-ui-icons ui-2_settings-90\"></i>\n                    </button>\n                    <button type=\"button\" rel=\"tooltip\" title=\"\" class=\"btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral\" data-original-title=\"Remove\">\n                      <i class=\"now-ui-icons ui-1_simple-remove\"></i>\n                    </button>\n                  </td>\n                </tr>\n                <tr>\n                  <td>\n                    <div class=\"form-check\">\n                      <label class=\"form-check-label\">\n                        <input class=\"form-check-input\" type=\"checkbox\">\n                        <span class=\"form-check-sign\"></span>\n                      </label>\n                    </div>\n                  </td>\n                  <td class=\"text-left\">Lines From Great Russian Literature? Or E-mails From My Boss?</td>\n                  <td class=\"td-actions text-right\">\n                    <button type=\"button\" rel=\"tooltip\" title=\"\" class=\"btn btn-info btn-round btn-icon btn-icon-mini btn-neutral\" data-original-title=\"Edit Task\">\n                      <i class=\"now-ui-icons ui-2_settings-90\"></i>\n                    </button>\n                    <button type=\"button\" rel=\"tooltip\" title=\"\" class=\"btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral\" data-original-title=\"Remove\">\n                      <i class=\"now-ui-icons ui-1_simple-remove\"></i>\n                    </button>\n                  </td>\n                </tr>\n                <tr>\n                  <td>\n                    <div class=\"form-check\">\n                      <label class=\"form-check-label\">\n                        <input class=\"form-check-input\" type=\"checkbox\" checked>\n                        <span class=\"form-check-sign\"></span>\n                      </label>\n                    </div>\n                  </td>\n                  <td class=\"text-left\">Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit\n                  </td>\n                  <td class=\"td-actions text-right\">\n                    <button type=\"button\" rel=\"tooltip\" title=\"\" class=\"btn btn-info btn-round btn-icon btn-icon-mini btn-neutral\" data-original-title=\"Edit Task\">\n                      <i class=\"now-ui-icons ui-2_settings-90\"></i>\n                    </button>\n                    <button type=\"button\" rel=\"tooltip\" title=\"\" class=\"btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral\" data-original-title=\"Remove\">\n                      <i class=\"now-ui-icons ui-1_simple-remove\"></i>\n                    </button>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </div>\n        </div>\n        <div class=\"card-footer \">\n          <hr>\n          <div class=\"stats\">\n            <i class=\"now-ui-icons loader_refresh spin\"></i> Updated 3 minutes ago\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-md-6\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n          <h5 class=\"card-category\">All Persons List</h5>\n          <h4 class=\"card-title\"> Employees Stats</h4>\n        </div>\n        <div class=\"card-body\">\n          <div class=\"table-responsive\">\n            <table class=\"table\">\n              <thead class=\" text-primary\">\n                <th>\n                  Name\n                </th>\n                <th>\n                  Country\n                </th>\n                <th>\n                  City\n                </th>\n                <th class=\"text-right\">\n                  Salary\n                </th>\n              </thead>\n              <tbody>\n                <tr>\n                  <td>\n                    Dakota Rice\n                  </td>\n                  <td>\n                    Niger\n                  </td>\n                  <td>\n                    Oud-Turnhout\n                  </td>\n                  <td class=\"text-right\">\n                    $36,738\n                  </td>\n                </tr>\n                <tr>\n                  <td>\n                    Minerva Hooper\n                  </td>\n                  <td>\n                    Curaçao\n                  </td>\n                  <td>\n                    Sinaai-Waas\n                  </td>\n                  <td class=\"text-right\">\n                    $23,789\n                  </td>\n                </tr>\n                <tr>\n                  <td>\n                    Sage Rodriguez\n                  </td>\n                  <td>\n                    Netherlands\n                  </td>\n                  <td>\n                    Baileux\n                  </td>\n                  <td class=\"text-right\">\n                    $56,142\n                  </td>\n                </tr>\n                <tr>\n                  <td>\n                    Doris Greene\n                  </td>\n                  <td>\n                    Malawi\n                  </td>\n                  <td>\n                    Feldkirchen in Kärnten\n                  </td>\n                  <td class=\"text-right\">\n                    $63,542\n                  </td>\n                </tr>\n                <tr>\n                  <td>\n                    Mason Porter\n                  </td>\n                  <td>\n                    Chile\n                  </td>\n                  <td>\n                    Gloucester\n                  </td>\n                  <td class=\"text-right\">\n                    $78,615\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<!-- <div class=\"panel-header panel-header-lg\">\n    <canvas baseChart id=\"bigDashboardChart\"\n                [datasets]=\"lineBigDashboardChartData\"\n                [labels]=\"lineBigDashboardChartLabels\"\n                 [colors]=\"lineBigDashboardChartColors\"\n                [options]=\"lineBigDashboardChartOptions\"\n                [chartType]=\"lineBigDashboardChartType\"\n                (chartHover)=\"chartHovered($event)\"\n                (chartClick)=\"chartClicked($event)\"></canvas>\n</div> -->\n\n<div class=\"main-content\">\n\n  <div class=\"row\">\n    <div class=\"card  card-tasks\">\n      <div class=\"card-header \">\n        <h5 class=\"card-category\">Backend development</h5>\n        <h4 class=\"card-title\">Tasks</h4>\n      </div>\n      <div class=\"card-body \">\n        <div class=\"table-full-width table-responsive\">\n          <table class=\"table\">\n            <tbody>\n              <tr *ngFor=\"let order of orders\">\n                <td>\n                  <div class=\"form-check\">\n                    <label class=\"form-check-label\">\n                      <input class=\"form-check-input\" value=\"{{order._id}}\" type=\"checkbox\" [(ngModel)]=\"order.isChecked\">\n                      <span class=\"form-check-sign\"></span>\n                    </label>\n                  </div>\n                </td>\n                <td class=\"text-left\">{{order.ClientName}}</td>\n                <table class=\"table\">\n                  <tbody>\n                    <td class=\"text-left\">\n                      <tr *ngFor=\"let ref of order.References\">\n                        <td class=\"text\">{{ref}}</td>\n                      </tr>\n                    </td>\n                    <td class=\"text-left\">\n                      <tr *ngFor=\"let size of order.Sizes\">\n                        <td class=\"text\">{{size}}</td>\n                      </tr>\n                    </td>\n                  </tbody>\n                </table>\n\n                <td class=\"td-actions text-right\">\n                  <button type=\"button\" rel=\"tooltip\" title=\"\" class=\"btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral\" data-original-title=\"Remove\">\n                    <i class=\"now-ui-icons ui-1_simple-remove\"></i>\n                  </button>\n                </td>\n              </tr>\n            </tbody>\n          </table>\n        </div>\n      </div>\n\n      <button class=\"btn btn-primary\" (click)=\"gerar_relatorio()\"> Gerar Relatorio de pedidos </button>\n      <!-- <div class=\"card-footer \">\n        <hr>\n        <div class=\"stats\">\n          <i class=\"now-ui-icons loader_refresh spin\"></i> Updated 3 minutes ago\n        </div>\n      </div> -->\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"card\">\n      <div class=\"card-header \">\n        <h5 class=\"card-category\">Relatorio de Pedidos</h5>\n      </div>\n      <div class=\"card-body \">\n        <div *ngFor = \"let rep of finalReport\">\n            {{rep}}\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -41042,6 +41079,7 @@ module.exports = "<div class=\"panel-header panel-header-lg\">\n    <canvas base
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DashboardComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_product_service__ = __webpack_require__("./src/app/services/product.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -41052,341 +41090,127 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var DashboardComponent = /** @class */ (function () {
-    function DashboardComponent() {
+    function DashboardComponent(productService) {
+        this.productService = productService;
+        this.orders = new Array();
+        this.selectedIds = new Array();
+        this.finalReport = new Array();
     }
-    // events
-    DashboardComponent.prototype.chartClicked = function (e) {
-        console.log(e);
-    };
-    DashboardComponent.prototype.chartHovered = function (e) {
-        console.log(e);
-    };
-    DashboardComponent.prototype.hexToRGB = function (hex, alpha) {
-        var r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
-        if (alpha) {
-            return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
-        }
-        else {
-            return "rgb(" + r + ", " + g + ", " + b + ")";
-        }
-    };
     DashboardComponent.prototype.ngOnInit = function () {
-        this.chartColor = "#FFFFFF";
-        this.canvas = document.getElementById("bigDashboardChart");
-        this.ctx = this.canvas.getContext("2d");
-        this.gradientStroke = this.ctx.createLinearGradient(500, 0, 100, 0);
-        this.gradientStroke.addColorStop(0, '#80b6f4');
-        this.gradientStroke.addColorStop(1, this.chartColor);
-        this.gradientFill = this.ctx.createLinearGradient(0, 200, 0, 50);
-        this.gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-        this.gradientFill.addColorStop(1, "rgba(255, 255, 255, 0.24)");
-        this.lineBigDashboardChartData = [
-            {
-                label: "Data",
-                pointBorderWidth: 1,
-                pointHoverRadius: 7,
-                pointHoverBorderWidth: 2,
-                pointRadius: 5,
-                fill: true,
-                borderWidth: 2,
-                data: [50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95]
-            }
-        ];
-        this.lineBigDashboardChartColors = [
-            {
-                backgroundColor: this.gradientFill,
-                borderColor: this.chartColor,
-                pointBorderColor: this.chartColor,
-                pointBackgroundColor: "#2c2c2c",
-                pointHoverBackgroundColor: "#2c2c2c",
-                pointHoverBorderColor: this.chartColor,
-            }
-        ];
-        this.lineBigDashboardChartLabels = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-        this.lineBigDashboardChartOptions = {
-            layout: {
-                padding: {
-                    left: 20,
-                    right: 20,
-                    top: 0,
-                    bottom: 0
+        var _this = this;
+        this.productService.getOrders().subscribe(function (data) {
+            console.log(data);
+            _this.orders = data;
+        }, function (err) {
+        });
+    };
+    DashboardComponent.prototype.selectCheckBox = function (event) {
+        // if (event.target.checked) {
+        //   console.log("checked");
+        // } else {
+        //   console.log("not checked");
+        // }
+        // console.log(event.target);
+        // this.selectedIds.push(event.target.value);
+        console.log(this.orders);
+    };
+    DashboardComponent.prototype.gerar_relatorio = function () {
+        var dict = new Map();
+        this.finalOrders = this.orders.filter(function (a) { return a.isChecked === true; });
+        console.log("finalOrders: ", this.finalOrders);
+        for (var item = 0; item < this.finalOrders.length; item++) {
+            for (var j = 0; j < this.finalOrders[item].References.length; j++) {
+                var ref = this.finalOrders[item].References[j];
+                if (!dict.has(ref)) {
+                    dict.set(ref, this.finalOrders[item].Sizes[j]);
                 }
-            },
-            maintainAspectRatio: false,
-            tooltips: {
-                backgroundColor: '#fff',
-                titleFontColor: '#333',
-                bodyFontColor: '#666',
-                bodySpacing: 4,
-                xPadding: 12,
-                mode: "nearest",
-                intersect: 0,
-                position: "nearest"
-            },
-            legend: {
-                position: "bottom",
-                fillStyle: "#FFF",
-                display: false
-            },
-            scales: {
-                yAxes: [{
-                        ticks: {
-                            fontColor: "rgba(255,255,255,0.4)",
-                            fontStyle: "bold",
-                            beginAtZero: true,
-                            maxTicksLimit: 5,
-                            padding: 10
-                        },
-                        gridLines: {
-                            drawTicks: true,
-                            drawBorder: false,
-                            display: true,
-                            color: "rgba(255,255,255,0.1)",
-                            zeroLineColor: "transparent"
-                        }
-                    }],
-                xAxes: [{
-                        gridLines: {
-                            zeroLineColor: "transparent",
-                            display: false,
-                        },
-                        ticks: {
-                            padding: 10,
-                            fontColor: "rgba(255,255,255,0.4)",
-                            fontStyle: "bold"
-                        }
-                    }]
-            }
-        };
-        this.lineBigDashboardChartType = 'line';
-        this.gradientChartOptionsConfiguration = {
-            maintainAspectRatio: false,
-            legend: {
-                display: false
-            },
-            tooltips: {
-                bodySpacing: 4,
-                mode: "nearest",
-                intersect: 0,
-                position: "nearest",
-                xPadding: 10,
-                yPadding: 10,
-                caretPadding: 10
-            },
-            responsive: 1,
-            scales: {
-                yAxes: [{
-                        display: 0,
-                        ticks: {
-                            display: false
-                        },
-                        gridLines: {
-                            zeroLineColor: "transparent",
-                            drawTicks: false,
-                            display: false,
-                            drawBorder: false
-                        }
-                    }],
-                xAxes: [{
-                        display: 0,
-                        ticks: {
-                            display: false
-                        },
-                        gridLines: {
-                            zeroLineColor: "transparent",
-                            drawTicks: false,
-                            display: false,
-                            drawBorder: false
-                        }
-                    }]
-            },
-            layout: {
-                padding: {
-                    left: 0,
-                    right: 0,
-                    top: 15,
-                    bottom: 15
+                else {
+                    dict.set(ref, dict.get(ref) + " " + this.finalOrders[item].Sizes[j]);
                 }
             }
+        }
+        // Array.from(dict.values()).forEach(value => this.cu(value));
+        this.createReport(dict);
+        console.log("dicionario: ", dict);
+    };
+    DashboardComponent.prototype.cu = function (str) {
+        var pqtd, mqtd, gqtd, ggqtd, vestcqtd, vestlqtd, mascqtd, kitmfqtd, filhoqtd, chocqtd;
+        console.log(str);
+        var regex = /([0-9]+P\s|[0-9]+P$)/g;
+        pqtd = this.loop(str, "P", regex);
+        regex = /([0-9]+M\s|[0-9]+M$)/g;
+        mqtd = this.loop(str, "M", regex);
+        regex = /([0-9]+G\s|[0-9]+G$)/g;
+        gqtd = this.loop(str, "G", regex);
+        regex = /([0-9]+GG\s|[0-9]+GG$)/g;
+        ggqtd = this.loop(str, "GG", regex);
+        regex = /([0-9]+Vestido curto\s|[0-9]+Vestido curto$)/g;
+        vestcqtd = this.loop(str, "Vestido curto", regex);
+        regex = /([0-9]+Vestido longo\s|[0-9]+Vestido longo$)/g;
+        vestlqtd = this.loop(str, "Vestido longo", regex);
+        regex = /([0-9]+Masculino\s|[0-9]+Masculino$)/g;
+        mascqtd = this.loop(str, "Masculino", regex);
+        regex = /([0-9]+Kit Mae e filha\s|[0-9]+Kit Mae e filha$)/g;
+        kitmfqtd = this.loop(str, "Kit Mae e filha", regex);
+        regex = /([0-9]+Filho\s|[0-9]+Filho$)/g;
+        filhoqtd = this.loop(str, "Filho", regex);
+        regex = /([0-9]+Gola Chocker\s|[0-9]+Gola Chocker$)/g;
+        chocqtd = this.loop(str, "Gola Chocker", regex);
+        return {
+            P: pqtd, M: mqtd, G: gqtd, GG: ggqtd, VestC: vestcqtd, VestL: vestlqtd,
+            Masc: mascqtd, Kit: kitmfqtd, Filho: filhoqtd, Chocker: chocqtd
         };
-        this.gradientChartOptionsConfigurationWithNumbersAndGrid = {
-            maintainAspectRatio: false,
-            legend: {
-                display: false
-            },
-            tooltips: {
-                bodySpacing: 4,
-                mode: "nearest",
-                intersect: 0,
-                position: "nearest",
-                xPadding: 10,
-                yPadding: 10,
-                caretPadding: 10
-            },
-            responsive: true,
-            scales: {
-                yAxes: [{
-                        gridLines: {
-                            zeroLineColor: "transparent",
-                            drawBorder: false
-                        }
-                    }],
-                xAxes: [{
-                        display: 0,
-                        ticks: {
-                            display: false
-                        },
-                        gridLines: {
-                            zeroLineColor: "transparent",
-                            drawTicks: false,
-                            display: false,
-                            drawBorder: false
-                        }
-                    }]
-            },
-            layout: {
-                padding: {
-                    left: 0,
-                    right: 0,
-                    top: 15,
-                    bottom: 15
-                }
+    };
+    DashboardComponent.prototype.loop = function (str, type, regex) {
+        var array = str.match(regex);
+        var counter = 0;
+        if (array) {
+            for (var i = 0; i < array.length; i++) {
+                var num = array[i].split(type)[0];
+                var conv = +num; // convert to number
+                counter = counter + conv;
             }
-        };
-        this.canvas = document.getElementById("lineChartExample");
-        this.ctx = this.canvas.getContext("2d");
-        this.gradientStroke = this.ctx.createLinearGradient(500, 0, 100, 0);
-        this.gradientStroke.addColorStop(0, '#80b6f4');
-        this.gradientStroke.addColorStop(1, this.chartColor);
-        this.gradientFill = this.ctx.createLinearGradient(0, 170, 0, 50);
-        this.gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-        this.gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
-        this.lineChartData = [
-            {
-                label: "Active Users",
-                pointBorderWidth: 2,
-                pointHoverRadius: 4,
-                pointHoverBorderWidth: 1,
-                pointRadius: 4,
-                fill: true,
-                borderWidth: 2,
-                data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 630]
-            }
-        ];
-        this.lineChartColors = [
-            {
-                borderColor: "#f96332",
-                pointBorderColor: "#FFF",
-                pointBackgroundColor: "#f96332",
-                backgroundColor: this.gradientFill
-            }
-        ];
-        this.lineChartLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        this.lineChartOptions = this.gradientChartOptionsConfiguration;
-        this.lineChartType = 'line';
-        this.canvas = document.getElementById("lineChartExampleWithNumbersAndGrid");
-        this.ctx = this.canvas.getContext("2d");
-        this.gradientStroke = this.ctx.createLinearGradient(500, 0, 100, 0);
-        this.gradientStroke.addColorStop(0, '#18ce0f');
-        this.gradientStroke.addColorStop(1, this.chartColor);
-        this.gradientFill = this.ctx.createLinearGradient(0, 170, 0, 50);
-        this.gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-        this.gradientFill.addColorStop(1, this.hexToRGB('#18ce0f', 0.4));
-        this.lineChartWithNumbersAndGridData = [
-            {
-                label: "Email Stats",
-                pointBorderWidth: 2,
-                pointHoverRadius: 4,
-                pointHoverBorderWidth: 1,
-                pointRadius: 4,
-                fill: true,
-                borderWidth: 2,
-                data: [40, 500, 650, 700, 1200, 1250, 1300, 1900]
-            }
-        ];
-        this.lineChartWithNumbersAndGridColors = [
-            {
-                borderColor: "#18ce0f",
-                pointBorderColor: "#FFF",
-                pointBackgroundColor: "#18ce0f",
-                backgroundColor: this.gradientFill
-            }
-        ];
-        this.lineChartWithNumbersAndGridLabels = ["12pm,", "3pm", "6pm", "9pm", "12am", "3am", "6am", "9am"];
-        this.lineChartWithNumbersAndGridOptions = this.gradientChartOptionsConfigurationWithNumbersAndGrid;
-        this.lineChartWithNumbersAndGridType = 'line';
-        this.canvas = document.getElementById("barChartSimpleGradientsNumbers");
-        this.ctx = this.canvas.getContext("2d");
-        this.gradientFill = this.ctx.createLinearGradient(0, 170, 0, 50);
-        this.gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-        this.gradientFill.addColorStop(1, this.hexToRGB('#2CA8FF', 0.6));
-        this.lineChartGradientsNumbersData = [
-            {
-                label: "Active Countries",
-                pointBorderWidth: 2,
-                pointHoverRadius: 4,
-                pointHoverBorderWidth: 1,
-                pointRadius: 4,
-                fill: true,
-                borderWidth: 1,
-                data: [80, 99, 86, 96, 123, 85, 100, 75, 88, 90, 123, 155]
-            }
-        ];
-        this.lineChartGradientsNumbersColors = [
-            {
-                backgroundColor: this.gradientFill,
-                borderColor: "#2CA8FF",
-                pointBorderColor: "#FFF",
-                pointBackgroundColor: "#2CA8FF",
-            }
-        ];
-        this.lineChartGradientsNumbersLabels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        this.lineChartGradientsNumbersOptions = {
-            maintainAspectRatio: false,
-            legend: {
-                display: false
-            },
-            tooltips: {
-                bodySpacing: 4,
-                mode: "nearest",
-                intersect: 0,
-                position: "nearest",
-                xPadding: 10,
-                yPadding: 10,
-                caretPadding: 10
-            },
-            responsive: 1,
-            scales: {
-                yAxes: [{
-                        gridLines: {
-                            zeroLineColor: "transparent",
-                            drawBorder: false
-                        }
-                    }],
-                xAxes: [{
-                        display: 0,
-                        ticks: {
-                            display: false
-                        },
-                        gridLines: {
-                            zeroLineColor: "transparent",
-                            drawTicks: false,
-                            display: false,
-                            drawBorder: false
-                        }
-                    }]
-            },
-            layout: {
-                padding: {
-                    left: 0,
-                    right: 0,
-                    top: 15,
-                    bottom: 15
-                }
-            }
-        };
-        this.lineChartGradientsNumbersType = 'bar';
+        }
+        else
+            counter = 0;
+        var ret = (counter > 0 ? "" + counter + type : "");
+        return ret;
+    };
+    DashboardComponent.prototype.createReport = function (dict) {
+        var _this = this;
+        var counter = 1;
+        Array.from(dict.entries()).forEach(function (entry) {
+            console.log('Key: ' + entry[0] + ' Value: ' + entry[1]);
+            var objValues = _this.cu(entry[1]);
+            console.log("objValues:", objValues);
+            _this.finalReport.push("" + counter++ + ". " + entry[0] + " - " + _this.getSizes(objValues));
+        });
+    };
+    DashboardComponent.prototype.getSizes = function (objValues) {
+        var ret = "";
+        if (objValues.P != '')
+            ret = (ret != '' ? ret + ", " + objValues.P : ret + objValues.P);
+        if (objValues.M != '')
+            ret = (ret != '' ? ret + ", " + objValues.M : ret + objValues.M);
+        if (objValues.G != '')
+            ret = (ret != '' ? ret + ", " + objValues.G : ret + objValues.G);
+        if (objValues.GG != '')
+            ret = (ret != '' ? ret + ", " + objValues.GG : ret + objValues.GG);
+        if (objValues.VestC != '')
+            ret = (ret != '' ? ret + ", " + objValues.VestC : ret + objValues.VestC);
+        if (objValues.VestL != '')
+            ret = (ret != '' ? ret + ", " + objValues.VestL : ret + objValues.VestL);
+        if (objValues.Masc != '')
+            ret = (ret != '' ? ret + ", " + objValues.Masc : ret + objValues.Masc);
+        if (objValues.Kit != '')
+            ret = (ret != '' ? ret + ", " + objValues.Kit : ret + objValues.Kit);
+        if (objValues.Filho != '')
+            ret = (ret != '' ? ret + ", " + objValues.Filho : ret + objValues.Filho);
+        if (objValues.Chocker != '')
+            ret = (ret != '' ? ret + ", " + objValues.Chocker : ret + objValues.Chocker);
+        return ret;
     };
     DashboardComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -41394,7 +41218,7 @@ var DashboardComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/dashboard/dashboard.component.html"),
             styles: [__webpack_require__("./src/app/dashboard/dashboard.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_product_service__["a" /* ProductService */]])
     ], DashboardComponent);
     return DashboardComponent;
 }());

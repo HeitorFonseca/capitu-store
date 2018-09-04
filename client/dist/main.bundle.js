@@ -114,7 +114,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormsModule"],
                 __WEBPACK_IMPORTED_MODULE_3__angular_common_http__["b" /* HttpClientModule */],
                 __WEBPACK_IMPORTED_MODULE_7__components_components_module__["a" /* ComponentsModule */],
-                __WEBPACK_IMPORTED_MODULE_4__angular_router__["d" /* RouterModule */],
+                __WEBPACK_IMPORTED_MODULE_4__angular_router__["e" /* RouterModule */],
                 __WEBPACK_IMPORTED_MODULE_6__app_routing__["a" /* AppRoutingModule */],
                 __WEBPACK_IMPORTED_MODULE_5__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot(),
             ],
@@ -183,7 +183,7 @@ var AppRoutingModule = /** @class */ (function () {
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
                 __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["a" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_3__angular_router__["d" /* RouterModule */].forRoot(routes)
+                __WEBPACK_IMPORTED_MODULE_3__angular_router__["e" /* RouterModule */].forRoot(routes)
             ],
             exports: [],
         })
@@ -227,7 +227,7 @@ var ComponentsModule = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
-                __WEBPACK_IMPORTED_MODULE_2__angular_router__["d" /* RouterModule */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_router__["e" /* RouterModule */],
                 __WEBPACK_IMPORTED_MODULE_3__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */]
             ],
             declarations: [
@@ -469,7 +469,7 @@ var NavbarComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/components/navbar/navbar.component.html"),
             styles: [__webpack_require__("./src/app/components/navbar/navbar.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_common__["Location"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"], __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* Router */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_common__["Location"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"], __WEBPACK_IMPORTED_MODULE_3__angular_router__["d" /* Router */]])
     ], NavbarComponent);
     return NavbarComponent;
 }());
@@ -604,11 +604,11 @@ var AdminLayoutComponent = /** @class */ (function () {
             _this.lastPoppedUrl = ev.url;
         });
         this.router.events.subscribe(function (event) {
-            if (event instanceof __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* NavigationStart */]) {
+            if (event instanceof __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* NavigationStart */]) {
                 if (event.url != _this.lastPoppedUrl)
                     _this.yScrollStack.push(window.scrollY);
             }
-            else if (event instanceof __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* NavigationEnd */]) {
+            else if (event instanceof __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* NavigationEnd */]) {
                 if (event.url == _this.lastPoppedUrl) {
                     _this.lastPoppedUrl = undefined;
                     window.scrollTo(0, _this.yScrollStack.pop());
@@ -617,7 +617,7 @@ var AdminLayoutComponent = /** @class */ (function () {
                     window.scrollTo(0, 0);
             }
         });
-        this._router = this.router.events.filter(function (event) { return event instanceof __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* NavigationEnd */]; }).subscribe(function (event) {
+        this._router = this.router.events.filter(function (event) { return event instanceof __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* NavigationEnd */]; }).subscribe(function (event) {
             elemMainPanel.scrollTop = 0;
             elemSidebar.scrollTop = 0;
         });
@@ -659,7 +659,7 @@ var AdminLayoutComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/layouts/admin-layout/admin-layout.component.html"),
             styles: [__webpack_require__("./src/app/layouts/admin-layout/admin-layout.component.scss")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common__["Location"], __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* Router */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common__["Location"], __WEBPACK_IMPORTED_MODULE_3__angular_router__["d" /* Router */]])
     ], AdminLayoutComponent);
     return AdminLayoutComponent;
 }());
@@ -808,14 +808,28 @@ var ProductService = /** @class */ (function () {
     ProductService.prototype.getOrders = function () {
         return this.http.get(this.domain + 'order/').pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["h" /* map */])(function (res) { return res; }));
     };
+    // Function to get projects
+    ProductService.prototype.getOrderById = function (id) {
+        return this.http.get(this.domain + 'order/' + id).pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["h" /* map */])(function (res) { return res; }));
+    };
     // Function to register projects
     ProductService.prototype.registerOrder = function (order) {
         return this.http.post('order/register', order).map(function (res) { return res; });
     };
+    // Function to register projects
+    ProductService.prototype.removeOrder = function (id) {
+        return this.http.delete('order/' + id).pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["h" /* map */])(function (res) { return res; }));
+    };
+    ProductService.prototype.editOrder = function (id, order) {
+        return this.http.put('order/' + id, order).pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["h" /* map */])(function (res) { return res; }));
+    };
+    ProductService.prototype.confirmOrder = function (id) {
+        return this.http.patch('order/' + id + '/confirm', {}).pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["h" /* map */])(function (res) { return res; }));
+    };
     ProductService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */],
-            __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */]])
+            __WEBPACK_IMPORTED_MODULE_2__angular_router__["d" /* Router */]])
     ], ProductService);
     return ProductService;
 }());

@@ -6,6 +6,7 @@ var OrderSchema = new mongoose.Schema({
     References: [{type: String, required: true}],
     ClientName: {type: String, required: true},
     Sizes: [{type: String, required: true}],
+    Confirmed: {type: Boolean, default: false},
     createdAt: {type: Date, default: Date.now}
 });
 

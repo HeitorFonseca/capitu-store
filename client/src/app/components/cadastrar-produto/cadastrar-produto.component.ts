@@ -59,25 +59,30 @@ export class CadastrarProdutoComponent implements OnInit {
       Category: this.category
     }
 
-    //console.log(reqProduct);
-    this.productService.registerProduct(reqProduct).subscribe(data => {
-      console.log("produto registrado:", data);
-
-      this.message = "Produto " + referencia.value + " cadastrado";
-      this.messageClass = 'alert alert-success';
-
-      this.imgUrl = "../../assets/img/uploadImage.png";
-
-    }, err => {
-      this.message = err.error.message;
+    if (this.imgUrl === "../../assets/img/uploadImage.png") { 
+      this.message = "Adicione a imagem do produto";
       this.messageClass = 'alert alert-danger';
-    })
+    }
+    else {
+      this.productService.registerProduct(reqProduct).subscribe(data => {
+        console.log("produto registrado:", data);
+
+        this.message = "Produto " + referencia.value + " cadastrado";
+        this.messageClass = 'alert alert-success';
+
+        this.imgUrl = "../../assets/img/uploadImage.png";
+
+      }, err => {
+        this.message = err.error.message;
+        this.messageClass = 'alert alert-danger';
+      })
+    }
   }
 
 
-  selectCategory(catValue : any) {
+  selectCategory(catValue: any) {
     console.log("category:", catValue);
-    this.category = catValue;   
+    this.category = catValue;
   }
 
   getImagePreview(file: File) {

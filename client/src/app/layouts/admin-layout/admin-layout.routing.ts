@@ -9,6 +9,7 @@ import { ProdutosComponent } from '../../components/produtos/produtos.component'
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'cadastrar-produto', component: CadastrarProdutoComponent },
+    { path: 'pedido/:id', component: PedidoComponent },
     { path: 'pedido', component: PedidoComponent },
     { path: 'produtos', component: ProdutosComponent },
     { path: 'user-profile',   component: UserProfileComponent },

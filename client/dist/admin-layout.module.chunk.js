@@ -40690,16 +40690,21 @@ var CadastrarProdutoComponent = /** @class */ (function () {
             Img: this.imgUrl,
             Category: this.category
         };
-        //console.log(reqProduct);
-        this.productService.registerProduct(reqProduct).subscribe(function (data) {
-            console.log("produto registrado:", data);
-            _this.message = "Produto " + referencia.value + " cadastrado";
-            _this.messageClass = 'alert alert-success';
-            _this.imgUrl = "../../assets/img/uploadImage.png";
-        }, function (err) {
-            _this.message = err.error.message;
-            _this.messageClass = 'alert alert-danger';
-        });
+        if (this.imgUrl === "../../assets/img/uploadImage.png") {
+            this.message = "Adicione a imagem do produto";
+            this.messageClass = 'alert alert-danger';
+        }
+        else {
+            this.productService.registerProduct(reqProduct).subscribe(function (data) {
+                console.log("produto registrado:", data);
+                _this.message = "Produto " + referencia.value + " cadastrado";
+                _this.messageClass = 'alert alert-success';
+                _this.imgUrl = "../../assets/img/uploadImage.png";
+            }, function (err) {
+                _this.message = err.error.message;
+                _this.messageClass = 'alert alert-danger';
+            });
+        }
     };
     CadastrarProdutoComponent.prototype.selectCategory = function (catValue) {
         console.log("category:", catValue);
@@ -40741,7 +40746,7 @@ var CadastrarProdutoComponent = /** @class */ (function () {
 /***/ "./src/app/components/pedido/pedido.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"panel-header\">\n  <div class=\"header text-center\">\n    <h2 class=\"title\">Cadastrar Pedido</h2>\n\n  </div>\n</div>\n<div class=\"main-content\">\n  <div class=\"row show-hide-message\">\n    <div [ngClass]=\"messageClass\">\n      {{ message }}\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-8\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n          <h4 class=\"card-title\">Adicionar Pedido</h4>\n        </div>\n        <div class=\"card-body\">\n          <form (ngSubmit)=\"onRegisterClick(Referencia, Cliente)\">\n\n            <div class=\"form-group\">\n              <label for=\"referencia\">Referencia</label>\n              <input auto-complete type=\"text\" #Referencia class=\"form-control\" [source]=\"referenceArray\" [(ngModel)]=\"myData\" [ngModelOptions]=\"{standalone: true}\"\n                (valueChanged)=\"valueChanged($event)\" placeholder=\"Digite a Referencia da estampa\">\n            </div>\n\n            <div class=\"form-group\">\n              <label for=\"cliente\">Cliente</label>\n              <input type=\"text\" #Cliente class=\"form-control\" id=\"cliente\" placeholder=\"Nome da cliente\">\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementP()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementP()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeP\">{{pCount}} P</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementM()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementM()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeM\">{{mCount}} M</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementG()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementG()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeG\"> {{gCount}} G</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementGG()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementGG()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeGG\"> {{ggCount}} GG</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementVestidoCurto()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementVestidoCurto()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeVestidoCurto\">{{vestidoCurtoCount}} Vestido(s) Curto</label>\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementVestidoLongo()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementVestidoLongo()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeVestidoLongo\">{{vestidoLongoCount}} Vestido(s) Longo</label>\n              </div>\n            </div>\n\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementGolaChocker()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementGolaChocker()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeGolaChocker\">{{golaChockerCount}} Gola Chocker</label>\n              </div>\n            </div>\n\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementKitMeF()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementKitMeF()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeKitMeF\">{{kitMeFCount}} Kit Mãe e Filha</label>\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementMasculino()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementMasculino()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeMasculino\">{{masculinoCount}} Masculino</label>\n              </div>\n            </div>\n\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementFilho()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementFilho()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeFilho\">{{filhoCount}} Filho</label>\n              </div>\n            </div>\n\n            <button type=\"submit\" class=\"btn btn-primary\">Adicionar Pedido</button>\n          </form>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-md-4\">\n      <div class=\"card\">\n        <div class=\"card-body\">\n          <form>\n            <div class=\"form-group\">\n              <div *ngIf=\"selectedProduct\">\n                <img [src]=\"sanitizer.bypassSecurityTrustUrl(selectedProduct.Img)\" style=\"width: 200px; height: 200px;\">\n              </div>\n              <div *ngIf=\"!selectedProduct\">\n                <img [src]=\"\" style=\"width: 200px; height: 200px;\">\n              </div>\n            </div>\n            <div class=\"form-group\">\n              <div *ngIf=\"selectedProduct\">\n                <label for=\"preco\">Preço</label>\n                <input type=\"text\" [(ngModel)]=\"selectedProduct.Price\" [ngModelOptions]=\"{standalone: true}\" class=\"form-control\" id=\"preco\"\n                  placeholder=\"Preço\">\n              </div>\n\n            </div>\n            <div class=\"form-group\">\n              <input type=\"button\" value=\"Adicionar\" (click)=\"addReference(selectedProduct.Reference)\">\n            </div>\n          </form>\n        </div>\n      </div>\n      <div class=\"card\">\n        <div class=\"card-body\">\n          <div *ngFor=\"let obj of objRefSize\">\n            <label> {{obj.reference}} - {{obj.size}} </label>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"panel-header\">\n  <div class=\"header text-center\">\n    <h2 class=\"title\">Cadastrar Pedido</h2>\n\n  </div>\n</div>\n<div class=\"main-content\">\n  <div class=\"row show-hide-message\">\n    <div [ngClass]=\"messageClass\">\n      {{ message }}\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-8\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n          <h4 class=\"card-title\">Adicionar Pedido</h4>\n        </div>\n        <div class=\"card-body\">\n          <form (ngSubmit)=\"onRegisterClick(Referencia, Cliente)\">\n\n            <div class=\"form-group\">\n              <label for=\"referencia\">Referencia</label>\n              <input auto-complete type=\"text\" #Referencia class=\"form-control\" [source]=\"referenceArray\" [(ngModel)]=\"referencia\" [ngModelOptions]=\"{standalone: true}\"\n                (valueChanged)=\"valueChanged($event)\" placeholder=\"Digite a Referencia da estampa\">\n            </div>\n\n            <div class=\"form-group\">\n              <label for=\"cliente\">Cliente</label>\n              <input type=\"text\" #Cliente [(ngModel)]=\"clientName\" [ngModelOptions]=\"{standalone: true}\"  class=\"form-control\" id=\"cliente\" placeholder=\"Nome da cliente\">\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementP()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementP()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeP\">{{pCount}} P</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementM()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementM()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeM\">{{mCount}} M</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementG()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementG()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeG\"> {{gCount}} G</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementGG()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementGG()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeGG\"> {{ggCount}} GG</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementVestidoCurto()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementVestidoCurto()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeVestidoCurto\">{{vestidoCurtoCount}} Vestido(s) Curto</label>\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementVestidoLongo()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementVestidoLongo()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeVestidoLongo\">{{vestidoLongoCount}} Vestido(s) Longo</label>\n              </div>\n            </div>\n\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementGolaChocker()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementGolaChocker()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeGolaChocker\">{{golaChockerCount}} Gola Chocker</label>\n              </div>\n            </div>\n\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementKitMeF()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementKitMeF()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeKitMeF\">{{kitMeFCount}} Kit Mãe e Filha</label>\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementMasculino()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementMasculino()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeMasculino\">{{masculinoCount}} Masculino</label>\n              </div>\n            </div>\n\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementFilho()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementFilho()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeFilho\">{{filhoCount}} Filho</label>\n              </div>\n            </div>\n            \n            <button *ngIf=\"!this.orderIdParameter\" type=\"submit\" class=\"btn btn-primary\">Adicionar Pedido</button>\n            <button *ngIf=\"this.orderIdParameter\"  type=\"submit\" class=\"btn btn-primary\">Editar Pedido</button>\n          </form>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-md-4\">\n      <div class=\"card\">\n        <div class=\"card-body\">\n          <form>\n            <div class=\"form-group\">\n              <div *ngIf=\"selectedProduct\">\n                <img [src]=\"sanitizer.bypassSecurityTrustUrl(selectedProduct.Img)\" style=\"width: 200px; height: 200px;\">\n              </div>\n              <div *ngIf=\"!selectedProduct\">\n                <img [src]=\"\" style=\"width: 200px; height: 200px;\">\n              </div>\n            </div>\n            <div class=\"form-group\">\n              <div *ngIf=\"selectedProduct\">\n                <label for=\"preco\">Preço</label>\n                <input type=\"text\" [(ngModel)]=\"selectedProduct.Price\" [ngModelOptions]=\"{standalone: true}\" class=\"form-control\" id=\"preco\"\n                  placeholder=\"Preço\">\n              </div>\n\n            </div>\n            <div class=\"form-group\">\n              <input type=\"button\" value=\"Adicionar\" (click)=\"addReference(selectedProduct.Reference)\">\n            </div>\n          </form>\n        </div>\n      </div>\n      <div class=\"card\">\n        <div class=\"card-body\">\n          <div *ngFor=\"let obj of objRefSize\">\n            <label> {{obj.reference}} - {{obj.size}} </label>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -40760,6 +40765,7 @@ module.exports = ""
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__("./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_product_service__ = __webpack_require__("./src/app/services/product.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -40772,8 +40778,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var PedidoComponent = /** @class */ (function () {
-    function PedidoComponent(productService, sanitizer) {
+    function PedidoComponent(route, productService, sanitizer) {
+        this.route = route;
         this.productService = productService;
         this.sanitizer = sanitizer;
         this.arrayOfStrings = ['this', 'is', 'list', 'of', 'string', 'element'];
@@ -40795,7 +40803,25 @@ var PedidoComponent = /** @class */ (function () {
     }
     PedidoComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.productService.getProducts(1, 10000).subscribe(function (data) {
+        this.orderIdParameter = this.route.snapshot.paramMap.get('id');
+        console.log("orderId=", this.orderIdParameter);
+        if (this.orderIdParameter) {
+            //edit order
+            this.productService.getOrderById(this.orderIdParameter).subscribe(function (data) {
+                var order = data;
+                _this.referencesToOrder = order.References;
+                _this.sizesToOrder = order.Sizes;
+                _this.clientName = order.ClientName;
+                console.log(order, data);
+                for (var i = 0; i < order.References.length; i++) {
+                    _this.objRefSize.push({ reference: order.References[i], size: order.Sizes[i] });
+                }
+            }, function (err) {
+                _this.message = "Erro ao editar o pedido";
+                _this.messageClass = "alert alert-danger";
+            });
+        }
+        this.productService.getProducts(1, 100000).subscribe(function (data) {
             console.log(data);
             _this.products = data;
             for (var _i = 0, _a = _this.products; _i < _a.length; _i++) {
@@ -40814,14 +40840,32 @@ var PedidoComponent = /** @class */ (function () {
             Sizes: this.sizesToOrder
         };
         console.log(reqOrder);
-        this.productService.registerOrder(reqOrder).subscribe(function (data) {
-            console.log("pedido registrado:", data);
-            _this.message = "Pedido para " + clientName.value + " Registrado!";
-            _this.messageClass = "alert alert-success";
-        }, function (err) {
-            _this.message = "Voce esqueceu de colocar algum campo?";
-            _this.messageClass = "alert alert-danger";
-        });
+        //register
+        if (!this.orderIdParameter) {
+            this.productService.registerOrder(reqOrder).subscribe(function (data) {
+                console.log("pedido registrado:", data);
+                _this.message = "Pedido para " + clientName.value + " Registrado!";
+                _this.messageClass = "alert alert-success";
+                _this.clientName = "";
+                _this.referencia = "";
+                _this.objRefSize.splice(0, _this.objRefSize.length);
+                _this.selectedProduct = null;
+            }, function (err) {
+                _this.message = "Voce esqueceu de colocar algum campo?";
+                _this.messageClass = "alert alert-danger";
+            });
+        }
+        else {
+            //edit
+            this.productService.editOrder(this.orderIdParameter, reqOrder).subscribe(function (data) {
+                console.log("pedido editado:", data);
+                _this.message = "Pedido para " + clientName.value + " editado!";
+                _this.messageClass = "alert alert-success";
+            }, function (err) {
+                _this.message = "Voce esqueceu de colocar algum campo?";
+                _this.messageClass = "alert alert-danger";
+            });
+        }
     };
     PedidoComponent.prototype.addReference = function (reference) {
         if (this.getSizes() == '') {
@@ -40934,7 +40978,7 @@ var PedidoComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/components/pedido/pedido.component.html"),
             styles: [__webpack_require__("./src/app/components/pedido/pedido.component.scss")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_product_service__["a" /* ProductService */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__services_product_service__["a" /* ProductService */],
             __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["c" /* DomSanitizer */]])
     ], PedidoComponent);
     return PedidoComponent;
@@ -41070,7 +41114,7 @@ module.exports = ""
 /***/ "./src/app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <div class=\"panel-header panel-header-lg\">\n    <canvas baseChart id=\"bigDashboardChart\"\n                [datasets]=\"lineBigDashboardChartData\"\n                [labels]=\"lineBigDashboardChartLabels\"\n                 [colors]=\"lineBigDashboardChartColors\"\n                [options]=\"lineBigDashboardChartOptions\"\n                [chartType]=\"lineBigDashboardChartType\"\n                (chartHover)=\"chartHovered($event)\"\n                (chartClick)=\"chartClicked($event)\"></canvas>\n</div> -->\n\n<div class=\"main-content\">\n\n  <div class=\"row\">\n    <div class=\"card  card-tasks\">\n      <div class=\"card-header \">\n        <h5 class=\"card-category\">Backend development</h5>\n        <h4 class=\"card-title\">Tasks</h4>\n      </div>\n      <div class=\"card-body \">\n        <div class=\"table-full-width table-responsive\">\n          <table class=\"table\">\n            <tbody>\n              <tr *ngFor=\"let order of orders\">\n                <td>\n                  <div class=\"form-check\">\n                    <label class=\"form-check-label\">\n                      <input class=\"form-check-input\" value=\"{{order._id}}\" type=\"checkbox\" [(ngModel)]=\"order.isChecked\">\n                      <span class=\"form-check-sign\"></span>\n                    </label>\n                  </div>\n                </td>\n                <td class=\"text-left\">{{order.ClientName}}</td>\n                <table class=\"table\">\n                  <tbody>\n                    <td class=\"text-left\">\n                      <tr *ngFor=\"let ref of order.References\">\n                        <td class=\"text\">{{ref}}</td>\n                      </tr>\n                    </td>\n                    <td class=\"text-left\">\n                      <tr *ngFor=\"let size of order.Sizes\">\n                        <td class=\"text\">{{size}}</td>\n                      </tr>\n                    </td>\n                  </tbody>\n                </table>\n\n                <td class=\"td-actions text-right\">\n                  <button type=\"button\" rel=\"tooltip\" title=\"\" class=\"btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral\" data-original-title=\"Remove\">\n                    <i class=\"now-ui-icons ui-1_simple-remove\"></i>\n                  </button>\n                </td>\n              </tr>\n            </tbody>\n          </table>\n        </div>\n      </div>\n\n      <button class=\"btn btn-primary\" (click)=\"gerar_relatorio()\"> Gerar Relatorio de pedidos </button>\n      <!-- <div class=\"card-footer \">\n        <hr>\n        <div class=\"stats\">\n          <i class=\"now-ui-icons loader_refresh spin\"></i> Updated 3 minutes ago\n        </div>\n      </div> -->\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"card\">\n      <div class=\"card-header \">\n        <h5 class=\"card-category\">Relatorio de Pedidos</h5>\n      </div>\n      <div class=\"card-body \">\n        <div *ngFor = \"let rep of finalReport\">\n            {{rep}}\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<!-- <div class=\"panel-header panel-header-lg\">\n    <canvas baseChart id=\"bigDashboardChart\"\n                [datasets]=\"lineBigDashboardChartData\"\n                [labels]=\"lineBigDashboardChartLabels\"\n                 [colors]=\"lineBigDashboardChartColors\"\n                [options]=\"lineBigDashboardChartOptions\"\n                [chartType]=\"lineBigDashboardChartType\"\n                (chartHover)=\"chartHovered($event)\"\n                (chartClick)=\"chartClicked($event)\"></canvas>\n</div> -->\n\n<div class=\"main-content\">\n  \n  <div class=\"row\">\n    <div class=\"card  card-tasks\">\n      <div class=\"card-header \">\n        <h5 class=\"card-category\">Capitu Store</h5>\n        <h4 class=\"card-title\">Pedidos</h4>\n      </div>\n      <div class=\"row show-hide-message\">\n        <div [ngClass]=\"messageClass\">\n          {{ message }}\n        </div>\n      </div>\n      <div class=\"card-body \">\n        <div class=\"table-full-width table-responsive\">\n          <table class=\"table\">\n            <tbody>\n              <tr *ngFor=\"let order of orders; let i = index \">\n                <td *ngIf=\"!order.Confirmed\">\n                  <div class=\"form-check\">\n                    <label class=\"form-check-label\">\n                      <input class=\"form-check-input\" value=\"{{order._id}}\" type=\"checkbox\" [(ngModel)]=\"order.isChecked\">\n                      <span class=\"form-check-sign\"></span>\n                    </label>\n                  </div>\n                </td>\n                <td  *ngIf=\"!order.Confirmed\" (click)=\"editOrder(order._id)\" class=\"text-left\">{{order.ClientName}}</td>\n                <table class=\"table\" *ngIf=\"!order.Confirmed\">\n                  <tbody>\n                    <td class=\"text-left\">\n                      <tr *ngFor=\"let ref of order.References\">\n                        <td class=\"text\">{{ref}}</td>\n                      </tr>\n                    </td>\n                    <td class=\"text-left\">\n                      <tr *ngFor=\"let size of order.Sizes\">\n                        <td class=\"text\">{{size}}</td>\n                      </tr>\n                    </td>\n                  </tbody>\n                </table>\n                <td  *ngIf=\"!order.Confirmed\" class=\"td-actions text-right\">\n                  <button type=\"button\" (click)=\"confirmOrder(order._id, i)\" rel=\"tooltip\" title=\"\" class=\"btn btn-primary btn-round btn-icon btn-icon-mini btn-neutral\"\n                    data-original-title=\"Remove\">\n                    <i class=\"now-ui-icons ui-1_check\"></i>\n                  </button>\n                </td>\n                <td  *ngIf=\"!order.Confirmed\" class=\"td-actions text-right\">\n                  <button type=\"button\" (click)=\"removeOrder(order._id, i)\" rel=\"tooltip\" title=\"\" class=\"btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral\"\n                    data-original-title=\"Remove\">\n                    <i class=\"now-ui-icons ui-1_simple-remove\"></i>\n                  </button>\n                </td>\n              </tr>\n            </tbody>\n          </table>\n        </div>\n      </div>\n\n      <button class=\"btn btn-primary\" (click)=\"gerar_relatorio()\"> Gerar Relatorio de pedidos </button>\n      <!-- <div class=\"card-footer \">\n        <hr>\n        <div class=\"stats\">\n          <i class=\"now-ui-icons loader_refresh spin\"></i> Updated 3 minutes ago\n        </div>\n      </div> -->\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"card\">\n      <div class=\"card-header \">\n        <h5 class=\"card-category\">Relatorio de Pedidos</h5>\n      </div>\n      <div class=\"card-body \">\n        <div *ngFor=\"let rep of finalReport\">\n          {{rep}}\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -41081,6 +41125,7 @@ module.exports = "<!-- <div class=\"panel-header panel-header-lg\">\n    <canvas
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DashboardComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_product_service__ = __webpack_require__("./src/app/services/product.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -41092,12 +41137,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var DashboardComponent = /** @class */ (function () {
-    function DashboardComponent(productService) {
+    function DashboardComponent(productService, router) {
         this.productService = productService;
+        this.router = router;
         this.orders = new Array();
         this.selectedIds = new Array();
         this.finalReport = new Array();
+        this.message = '';
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -41105,6 +41153,35 @@ var DashboardComponent = /** @class */ (function () {
             console.log(data);
             _this.orders = data;
         }, function (err) {
+        });
+    };
+    DashboardComponent.prototype.removeOrder = function (id, index) {
+        var _this = this;
+        console.log("id a ser removido:", id);
+        this.productService.removeOrder(id).subscribe(function (data) {
+            _this.message = "Pedido Removido";
+            _this.messageClass = "alert alert-success";
+            _this.orders.splice(index, 1);
+        }, function (err) {
+            _this.message = err.error.message;
+            _this.messageClass = "alert alert-danger";
+        });
+    };
+    DashboardComponent.prototype.editOrder = function (id) {
+        console.log("edit order: ", id);
+        this.router.navigate(['/pedido', id]);
+    };
+    DashboardComponent.prototype.confirmOrder = function (id, index) {
+        var _this = this;
+        console.log("id a ser confirmado:", id);
+        this.productService.confirmOrder(id).subscribe(function (data) {
+            _this.message = "Pedido Confirmado";
+            _this.messageClass = "alert alert-success";
+            console.log("confirmou");
+            _this.orders[index].Confirmed = true;
+        }, function (err) {
+            _this.message = err.error.message;
+            _this.messageClass = "alert alert-danger";
         });
     };
     DashboardComponent.prototype.selectCheckBox = function (event) {
@@ -41181,6 +41258,7 @@ var DashboardComponent = /** @class */ (function () {
     };
     DashboardComponent.prototype.createReport = function (dict) {
         var _this = this;
+        this.finalReport.splice(0, this.finalReport.length);
         var counter = 1;
         Array.from(dict.entries()).forEach(function (entry) {
             console.log('Key: ' + entry[0] + ' Value: ' + entry[1]);
@@ -41219,7 +41297,7 @@ var DashboardComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/dashboard/dashboard.component.html"),
             styles: [__webpack_require__("./src/app/dashboard/dashboard.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_product_service__["a" /* ProductService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_product_service__["a" /* ProductService */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["d" /* Router */]])
     ], DashboardComponent);
     return DashboardComponent;
 }());
@@ -41279,7 +41357,7 @@ var AdminLayoutModule = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             imports: [
                 __WEBPACK_IMPORTED_MODULE_2__angular_common__["CommonModule"],
-                __WEBPACK_IMPORTED_MODULE_1__angular_router__["d" /* RouterModule */].forChild(__WEBPACK_IMPORTED_MODULE_4__admin_layout_routing__["a" /* AdminLayoutRoutes */]),
+                __WEBPACK_IMPORTED_MODULE_1__angular_router__["e" /* RouterModule */].forChild(__WEBPACK_IMPORTED_MODULE_4__admin_layout_routing__["a" /* AdminLayoutRoutes */]),
                 __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormsModule"],
                 __WEBPACK_IMPORTED_MODULE_7_ng2_charts__["ChartsModule"],
                 __WEBPACK_IMPORTED_MODULE_8__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */],
@@ -41321,6 +41399,7 @@ var AdminLayoutModule = /** @class */ (function () {
 var AdminLayoutRoutes = [
     { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_0__dashboard_dashboard_component__["a" /* DashboardComponent */] },
     { path: 'cadastrar-produto', component: __WEBPACK_IMPORTED_MODULE_2__components_cadastrar_produto_cadastrar_produto_component__["a" /* CadastrarProdutoComponent */] },
+    { path: 'pedido/:id', component: __WEBPACK_IMPORTED_MODULE_3__components_pedido_pedido_component__["a" /* PedidoComponent */] },
     { path: 'pedido', component: __WEBPACK_IMPORTED_MODULE_3__components_pedido_pedido_component__["a" /* PedidoComponent */] },
     { path: 'produtos', component: __WEBPACK_IMPORTED_MODULE_4__components_produtos_produtos_component__["a" /* ProdutosComponent */] },
     { path: 'user-profile', component: __WEBPACK_IMPORTED_MODULE_1__user_profile_user_profile_component__["a" /* UserProfileComponent */] },

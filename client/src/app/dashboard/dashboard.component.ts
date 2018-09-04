@@ -4,6 +4,7 @@ import * as Chartist from 'chartist';
 import { ProductService } from '../services/product.service'
 import { PagerService } from '../services/pager.service'
 import { Order } from '../models/order'
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,7 +20,10 @@ export class DashboardComponent implements OnInit {
 
   finalReport: Array<string> = new Array<string>();
 
-  constructor(private productService: ProductService) { }
+  message: string = '';
+  messageClass: string;
+
+  constructor(private productService: ProductService, private router: Router) { }
 
   ngOnInit() {
 
@@ -31,6 +35,38 @@ export class DashboardComponent implements OnInit {
 
     });
 
+  }
+
+  removeOrder(id: string, index:number) {
+    console.log("id a ser removido:", id);
+    this.productService.removeOrder(id).subscribe(data => {
+      this.message = "Pedido Removido";
+      this.messageClass = "alert alert-success";
+
+      this.orders.splice(index, 1);
+    }, err => {
+      this.message = err.error.message;
+      this.messageClass = "alert alert-danger";
+    })
+  }
+
+  editOrder(id: string) {
+    console.log("edit order: ", id);
+    this.router.navigate(['/pedido', id]);
+  }
+
+  confirmOrder(id: string, index:number) {
+    console.log("id a ser confirmado:", id);
+    this.productService.confirmOrder(id).subscribe(data => {
+      this.message = "Pedido Confirmado";
+      this.messageClass = "alert alert-success";
+      console.log("confirmou");
+      this.orders[index].Confirmed = true;
+
+    }, err => {
+      this.message = err.error.message;
+      this.messageClass = "alert alert-danger";
+    })
   }
 
   selectCheckBox(event: any) {
@@ -124,6 +160,8 @@ export class DashboardComponent implements OnInit {
   }
 
   createReport(dict: Map<string, string>) {
+    this.finalReport.splice(0, this.finalReport.length);
+
 
     var counter = 1;
     Array.from(dict.entries()).forEach(entry => {
@@ -145,9 +183,9 @@ export class DashboardComponent implements OnInit {
     if (objValues.M != '')
       ret = (ret != '' ? ret + ", " + objValues.M : ret + objValues.M);
     if (objValues.G != '')
-      ret = (ret != '' ?  ret + ", " + objValues.G : ret + objValues.G);
+      ret = (ret != '' ? ret + ", " + objValues.G : ret + objValues.G);
     if (objValues.GG != '')
-      ret = (ret != '' ?  ret + ", " + objValues.GG : ret + objValues.GG);
+      ret = (ret != '' ? ret + ", " + objValues.GG : ret + objValues.GG);
     if (objValues.VestC != '')
       ret = (ret != '' ? ret + ", " + objValues.VestC : ret + objValues.VestC);
     if (objValues.VestL != '')

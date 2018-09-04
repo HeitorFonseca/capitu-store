@@ -3,6 +3,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 import { ProductService } from '../../services/product.service'
 import { Product } from '../../models/product'
+import { ActivatedRoute } from '@angular/router';
+import { Order } from '../../models/order';
 
 
 @Component({
@@ -12,6 +14,7 @@ import { Product } from '../../models/product'
 })
 export class PedidoComponent implements OnInit {
 
+  clientName: string;
   arrayOfStrings = ['this', 'is', 'list', 'of', 'string', 'element'];
 
   pCount = 0;
@@ -25,7 +28,7 @@ export class PedidoComponent implements OnInit {
   masculinoCount = 0;
   filhoCount = 0;
 
-  myData;
+  referencia;
   mySource;
 
   products: Array<Product>;
@@ -40,20 +43,45 @@ export class PedidoComponent implements OnInit {
 
   objRefSize: Array<any> = new Array<any>();
 
-  constructor(private productService: ProductService,
+  orderIdParameter;
+
+  constructor(private route: ActivatedRoute, private productService: ProductService,
     public sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.productService.getProducts(1, 10000).subscribe(data => {
+
+    this.orderIdParameter = this.route.snapshot.paramMap.get('id');
+
+    console.log("orderId=", this.orderIdParameter);
+
+    if (this.orderIdParameter) {
+      //edit order
+      this.productService.getOrderById(this.orderIdParameter).subscribe(data => {
+        let order = data as Order;
+        this.referencesToOrder = order.References;
+        this.sizesToOrder = order.Sizes;
+        this.clientName = order.ClientName;
+        
+        console.log(order, data);
+        for (let i = 0; i < order.References.length; i++) {
+          this.objRefSize.push({ reference: order.References[i], size: order.Sizes[i] });
+        }
+
+      }, err => {
+        this.message = "Erro ao editar o pedido";
+        this.messageClass = "alert alert-danger";
+      })
+    }
+
+    this.productService.getProducts(1, 100000).subscribe(data => {
       console.log(data);
       this.products = data as Array<Product>;
 
       for (let prod of this.products) {
         this.referenceArray.push(prod.Reference);
-
       }
-
     });
+
   }
 
   onRegisterClick(reference, clientName) {
@@ -68,15 +96,34 @@ export class PedidoComponent implements OnInit {
     }
 
     console.log(reqOrder);
-    this.productService.registerOrder(reqOrder).subscribe(data => {
-      console.log("pedido registrado:", data);
-      this.message = "Pedido para " + clientName.value + " Registrado!";
-      this.messageClass = "alert alert-success";
-    }, err => {
-      this.message = "Voce esqueceu de colocar algum campo?";
-      this.messageClass = "alert alert-danger";
-    })
+    //register
+    if (!this.orderIdParameter) {
+      this.productService.registerOrder(reqOrder).subscribe(data => {
+        console.log("pedido registrado:", data);
+        this.message = "Pedido para " + clientName.value + " Registrado!";
+        this.messageClass = "alert alert-success";
+        this.clientName = "";
+        this.referencia = "";
+        this.objRefSize.splice(0, this.objRefSize.length);
+        this.selectedProduct = null;
+      }, err => {
+        this.message = "Voce esqueceu de colocar algum campo?";
+        this.messageClass = "alert alert-danger";
+      });
+    } else {
+      //edit
+      this.productService.editOrder(this.orderIdParameter, reqOrder).subscribe(data => {
+        console.log("pedido editado:", data);
+        this.message = "Pedido para " + clientName.value + " editado!";
+        this.messageClass = "alert alert-success";
+      }, err => {
+        this.message = "Voce esqueceu de colocar algum campo?";
+        this.messageClass = "alert alert-danger";
+      });
+    }
   }
+
+
 
   addReference(reference: any) {
     if (this.getSizes() == '') {

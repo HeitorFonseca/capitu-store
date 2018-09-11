@@ -40746,7 +40746,7 @@ var CadastrarProdutoComponent = /** @class */ (function () {
 /***/ "./src/app/components/pedido/pedido.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"panel-header\">\n  <div class=\"header text-center\">\n    <h2 class=\"title\">Cadastrar Pedido</h2>\n\n  </div>\n</div>\n<div class=\"main-content\">\n  <div class=\"row show-hide-message\">\n    <div [ngClass]=\"messageClass\">\n      {{ message }}\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-8\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n          <h4 class=\"card-title\">Adicionar Pedido</h4>\n        </div>\n        <div class=\"card-body\">\n          <form (ngSubmit)=\"onRegisterClick(Referencia, Cliente)\">\n\n            <div class=\"form-group\">\n              <label for=\"referencia\">Referencia</label>\n              <input auto-complete type=\"text\" #Referencia class=\"form-control\" [source]=\"referenceArray\" [(ngModel)]=\"referencia\" [ngModelOptions]=\"{standalone: true}\"\n                (valueChanged)=\"valueChanged($event)\" placeholder=\"Digite a Referencia da estampa\">\n            </div>\n\n            <div class=\"form-group\">\n              <label for=\"cliente\">Cliente</label>\n              <input type=\"text\" #Cliente [(ngModel)]=\"clientName\" [ngModelOptions]=\"{standalone: true}\"  class=\"form-control\" id=\"cliente\" placeholder=\"Nome da cliente\">\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementP()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementP()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeP\">{{pCount}} P</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementM()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementM()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeM\">{{mCount}} M</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementG()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementG()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeG\"> {{gCount}} G</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementGG()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementGG()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeGG\"> {{ggCount}} GG</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementVestidoCurto()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementVestidoCurto()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeVestidoCurto\">{{vestidoCurtoCount}} Vestido(s) Curto</label>\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementVestidoLongo()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementVestidoLongo()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeVestidoLongo\">{{vestidoLongoCount}} Vestido(s) Longo</label>\n              </div>\n            </div>\n\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementGolaChocker()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementGolaChocker()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeGolaChocker\">{{golaChockerCount}} Gola Chocker</label>\n              </div>\n            </div>\n\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementKitMeF()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementKitMeF()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeKitMeF\">{{kitMeFCount}} Kit Mãe e Filha</label>\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementMasculino()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementMasculino()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeMasculino\">{{masculinoCount}} Masculino</label>\n              </div>\n            </div>\n\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementFilho()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementFilho()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeFilho\">{{filhoCount}} Filho</label>\n              </div>\n            </div>\n            \n            <button *ngIf=\"!this.orderIdParameter\" type=\"submit\" class=\"btn btn-primary\">Adicionar Pedido</button>\n            <button *ngIf=\"this.orderIdParameter\"  type=\"submit\" class=\"btn btn-primary\">Editar Pedido</button>\n          </form>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-md-4\">\n      <div class=\"card\">\n        <div class=\"card-body\">\n          <form>\n            <div class=\"form-group\">\n              <div *ngIf=\"selectedProduct\">\n                <img [src]=\"sanitizer.bypassSecurityTrustUrl(selectedProduct.Img)\" style=\"width: 200px; height: 200px;\">\n              </div>\n              <div *ngIf=\"!selectedProduct\">\n                <img [src]=\"\" style=\"width: 200px; height: 200px;\">\n              </div>\n            </div>\n            <div class=\"form-group\">\n              <div *ngIf=\"selectedProduct\">\n                <label for=\"preco\">Preço</label>\n                <input type=\"text\" [(ngModel)]=\"selectedProduct.Price\" [ngModelOptions]=\"{standalone: true}\" class=\"form-control\" id=\"preco\"\n                  placeholder=\"Preço\">\n              </div>\n\n            </div>\n            <div class=\"form-group\">\n              <input type=\"button\" value=\"Adicionar\" (click)=\"addReference(selectedProduct.Reference)\">\n            </div>\n          </form>\n        </div>\n      </div>\n      <div class=\"card\">\n        <div class=\"card-body\">\n          <div *ngFor=\"let obj of objRefSize\">\n            <label> {{obj.reference}} - {{obj.size}} </label>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"panel-header\">\n  <div class=\"header text-center\">\n    <h2 class=\"title\">Cadastrar Pedido</h2>\n\n  </div>\n</div>\n<div class=\"main-content\">\n  <div class=\"row show-hide-message\">\n    <div [ngClass]=\"messageClass\">\n      {{ message }}\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-8\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n          <h4 class=\"card-title\">Adicionar Pedido</h4>\n        </div>\n        <div class=\"card-body\">\n          <form (ngSubmit)=\"onRegisterClick(Referencia, Cliente)\">\n\n            <div class=\"form-group\">\n              <label for=\"referencia\">Referencia</label>\n              <input auto-complete type=\"text\" #Referencia class=\"form-control\" [source]=\"referenceArray\" [(ngModel)]=\"referencia\" [ngModelOptions]=\"{standalone: true}\"\n                (valueChanged)=\"valueChanged($event)\" placeholder=\"Digite a Referencia da estampa\">\n            </div>\n\n            <div class=\"form-group\">\n              <label for=\"cliente\">Cliente</label>\n              <input type=\"text\" #Cliente [(ngModel)]=\"clientName\" [ngModelOptions]=\"{standalone: true}\" class=\"form-control\" id=\"cliente\"\n                placeholder=\"Nome da cliente\">\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementP()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementP()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeP\">{{pCount}} P</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementM()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementM()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeM\">{{mCount}} M</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementG()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementG()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeG\"> {{gCount}} G</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementGG()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementGG()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeGG\"> {{ggCount}} GG</label>\n\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementVestidoCurto()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementVestidoCurto()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeVestidoCurto\">{{vestidoCurtoCount}} Vestido(s) Curto</label>\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementVestidoLongo()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementVestidoLongo()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeVestidoLongo\">{{vestidoLongoCount}} Vestido(s) Longo</label>\n              </div>\n            </div>\n\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementGolaChocker()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementGolaChocker()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeGolaChocker\">{{golaChockerCount}} Gola Chocker</label>\n              </div>\n            </div>\n\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementKitMeF()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementKitMeF()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeKitMeF\">{{kitMeFCount}} Kit Mãe e Filha</label>\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementMasculino()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementMasculino()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeMasculino\">{{masculinoCount}} Masculino</label>\n              </div>\n            </div>\n\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementFilho()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementFilho()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"sizeFilho\">{{filhoCount}} Filho</label>\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementcurtoP()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementcurtoP()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"curtoP\">{{curtoPCount}} Curto P</label>\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementcurtoM()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementcurtoM()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"curtoM\">{{curtoMCount}} Curto M</label>\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementcurtoG()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementcurtoG()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"curtoG\">{{curtoGCount}} Curto G</label>\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementcurtoGG()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementcurtoGG()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"curtoGG\">{{curtoGGCount}} Curto GG</label>\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementcurtoInfantil()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementcurtoInfantil()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"curtoInfantil\">{{curtoInfantilCount}} Curto Infantil</label>\n              </div>\n            </div>\n\n            <div class=\"form-group\">\n              <div class=\"btn-group\">\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"incrementsemManga()\" class=\"form-control\"> + </button>\n                <button type=\"button\" style=\"width: 10%;\" (click)=\"decrementsemManga()\" class=\"form-control\"> - </button>\n                <label class=\"ml-2 mt-2\" for=\"semManga\">{{semMangaCount}} Sem Manga</label>\n              </div>\n            </div>\n\n\n            <button *ngIf=\"!this.orderIdParameter\" type=\"submit\" class=\"btn btn-primary\">Adicionar Pedido</button>\n            <button *ngIf=\"this.orderIdParameter\" type=\"submit\" class=\"btn btn-primary\">Editar Pedido</button>\n          </form>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-md-4\">\n      <div class=\"card\">\n        <div class=\"card-body\">\n          <form>\n            <div class=\"form-group\">\n              <div *ngIf=\"selectedProduct\">\n                <img [src]=\"sanitizer.bypassSecurityTrustUrl(selectedProduct.Img)\" style=\"width: 200px; height: 200px;\">\n              </div>\n              <div *ngIf=\"!selectedProduct\">\n                <img [src]=\"\" style=\"width: 200px; height: 200px;\">\n              </div>\n            </div>\n            <div class=\"form-group\">\n              <div *ngIf=\"selectedProduct\">\n                <label for=\"preco\">Preço</label>\n                <input type=\"text\" [(ngModel)]=\"selectedProduct.Price\" [ngModelOptions]=\"{standalone: true}\" class=\"form-control\" id=\"preco\"\n                  placeholder=\"Preço\">\n              </div>\n\n            </div>\n            <div class=\"form-group\">\n              <input type=\"button\" value=\"Adicionar\" (click)=\"addReference(selectedProduct.Reference)\">\n            </div>\n          </form>\n        </div>\n      </div>\n      <div class=\"card\">\n        <div class=\"card-body\">\n          <div *ngFor=\"let obj of objRefSize\">\n            <label> {{obj.reference}} - {{obj.size}} </label>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -40795,6 +40795,12 @@ var PedidoComponent = /** @class */ (function () {
         this.kitMeFCount = 0;
         this.masculinoCount = 0;
         this.filhoCount = 0;
+        this.curtoPCount = 0;
+        this.curtoMCount = 0;
+        this.curtoGCount = 0;
+        this.curtoGGCount = 0;
+        this.curtoInfantilCount = 0;
+        this.semMangaCount = 0;
         this.referencesToOrder = new Array();
         this.sizesToOrder = new Array();
         this.referenceArray = new Array();
@@ -40902,11 +40908,24 @@ var PedidoComponent = /** @class */ (function () {
             sizes = sizes == '' ? sizes + this.masculinoCount + "Masculino" : sizes + " " + this.masculinoCount + "Masculino";
         if (this.filhoCount > 0)
             sizes = sizes == '' ? sizes + this.filhoCount + "Filho" : sizes + " " + this.filhoCount + "Filho";
+        if (this.curtoPCount > 0)
+            sizes = sizes == '' ? sizes + this.curtoPCount + "Curto P" : sizes + " " + this.curtoPCount + "Curto P";
+        if (this.curtoMCount > 0)
+            sizes = sizes == '' ? sizes + this.curtoMCount + "Curto M" : sizes + " " + this.curtoMCount + "Curto M";
+        if (this.curtoGCount > 0)
+            sizes = sizes == '' ? sizes + this.curtoGCount + "Curto G" : sizes + " " + this.curtoGCount + "Curto G";
+        if (this.curtoGGCount > 0)
+            sizes = sizes == '' ? sizes + this.curtoGGCount + "Curto GG" : sizes + " " + this.curtoGGCount + "Curto GG";
+        if (this.curtoInfantilCount > 0)
+            sizes = sizes == '' ? sizes + this.curtoInfantilCount + "Curto Infantil" : sizes + " " + this.curtoInfantilCount + "Curto Infantil";
+        if (this.semMangaCount > 0)
+            sizes = sizes == '' ? sizes + this.semMangaCount + "Sem Manga" : sizes + " " + this.semMangaCount + "Sem Manga";
         return sizes;
     };
     PedidoComponent.prototype.resetCounters = function () {
         this.pCount = this.mCount = this.gCount = this.ggCount = this.vestidoCurtoCount = this.vestidoLongoCount =
-            this.golaChockerCount = this.masculinoCount = this.filhoCount = this.kitMeFCount = 0;
+            this.golaChockerCount = this.masculinoCount = this.filhoCount = this.kitMeFCount =
+                this.curtoPCount = this.curtoMCount = this.curtoGCount = this.curtoGGCount = this.curtoInfantilCount = this.semMangaCount = 0;
     };
     PedidoComponent.prototype.incrementP = function () {
         this.pCount++;
@@ -40967,6 +40986,42 @@ var PedidoComponent = /** @class */ (function () {
     };
     PedidoComponent.prototype.decrementFilho = function () {
         this.filhoCount = (this.filhoCount == 0 ? 0 : this.filhoCount - 1);
+    };
+    PedidoComponent.prototype.incrementcurtoP = function () {
+        this.curtoPCount++;
+    };
+    PedidoComponent.prototype.decrementcurtoP = function () {
+        this.curtoPCount = (this.curtoPCount == 0 ? 0 : this.curtoPCount - 1);
+    };
+    PedidoComponent.prototype.incrementcurtoM = function () {
+        this.curtoMCount++;
+    };
+    PedidoComponent.prototype.decrementcurtoM = function () {
+        this.curtoMCount = (this.curtoMCount == 0 ? 0 : this.curtoMCount - 1);
+    };
+    PedidoComponent.prototype.incrementcurtoG = function () {
+        this.curtoGCount++;
+    };
+    PedidoComponent.prototype.decrementcurtoG = function () {
+        this.curtoGCount = (this.curtoGCount == 0 ? 0 : this.curtoGCount - 1);
+    };
+    PedidoComponent.prototype.incrementcurtoGG = function () {
+        this.curtoGGCount++;
+    };
+    PedidoComponent.prototype.decrementcurtoGG = function () {
+        this.curtoGGCount = (this.curtoGGCount == 0 ? 0 : this.curtoGGCount - 1);
+    };
+    PedidoComponent.prototype.incrementcurtoInfantil = function () {
+        this.curtoInfantilCount++;
+    };
+    PedidoComponent.prototype.decrementcurtoInfantil = function () {
+        this.curtoInfantilCount = (this.curtoInfantilCount == 0 ? 0 : this.curtoInfantilCount - 1);
+    };
+    PedidoComponent.prototype.incrementsemManga = function () {
+        this.semMangaCount++;
+    };
+    PedidoComponent.prototype.decrementsemManga = function () {
+        this.semMangaCount = (this.semMangaCount == 0 ? 0 : this.semMangaCount - 1);
     };
     PedidoComponent.prototype.valueChanged = function (newVal) {
         console.log("Case 2: value is changed to ", newVal);
@@ -41214,7 +41269,7 @@ var DashboardComponent = /** @class */ (function () {
         console.log("dicionario: ", dict);
     };
     DashboardComponent.prototype.cu = function (str) {
-        var pqtd, mqtd, gqtd, ggqtd, vestcqtd, vestlqtd, mascqtd, kitmfqtd, filhoqtd, chocqtd;
+        var pqtd, mqtd, gqtd, ggqtd, vestcqtd, vestlqtd, mascqtd, kitmfqtd, filhoqtd, chocqtd, curtpqtd, curtmqtd, curtgqtd, curtggqtd, curtinfqtd, semmangaqtd;
         console.log(str);
         var regex = /([0-9]+P\s|[0-9]+P$)/g;
         pqtd = this.loop(str, "P", regex);
@@ -41236,9 +41291,23 @@ var DashboardComponent = /** @class */ (function () {
         filhoqtd = this.loop(str, "Filho", regex);
         regex = /([0-9]+Gola Chocker\s|[0-9]+Gola Chocker$)/g;
         chocqtd = this.loop(str, "Gola Chocker", regex);
+        regex = /([0-9]+Curto P\s|[0-9]+Curto P$)/g;
+        curtpqtd = this.loop(str, "Curto P", regex);
+        regex = /([0-9]+Curto M\s|[0-9]+Curto M$)/g;
+        curtmqtd = this.loop(str, "Curto M", regex);
+        regex = /([0-9]+Curto G\s|[0-9]+Curto G$)/g;
+        curtgqtd = this.loop(str, "Curto G", regex);
+        regex = /([0-9]+Curto GG\s|[0-9]+Curto GG$)/g;
+        curtggqtd = this.loop(str, "Curto GG", regex);
+        regex = /([0-9]+Curto Infantil\s|[0-9]+Curto Infantil$)/g;
+        curtinfqtd = this.loop(str, "Curto Infantil", regex);
+        regex = /([0-9]+Sem Manga\s|[0-9]+Sem Manga$)/g;
+        semmangaqtd = this.loop(str, "Sem Manga", regex);
         return {
             P: pqtd, M: mqtd, G: gqtd, GG: ggqtd, VestC: vestcqtd, VestL: vestlqtd,
-            Masc: mascqtd, Kit: kitmfqtd, Filho: filhoqtd, Chocker: chocqtd
+            Masc: mascqtd, Kit: kitmfqtd, Filho: filhoqtd, Chocker: chocqtd, CurtoP: curtpqtd,
+            CurtoM: curtmqtd, CurtoG: curtgqtd, CurtoGG: curtggqtd, CurtoInfantil: curtinfqtd,
+            SemManga: semmangaqtd
         };
     };
     DashboardComponent.prototype.loop = function (str, type, regex) {
@@ -41289,6 +41358,18 @@ var DashboardComponent = /** @class */ (function () {
             ret = (ret != '' ? ret + ", " + objValues.Filho : ret + objValues.Filho);
         if (objValues.Chocker != '')
             ret = (ret != '' ? ret + ", " + objValues.Chocker : ret + objValues.Chocker);
+        if (objValues.CurtoP != '')
+            ret = (ret != '' ? ret + ", " + objValues.CurtoP : ret + objValues.CurtoP);
+        if (objValues.CurtoM != '')
+            ret = (ret != '' ? ret + ", " + objValues.CurtoM : ret + objValues.CurtoM);
+        if (objValues.CurtoG != '')
+            ret = (ret != '' ? ret + ", " + objValues.CurtoG : ret + objValues.CurtoG);
+        if (objValues.CurtoGG != '')
+            ret = (ret != '' ? ret + ", " + objValues.CurtoGG : ret + objValues.CurtoGG);
+        if (objValues.CurtoInfantil != '')
+            ret = (ret != '' ? ret + ", " + objValues.CurtoInfantil : ret + objValues.CurtoInfantil);
+        if (objValues.SemManga != '')
+            ret = (ret != '' ? ret + ", " + objValues.SemManga : ret + objValues.SemManga);
         return ret;
     };
     DashboardComponent = __decorate([

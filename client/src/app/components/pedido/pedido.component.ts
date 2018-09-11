@@ -27,6 +27,12 @@ export class PedidoComponent implements OnInit {
   kitMeFCount = 0;
   masculinoCount = 0;
   filhoCount = 0;
+  curtoPCount = 0;
+  curtoMCount = 0;
+  curtoGCount = 0;
+  curtoGGCount = 0;
+  curtoInfantilCount = 0;
+  semMangaCount = 0;
 
   referencia;
   mySource;
@@ -61,7 +67,7 @@ export class PedidoComponent implements OnInit {
         this.referencesToOrder = order.References;
         this.sizesToOrder = order.Sizes;
         this.clientName = order.ClientName;
-        
+
         console.log(order, data);
         for (let i = 0; i < order.References.length; i++) {
           this.objRefSize.push({ reference: order.References[i], size: order.Sizes[i] });
@@ -124,7 +130,6 @@ export class PedidoComponent implements OnInit {
   }
 
 
-
   addReference(reference: any) {
     if (this.getSizes() == '') {
       this.message = "Selecione um tamanho";
@@ -161,13 +166,26 @@ export class PedidoComponent implements OnInit {
       sizes = sizes == '' ? sizes + this.masculinoCount + "Masculino" : sizes + " " + this.masculinoCount + "Masculino";
     if (this.filhoCount > 0)
       sizes = sizes == '' ? sizes + this.filhoCount + "Filho" : sizes + " " + this.filhoCount + "Filho";
-
-    return sizes;
+    if (this.curtoPCount > 0)
+      sizes = sizes == '' ? sizes + this.curtoPCount + "Curto P" : sizes + " " + this.curtoPCount + "Curto P";
+    if (this.curtoMCount > 0)
+      sizes = sizes == '' ? sizes + this.curtoMCount + "Curto M" : sizes + " " + this.curtoMCount + "Curto M";
+    if (this.curtoGCount > 0)
+      sizes = sizes == '' ? sizes + this.curtoGCount + "Curto G" : sizes + " " + this.curtoGCount + "Curto G";
+    if (this.curtoGGCount > 0)
+      sizes = sizes == '' ? sizes + this.curtoGGCount + "Curto GG" : sizes + " " + this.curtoGGCount + "Curto GG";
+    if (this.curtoInfantilCount > 0)
+      sizes = sizes == '' ? sizes + this.curtoInfantilCount + "Curto Infantil" : sizes + " " + this.curtoInfantilCount + "Curto Infantil";
+    if (this.semMangaCount > 0)
+      sizes = sizes == '' ? sizes + this.semMangaCount + "Sem Manga" : sizes + " " + this.semMangaCount + "Sem Manga";
+    
+     return sizes;
   }
 
   resetCounters() {
     this.pCount = this.mCount = this.gCount = this.ggCount = this.vestidoCurtoCount = this.vestidoLongoCount =
-      this.golaChockerCount = this.masculinoCount = this.filhoCount = this.kitMeFCount = 0;
+      this.golaChockerCount = this.masculinoCount = this.filhoCount = this.kitMeFCount = 
+      this.curtoPCount = this.curtoMCount = this.curtoGCount = this.curtoGGCount = this.curtoInfantilCount = this.semMangaCount = 0;
   }
 
   incrementP() {
@@ -250,6 +268,53 @@ export class PedidoComponent implements OnInit {
     this.filhoCount = (this.filhoCount == 0 ? 0 : this.filhoCount - 1);
   }
 
+  incrementcurtoP() {
+    this.curtoPCount++;
+  }
+
+  decrementcurtoP() {
+    this.curtoPCount = (this.curtoPCount == 0 ? 0 : this.curtoPCount - 1);
+  }
+
+  incrementcurtoM() {
+    this.curtoMCount++;
+  }
+
+  decrementcurtoM() {
+    this.curtoMCount = (this.curtoMCount == 0 ? 0 : this.curtoMCount - 1);
+  }
+
+  incrementcurtoG() {
+    this.curtoGCount++;
+  }
+
+  decrementcurtoG() {
+    this.curtoGCount = (this.curtoGCount == 0 ? 0 : this.curtoGCount - 1);
+  }
+
+  incrementcurtoGG() {
+    this.curtoGGCount++;
+  }
+
+  decrementcurtoGG() {
+    this.curtoGGCount = (this.curtoGGCount == 0 ? 0 : this.curtoGGCount - 1);
+  }
+
+  incrementcurtoInfantil() {
+    this.curtoInfantilCount++;
+  }
+
+  decrementcurtoInfantil() {
+    this.curtoInfantilCount = (this.curtoInfantilCount == 0 ? 0 : this.curtoInfantilCount - 1);
+  }
+
+  incrementsemManga() {
+    this.semMangaCount++;
+  }
+
+  decrementsemManga() {
+    this.semMangaCount = (this.semMangaCount == 0 ? 0 : this.semMangaCount - 1);
+  }
   valueChanged(newVal) {
     console.log("Case 2: value is changed to ", newVal);
     this.selectedProduct = this.products.find(x => x.Reference == newVal);

@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  removeOrder(id: string, index:number) {
+  removeOrder(id: string, index: number) {
     console.log("id a ser removido:", id);
     this.productService.removeOrder(id).subscribe(data => {
       this.message = "Pedido Removido";
@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/pedido', id]);
   }
 
-  confirmOrder(id: string, index:number) {
+  confirmOrder(id: string, index: number) {
     console.log("id a ser confirmado:", id);
     this.productService.confirmOrder(id).subscribe(data => {
       this.message = "Pedido Confirmado";
@@ -110,7 +110,8 @@ export class DashboardComponent implements OnInit {
   }
 
   cu(str: string) {
-    var pqtd, mqtd, gqtd, ggqtd, vestcqtd, vestlqtd, mascqtd, kitmfqtd, filhoqtd, chocqtd;
+    var pqtd, mqtd, gqtd, ggqtd, vestcqtd, vestlqtd, mascqtd, kitmfqtd, filhoqtd, chocqtd, curtpqtd, curtmqtd, curtgqtd,
+      curtggqtd, curtinfqtd, semmangaqtd;
     console.log(str);
     let regex = /([0-9]+P\s|[0-9]+P$)/g;
     pqtd = this.loop(str, "P", regex);
@@ -132,10 +133,24 @@ export class DashboardComponent implements OnInit {
     filhoqtd = this.loop(str, "Filho", regex);
     regex = /([0-9]+Gola Chocker\s|[0-9]+Gola Chocker$)/g;
     chocqtd = this.loop(str, "Gola Chocker", regex);
+    regex = /([0-9]+Curto P\s|[0-9]+Curto P$)/g;
+    curtpqtd = this.loop(str, "Curto P", regex);
+    regex = /([0-9]+Curto M\s|[0-9]+Curto M$)/g;
+    curtmqtd = this.loop(str, "Curto M", regex);
+    regex = /([0-9]+Curto G\s|[0-9]+Curto G$)/g;
+    curtgqtd = this.loop(str, "Curto G", regex);
+    regex = /([0-9]+Curto GG\s|[0-9]+Curto GG$)/g;
+    curtggqtd = this.loop(str, "Curto GG", regex);
+    regex = /([0-9]+Curto Infantil\s|[0-9]+Curto Infantil$)/g;
+    curtinfqtd = this.loop(str, "Curto Infantil", regex);
+    regex = /([0-9]+Sem Manga\s|[0-9]+Sem Manga$)/g;
+    semmangaqtd = this.loop(str, "Sem Manga", regex);
 
     return {
       P: pqtd, M: mqtd, G: gqtd, GG: ggqtd, VestC: vestcqtd, VestL: vestlqtd,
-      Masc: mascqtd, Kit: kitmfqtd, Filho: filhoqtd, Chocker: chocqtd
+      Masc: mascqtd, Kit: kitmfqtd, Filho: filhoqtd, Chocker: chocqtd, CurtoP: curtpqtd,
+      CurtoM: curtmqtd, CurtoG: curtgqtd, CurtoGG: curtggqtd, CurtoInfantil: curtinfqtd,
+      SemManga: semmangaqtd
     };
 
   }
@@ -198,6 +213,18 @@ export class DashboardComponent implements OnInit {
       ret = (ret != '' ? ret + ", " + objValues.Filho : ret + objValues.Filho);
     if (objValues.Chocker != '')
       ret = (ret != '' ? ret + ", " + objValues.Chocker : ret + objValues.Chocker);
+    if (objValues.CurtoP != '')
+      ret = (ret != '' ? ret + ", " + objValues.CurtoP : ret + objValues.CurtoP);
+    if (objValues.CurtoM != '')
+      ret = (ret != '' ? ret + ", " + objValues.CurtoM : ret + objValues.CurtoM);
+    if (objValues.CurtoG != '')
+      ret = (ret != '' ? ret + ", " + objValues.CurtoG : ret + objValues.CurtoG);
+    if (objValues.CurtoGG != '')
+      ret = (ret != '' ? ret + ", " + objValues.CurtoGG : ret + objValues.CurtoGG);
+    if (objValues.CurtoInfantil != '')
+      ret = (ret != '' ? ret + ", " + objValues.CurtoInfantil : ret + objValues.CurtoInfantil);
+    if (objValues.SemManga != '')
+      ret = (ret != '' ? ret + ", " + objValues.SemManga : ret + objValues.SemManga);
 
     return ret;
   }

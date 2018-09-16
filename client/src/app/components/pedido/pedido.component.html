@@ -166,6 +166,45 @@
               </div>
             </div>
 
+            <div class="form-group">
+              <div class="btn-group">
+                <button type="button" style="width: 10%;" (click)="incrementkitP()" class="form-control"> + </button>
+                <button type="button" style="width: 10%;" (click)="decrementkitP()" class="form-control"> - </button>
+                <label class="ml-2 mt-2" for="kitP">{{kitPCount}} KIT P</label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <div class="btn-group">
+                <button type="button" style="width: 10%;" (click)="incrementkitM()" class="form-control"> + </button>
+                <button type="button" style="width: 10%;" (click)="decrementkitM()" class="form-control"> - </button>
+                <label class="ml-2 mt-2" for="kitM">{{kitMCount}} KIT M</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="btn-group">
+                <button type="button" style="width: 10%;" (click)="incrementkitG()" class="form-control"> + </button>
+                <button type="button" style="width: 10%;" (click)="decrementkitG()" class="form-control"> - </button>
+                <label class="ml-2 mt-2" for="kitG">{{kitGCount}} KIT G</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="btn-group">
+                <button type="button" style="width: 10%;" (click)="incrementkitGG()" class="form-control"> + </button>
+                <button type="button" style="width: 10%;" (click)="decrementkitGG()" class="form-control"> - </button>
+                <label class="ml-2 mt-2" for="kitGG">{{kitGGCount}} KIT GG</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="btn-group">
+                <button type="button" style="width: 10%;" (click)="incrementlongoRegata()" class="form-control"> + </button>
+                <button type="button" style="width: 10%;" (click)="decrementlongoRegata()" class="form-control"> - </button>
+                <label class="ml-2 mt-2" for="longoRegata">{{longoRegataCount}} Longo regata</label>
+              </div>
+            </div>
 
             <button *ngIf="!this.orderIdParameter" type="submit" class="btn btn-primary">Adicionar Pedido</button>
             <button *ngIf="this.orderIdParameter" type="submit" class="btn btn-primary">Editar Pedido</button>

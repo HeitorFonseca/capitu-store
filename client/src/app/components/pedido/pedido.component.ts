@@ -33,6 +33,11 @@ export class PedidoComponent implements OnInit {
   curtoGGCount = 0;
   curtoInfantilCount = 0;
   semMangaCount = 0;
+  kitPCount = 0;
+  kitMCount = 0;
+  kitGCount = 0;
+  kitGGCount = 0;
+  longoRegataCount = 0;
 
   referencia;
   mySource;
@@ -181,15 +186,25 @@ export class PedidoComponent implements OnInit {
       sizes = sizes == '' ? sizes + this.curtoInfantilCount + "Curto Infantil" : sizes + " " + this.curtoInfantilCount + "Curto Infantil";
     if (this.semMangaCount > 0)
       sizes = sizes == '' ? sizes + this.semMangaCount + "Sem Manga" : sizes + " " + this.semMangaCount + "Sem Manga";
-    
-      
-     return sizes;
+
+    if (this.kitPCount > 0)
+      sizes = sizes == '' ? sizes + this.kitPCount + "KIT P" : sizes + " " + this.kitPCount + "KIT P";
+    if (this.kitMCount > 0)
+      sizes = sizes == '' ? sizes + this.kitMCount + "KIT M" : sizes + " " + this.kitMCount + "KIT M";
+    if (this.kitGCount > 0)
+      sizes = sizes == '' ? sizes + this.kitGCount + "KIT G" : sizes + " " + this.kitGCount + "KIT G";
+    if (this.kitGGCount > 0)
+      sizes = sizes == '' ? sizes + this.kitGGCount + "KIT GG" : sizes + " " + this.kitGGCount + "KIT GG";
+    if (this.longoRegataCount > 0)
+      sizes = sizes == '' ? sizes + this.longoRegataCount + "Longo regata" : sizes + " " + this.longoRegataCount + "Longo regata";
+    return sizes;
   }
 
   resetCounters() {
     this.pCount = this.mCount = this.gCount = this.ggCount = this.vestidoCurtoCount = this.vestidoLongoCount =
-      this.golaChockerCount = this.masculinoCount = this.filhoCount = this.infantilCount = 
-      this.curtoPCount = this.curtoMCount = this.curtoGCount = this.curtoGGCount = this.curtoInfantilCount = this.semMangaCount = 0;
+      this.golaChockerCount = this.masculinoCount = this.filhoCount = this.infantilCount =
+      this.curtoPCount = this.curtoMCount = this.curtoGCount = this.curtoGGCount = this.curtoInfantilCount = this.semMangaCount =
+      this.kitPCount = this.kitMCount = this.kitGCount = this.kitGGCount = this.longoRegataCount = 0;
   }
 
   incrementP() {
@@ -319,6 +334,47 @@ export class PedidoComponent implements OnInit {
   decrementsemManga() {
     this.semMangaCount = (this.semMangaCount == 0 ? 0 : this.semMangaCount - 1);
   }
+
+  incrementkitP() {
+    this.kitPCount++;
+  }
+
+  decrementkitP() {
+    this.kitPCount = (this.kitPCount == 0 ? 0 : this.kitPCount - 1);
+  }
+
+  incrementkitM() {
+    this.kitMCount++;
+  }
+
+  decrementkitM() {
+    this.kitMCount = (this.kitMCount == 0 ? 0 : this.kitMCount - 1);
+  }
+
+  incrementkitG() {
+    this.kitGCount++;
+  }
+
+  decrementkitG() {
+    this.kitGCount = (this.kitGCount == 0 ? 0 : this.kitGCount - 1);
+  }
+
+  incrementkitGG() {
+    this.kitGGCount++;
+  }
+
+  decrementkitGG() {
+    this.kitGGCount = (this.kitGGCount == 0 ? 0 : this.kitGGCount - 1);
+  }
+
+  incrementlongoRegata() {
+    this.longoRegataCount++;
+  }
+
+  decrementlongoRegata() {
+    this.longoRegataCount = (this.longoRegataCount == 0 ? 0 : this.longoRegataCount - 1);
+  }
+
   valueChanged(newVal) {
     console.log("Case 2: value is changed to ", newVal);
     this.selectedProduct = this.products.find(x => x.Reference == newVal);

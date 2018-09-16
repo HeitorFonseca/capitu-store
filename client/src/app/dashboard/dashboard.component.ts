@@ -111,7 +111,7 @@ export class DashboardComponent implements OnInit {
 
   cu(str: string) {
     var pqtd, mqtd, gqtd, ggqtd, vestcqtd, vestlqtd, mascqtd, kitmfqtd, filhoqtd, chocqtd, curtpqtd, curtmqtd, curtgqtd,
-      curtggqtd, curtinfqtd, semmangaqtd;
+      curtggqtd, curtinfqtd, semmangaqtd, kitpqtd, kitmqtd, kitgqtd, kitggqtd, longoregqtd;
     console.log(str);
     let regex = /([0-9]+P\s|[0-9]+P$)/g;
     pqtd = this.loop(str, "P", regex);
@@ -145,12 +145,22 @@ export class DashboardComponent implements OnInit {
     curtinfqtd = this.loop(str, "Curto Infantil", regex);
     regex = /([0-9]+Sem Manga\s|[0-9]+Sem Manga$)/g;
     semmangaqtd = this.loop(str, "Sem Manga", regex);
+    regex = /([0-9]+KIT P\s|[0-9]+KIT P$)/g;
+    kitpqtd = this.loop(str, "KIT P", regex);
+    regex = /([0-9]+KIT M\s|[0-9]+KIT M$)/g;
+    kitmqtd = this.loop(str, "KIT M", regex);
+    regex = /([0-9]+KIT G\s|[0-9]+KIT G$)/g;
+    kitgqtd = this.loop(str, "KIT G", regex);
+    regex = /([0-9]+KIT G\s|[0-9]+KIT G$)/g;
+    kitggqtd = this.loop(str, "KIT G", regex);
+    regex = /([0-9]+Longo regata\s|[0-9]+Longo regata$)/g;
+    longoregqtd = this.loop(str, "Longo regata", regex);
 
     return {
       P: pqtd, M: mqtd, G: gqtd, GG: ggqtd, VestC: vestcqtd, VestL: vestlqtd,
       Masc: mascqtd, Kit: kitmfqtd, Filho: filhoqtd, Chocker: chocqtd, CurtoP: curtpqtd,
       CurtoM: curtmqtd, CurtoG: curtgqtd, CurtoGG: curtggqtd, CurtoInfantil: curtinfqtd,
-      SemManga: semmangaqtd
+      SemManga: semmangaqtd, KitP: kitpqtd, KitM: kitmqtd, KitG: kitggqtd, KitGG: kitggqtd, LongoRegata: longoregqtd
     };
 
   }
@@ -225,7 +235,16 @@ export class DashboardComponent implements OnInit {
       ret = (ret != '' ? ret + ", " + objValues.CurtoInfantil : ret + objValues.CurtoInfantil);
     if (objValues.SemManga != '')
       ret = (ret != '' ? ret + ", " + objValues.SemManga : ret + objValues.SemManga);
-
+      if (objValues.KitP != '')
+      ret = (ret != '' ? ret + ", " + objValues.KitP : ret + objValues.KitP);
+      if (objValues.KitM != '')
+      ret = (ret != '' ? ret + ", " + objValues.KitM : ret + objValues.KitM);
+      if (objValues.KitG != '')
+      ret = (ret != '' ? ret + ", " + objValues.KitG : ret + objValues.KitG);
+      if (objValues.KitGG != '')
+      ret = (ret != '' ? ret + ", " + objValues.KitGG : ret + objValues.KitGG);
+      if (objValues.LongoRegata != '')
+      ret = (ret != '' ? ret + ", " + objValues.LongoRegata : ret + objValues.LongoRegata);
     return ret;
   }
 }

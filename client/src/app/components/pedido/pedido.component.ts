@@ -24,7 +24,7 @@ export class PedidoComponent implements OnInit {
   vestidoCurtoCount = 0;
   vestidoLongoCount = 0;
   golaChockerCount = 0;
-  kitMeFCount = 0;
+  infantilCount = 0;
   masculinoCount = 0;
   filhoCount = 0;
   curtoPCount = 0;
@@ -110,8 +110,11 @@ export class PedidoComponent implements OnInit {
         this.messageClass = "alert alert-success";
         this.clientName = "";
         this.referencia = "";
-        this.objRefSize.splice(0, this.objRefSize.length);
         this.selectedProduct = null;
+        this.objRefSize.splice(0, this.objRefSize.length);
+        this.sizesToOrder.splice(0, this.sizesToOrder.length);
+        this.referencesToOrder.splice(0, this.referencesToOrder.length);
+
       }, err => {
         this.message = "Voce esqueceu de colocar algum campo?";
         this.messageClass = "alert alert-danger";
@@ -160,8 +163,8 @@ export class PedidoComponent implements OnInit {
       sizes = (sizes == '' ? sizes + this.vestidoLongoCount + "Vestido longo" : sizes + " " + this.vestidoLongoCount + "Vestido longo");
     if (this.golaChockerCount > 0)
       sizes = sizes == '' ? sizes + this.golaChockerCount + "Gola Chocker" : sizes + " " + this.golaChockerCount + "Gola Chocker";
-    if (this.kitMeFCount > 0)
-      sizes = sizes == '' ? sizes + this.kitMeFCount + "Kit Mae e filha" : sizes + " " + this.kitMeFCount + "Kit Mae e filha";
+    if (this.infantilCount > 0)
+      sizes = sizes == '' ? sizes + this.infantilCount + "Infantil" : sizes + " " + this.infantilCount + "Infantil";
     if (this.masculinoCount > 0)
       sizes = sizes == '' ? sizes + this.masculinoCount + "Masculino" : sizes + " " + this.masculinoCount + "Masculino";
     if (this.filhoCount > 0)
@@ -179,12 +182,13 @@ export class PedidoComponent implements OnInit {
     if (this.semMangaCount > 0)
       sizes = sizes == '' ? sizes + this.semMangaCount + "Sem Manga" : sizes + " " + this.semMangaCount + "Sem Manga";
     
+      
      return sizes;
   }
 
   resetCounters() {
     this.pCount = this.mCount = this.gCount = this.ggCount = this.vestidoCurtoCount = this.vestidoLongoCount =
-      this.golaChockerCount = this.masculinoCount = this.filhoCount = this.kitMeFCount = 
+      this.golaChockerCount = this.masculinoCount = this.filhoCount = this.infantilCount = 
       this.curtoPCount = this.curtoMCount = this.curtoGCount = this.curtoGGCount = this.curtoInfantilCount = this.semMangaCount = 0;
   }
 
@@ -244,12 +248,12 @@ export class PedidoComponent implements OnInit {
     this.golaChockerCount = (this.golaChockerCount == 0 ? 0 : this.golaChockerCount - 1);
   }
 
-  incrementKitMeF() {
-    this.kitMeFCount++;
+  incrementInfantil() {
+    this.infantilCount++;
   }
 
-  decrementKitMeF() {
-    this.kitMeFCount = (this.kitMeFCount == 0 ? 0 : this.kitMeFCount - 1);
+  decrementInfantil() {
+    this.infantilCount = (this.infantilCount == 0 ? 0 : this.infantilCount - 1);
   }
 
   incrementMasculino() {

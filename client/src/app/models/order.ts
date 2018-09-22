@@ -5,6 +5,7 @@ export class Order {
     Confirmed: boolean;
     Sizes: Array<string>;
     createdAt: string;
+    date: string;
     isChecked: boolean = false;
 }
 

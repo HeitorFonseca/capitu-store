@@ -30,7 +30,18 @@ export class DashboardComponent implements OnInit {
     this.productService.getOrders().subscribe(data => {
       console.log(data);
       this.orders = data as Array<Order>;
+      
+      this.orders.forEach(e => {
+        let dtt = new Date(e.createdAt);
+        e.date = dtt.getDate() + "/" +dtt.getMonth() + "/" +dtt.getFullYear() + " " + 
+                dtt.getHours() + ":" +dtt.getMinutes() + ":" +dtt.getSeconds();
+      });
 
+      this.orders.sort((a,b) => {
+        var dateA = new Date(a.createdAt);
+        var dateB = new Date(b.createdAt);
+        return  +dateB - +dateA; 
+      })
     }, err => {
 
     });
@@ -80,6 +91,12 @@ export class DashboardComponent implements OnInit {
     // this.selectedIds.push(event.target.value);
 
     console.log(this.orders);
+  }
+
+  selectAll() {
+    this.orders.forEach(element => {
+      element.isChecked = true;
+    });
   }
 
   gerar_relatorio() {

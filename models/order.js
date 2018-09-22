@@ -13,9 +13,9 @@ var OrderSchema = new mongoose.Schema({
 OrderSchema.pre('save', function(next){
     console.log("pre save");
     now = new Date();
-    if (!this.createdAt) {
-        this.createdAt = now;
-    }
+    
+    this.createdAt = now;
+    
     next();
 });
 

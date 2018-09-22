@@ -151,6 +151,12 @@ export class PedidoComponent implements OnInit {
     }
   }
 
+  removeReference(item, index) {
+    this.referencesToOrder.splice(index, 1);
+    this.objRefSize.splice(index, 1);
+    this.sizesToOrder.splice(index, 1);
+  }
+
   getSizes() {
     var sizes = '';
 

@@ -240,8 +240,11 @@
       </div>
       <div class="card">
         <div class="card-body">
-          <div *ngFor="let obj of objRefSize">
+          <div *ngFor="let obj of objRefSize; let i = index">
             <label> {{obj.reference}} - {{obj.size}} </label>
+            <button type="button" (click)="removeReference(obj, i)"  class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral">
+                <i class="now-ui-icons ui-1_simple-remove"></i>
+            </button>
           </div>
         </div>
       </div>

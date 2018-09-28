@@ -22,6 +22,8 @@ export class DashboardComponent implements OnInit {
 
   message: string = '';
   messageClass: string;
+  isRelatorioPedido = true;
+  relatorioPedido: Array<string> = new Array<string>();
 
   constructor(private productService: ProductService, private router: Router) { }
 
@@ -101,9 +103,10 @@ export class DashboardComponent implements OnInit {
 
   gerar_relatorio() {
 
+    this.isRelatorioPedido = true;
     let dict = new Map<string, string>();
 
-    this.finalOrders = this.orders.filter(a => a.isChecked === true);
+    this.finalOrders = this.orders.filter(a => a.isChecked === true && a.Confirmed === false);
 
     console.log("finalOrders: ", this.finalOrders);
 
@@ -122,8 +125,26 @@ export class DashboardComponent implements OnInit {
 
     this.createReport(dict)
     console.log("dicionario: ", dict);
+  }
 
+  gerar_relatorioSeparar() {
+    this.relatorioPedido.splice(0, this.relatorioPedido.length);
+    this.isRelatorioPedido = false;
 
+    this.finalOrders = this.orders.filter(a => a.isChecked === true && a.Confirmed === false);
+
+    
+    for (var item = 0; item < this.finalOrders.length; item++) {
+      var line = this.finalOrders[item].ClientName + "->";
+
+      for (var j = 0; j < this.finalOrders[item].References.length; j++) {
+
+        var ref = this.finalOrders[item].References[j];
+        line += " " + this.finalOrders[item].References[j] +  ":" + this.finalOrders[item].Sizes[j];
+      }
+
+      this.relatorioPedido.push(line);
+    }
   }
 
   cu(str: string) {

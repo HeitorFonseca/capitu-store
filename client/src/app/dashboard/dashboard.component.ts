@@ -135,14 +135,14 @@ export class DashboardComponent implements OnInit {
 
     
     for (var item = 0; item < this.finalOrders.length; item++) {
-      var line = this.finalOrders[item].ClientName + "->";
+      var line = this.finalOrders[item].ClientName + ":\n";
 
       for (var j = 0; j < this.finalOrders[item].References.length; j++) {
 
         var ref = this.finalOrders[item].References[j];
-        line += " " + this.finalOrders[item].References[j] +  ":" + this.finalOrders[item].Sizes[j];
+        line += " " + this.finalOrders[item].References[j] +  ":" + this.finalOrders[item].Sizes[j] + "\n";
       }
-
+      line += "\n";
       this.relatorioPedido.push(line);
     }
   }

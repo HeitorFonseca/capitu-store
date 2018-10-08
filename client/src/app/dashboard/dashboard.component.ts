@@ -32,17 +32,17 @@ export class DashboardComponent implements OnInit {
     this.productService.getOrders().subscribe(data => {
       console.log(data);
       this.orders = data as Array<Order>;
-      
+
       this.orders.forEach(e => {
         let dtt = new Date(e.createdAt);
-        e.date = dtt.getDate() + "/" +dtt.getMonth() + "/" +dtt.getFullYear() + " " + 
-                dtt.getHours() + ":" +dtt.getMinutes() + ":" +dtt.getSeconds();
+        e.date = dtt.getDate() + "/" + dtt.getMonth() + "/" + dtt.getFullYear() + " " +
+          dtt.getHours() + ":" + dtt.getMinutes() + ":" + dtt.getSeconds();
       });
 
-      this.orders.sort((a,b) => {
+      this.orders.sort((a, b) => {
         var dateA = new Date(a.createdAt);
         var dateB = new Date(b.createdAt);
-        return  +dateB - +dateA; 
+        return +dateB - +dateA;
       })
     }, err => {
 
@@ -133,14 +133,14 @@ export class DashboardComponent implements OnInit {
 
     this.finalOrders = this.orders.filter(a => a.isChecked === true && a.Confirmed === false);
 
-    
+
     for (var item = 0; item < this.finalOrders.length; item++) {
       var line = this.finalOrders[item].ClientName + ":\n";
 
       for (var j = 0; j < this.finalOrders[item].References.length; j++) {
 
         var ref = this.finalOrders[item].References[j];
-        line += " " + this.finalOrders[item].References[j] +  ":" + this.finalOrders[item].Sizes[j] + "\n";
+        line += " " + this.finalOrders[item].References[j] + ":" + this.finalOrders[item].Sizes[j] + "\n";
       }
       line += "\n";
       this.relatorioPedido.push(line);
@@ -149,7 +149,7 @@ export class DashboardComponent implements OnInit {
 
   cu(str: string) {
     var pqtd, mqtd, gqtd, ggqtd, vestcqtd, vestlqtd, mascqtd, kitmfqtd, filhoqtd, chocqtd, curtpqtd, curtmqtd, curtgqtd,
-      curtggqtd, curtinfqtd, semmangaqtd, kitpqtd, kitmqtd, kitgqtd, kitggqtd, longoregqtd;
+      curtggqtd, curtinfqtd, semmangaqtd, kitpqtd, kitmqtd, kitgqtd, kitggqtd, longoregqtd, infantilqtd;
     console.log(str);
     let regex = /([0-9]+P\s|[0-9]+P$)/g;
     pqtd = this.loop(str, "P", regex);
@@ -194,11 +194,15 @@ export class DashboardComponent implements OnInit {
     regex = /([0-9]+Longo regata\s|[0-9]+Longo regata$)/g;
     longoregqtd = this.loop(str, "Longo regata", regex);
 
+    regex = /([0-9]+Infantil\s|[0-9]+Infantil$)/g;
+    infantilqtd = this.loop(str, "Infantil", regex);
+
     return {
       P: pqtd, M: mqtd, G: gqtd, GG: ggqtd, VestC: vestcqtd, VestL: vestlqtd,
       Masc: mascqtd, Kit: kitmfqtd, Filho: filhoqtd, Chocker: chocqtd, CurtoP: curtpqtd,
       CurtoM: curtmqtd, CurtoG: curtgqtd, CurtoGG: curtggqtd, CurtoInfantil: curtinfqtd,
-      SemManga: semmangaqtd, KitP: kitpqtd, KitM: kitmqtd, KitG: kitggqtd, KitGG: kitggqtd, LongoRegata: longoregqtd
+      SemManga: semmangaqtd, KitP: kitpqtd, KitM: kitmqtd, KitG: kitggqtd, KitGG: kitggqtd, LongoRegata: longoregqtd,
+      Infantil: infantilqtd
     };
 
   }
@@ -273,16 +277,19 @@ export class DashboardComponent implements OnInit {
       ret = (ret != '' ? ret + ", " + objValues.CurtoInfantil : ret + objValues.CurtoInfantil);
     if (objValues.SemManga != '')
       ret = (ret != '' ? ret + ", " + objValues.SemManga : ret + objValues.SemManga);
-      if (objValues.KitP != '')
+    if (objValues.KitP != '')
       ret = (ret != '' ? ret + ", " + objValues.KitP : ret + objValues.KitP);
-      if (objValues.KitM != '')
+    if (objValues.KitM != '')
       ret = (ret != '' ? ret + ", " + objValues.KitM : ret + objValues.KitM);
-      if (objValues.KitG != '')
+    if (objValues.KitG != '')
       ret = (ret != '' ? ret + ", " + objValues.KitG : ret + objValues.KitG);
-      if (objValues.KitGG != '')
+    if (objValues.KitGG != '')
       ret = (ret != '' ? ret + ", " + objValues.KitGG : ret + objValues.KitGG);
-      if (objValues.LongoRegata != '')
+    if (objValues.LongoRegata != '')
       ret = (ret != '' ? ret + ", " + objValues.LongoRegata : ret + objValues.LongoRegata);
+    if (objValues.Infantil != '')
+      ret = (ret != '' ? ret + ", " + objValues.Infantil : ret + objValues.Infantil);
+
     return ret;
   }
 }

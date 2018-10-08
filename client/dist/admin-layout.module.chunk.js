@@ -41354,7 +41354,7 @@ var DashboardComponent = /** @class */ (function () {
         }
     };
     DashboardComponent.prototype.cu = function (str) {
-        var pqtd, mqtd, gqtd, ggqtd, vestcqtd, vestlqtd, mascqtd, kitmfqtd, filhoqtd, chocqtd, curtpqtd, curtmqtd, curtgqtd, curtggqtd, curtinfqtd, semmangaqtd, kitpqtd, kitmqtd, kitgqtd, kitggqtd, longoregqtd;
+        var pqtd, mqtd, gqtd, ggqtd, vestcqtd, vestlqtd, mascqtd, kitmfqtd, filhoqtd, chocqtd, curtpqtd, curtmqtd, curtgqtd, curtggqtd, curtinfqtd, semmangaqtd, kitpqtd, kitmqtd, kitgqtd, kitggqtd, longoregqtd, infantilqtd;
         console.log(str);
         var regex = /([0-9]+P\s|[0-9]+P$)/g;
         pqtd = this.loop(str, "P", regex);
@@ -41398,11 +41398,14 @@ var DashboardComponent = /** @class */ (function () {
         kitggqtd = this.loop(str, "KIT G", regex);
         regex = /([0-9]+Longo regata\s|[0-9]+Longo regata$)/g;
         longoregqtd = this.loop(str, "Longo regata", regex);
+        regex = /([0-9]+Infantil\s|[0-9]+Infantil$)/g;
+        infantilqtd = this.loop(str, "Infantil", regex);
         return {
             P: pqtd, M: mqtd, G: gqtd, GG: ggqtd, VestC: vestcqtd, VestL: vestlqtd,
             Masc: mascqtd, Kit: kitmfqtd, Filho: filhoqtd, Chocker: chocqtd, CurtoP: curtpqtd,
             CurtoM: curtmqtd, CurtoG: curtgqtd, CurtoGG: curtggqtd, CurtoInfantil: curtinfqtd,
-            SemManga: semmangaqtd, KitP: kitpqtd, KitM: kitmqtd, KitG: kitggqtd, KitGG: kitggqtd, LongoRegata: longoregqtd
+            SemManga: semmangaqtd, KitP: kitpqtd, KitM: kitmqtd, KitG: kitggqtd, KitGG: kitggqtd, LongoRegata: longoregqtd,
+            Infantil: infantilqtd
         };
     };
     DashboardComponent.prototype.loop = function (str, type, regex) {
@@ -41475,6 +41478,8 @@ var DashboardComponent = /** @class */ (function () {
             ret = (ret != '' ? ret + ", " + objValues.KitGG : ret + objValues.KitGG);
         if (objValues.LongoRegata != '')
             ret = (ret != '' ? ret + ", " + objValues.LongoRegata : ret + objValues.LongoRegata);
+        if (objValues.Infantil != '')
+            ret = (ret != '' ? ret + ", " + objValues.Infantil : ret + objValues.Infantil);
         return ret;
     };
     DashboardComponent = __decorate([

@@ -41394,8 +41394,8 @@ var DashboardComponent = /** @class */ (function () {
         kitmqtd = this.loop(str, "KIT M", regex);
         regex = /([0-9]+KIT G\s|[0-9]+KIT G$)/g;
         kitgqtd = this.loop(str, "KIT G", regex);
-        regex = /([0-9]+KIT G\s|[0-9]+KIT G$)/g;
-        kitggqtd = this.loop(str, "KIT G", regex);
+        regex = /([0-9]+KIT GG\s|[0-9]+KIT GG$)/g;
+        kitggqtd = this.loop(str, "KIT GG", regex);
         regex = /([0-9]+Longo regata\s|[0-9]+Longo regata$)/g;
         longoregqtd = this.loop(str, "Longo regata", regex);
         regex = /([0-9]+Infantil\s|[0-9]+Infantil$)/g;
@@ -41404,7 +41404,7 @@ var DashboardComponent = /** @class */ (function () {
             P: pqtd, M: mqtd, G: gqtd, GG: ggqtd, VestC: vestcqtd, VestL: vestlqtd,
             Masc: mascqtd, Kit: kitmfqtd, Filho: filhoqtd, Chocker: chocqtd, CurtoP: curtpqtd,
             CurtoM: curtmqtd, CurtoG: curtgqtd, CurtoGG: curtggqtd, CurtoInfantil: curtinfqtd,
-            SemManga: semmangaqtd, KitP: kitpqtd, KitM: kitmqtd, KitG: kitggqtd, KitGG: kitggqtd, LongoRegata: longoregqtd,
+            SemManga: semmangaqtd, KitP: kitpqtd, KitM: kitmqtd, KitG: kitgqtd, KitGG: kitggqtd, LongoRegata: longoregqtd,
             Infantil: infantilqtd
         };
     };

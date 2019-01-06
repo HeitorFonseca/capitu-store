@@ -206,6 +206,22 @@
               </div>
             </div>
 
+            <div class="form-group">
+              <div class="btn-group">
+                <button type="button" style="width: 10%;" (click)="incrementNozinho()" class="form-control"> + </button>
+                <button type="button" style="width: 10%;" (click)="decrementNozinho()" class="form-control"> - </button>
+                <label class="ml-2 mt-2" for="nozinho">{{nozinhoCount}} Nozinho</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="btn-group">
+                <button type="button" style="width: 10%;" (click)="incrementRegataoMasculino()" class="form-control"> + </button>
+                <button type="button" style="width: 10%;" (click)="decrementRegataoMasculino()" class="form-control"> - </button>
+                <label class="ml-2 mt-2" for="regataoMasculino">{{regataoMascCount}} Regatão Masculino</label>
+              </div>
+            </div>
+
             <button *ngIf="!this.orderIdParameter" type="submit" class="btn btn-primary">Adicionar Pedido</button>
             <button *ngIf="this.orderIdParameter" type="submit" class="btn btn-primary">Editar Pedido</button>
           </form>

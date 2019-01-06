@@ -25,6 +25,30 @@ export class DashboardComponent implements OnInit {
   isRelatorioPedido = true;
   relatorioPedido: Array<string> = new Array<string>();
 
+  pCount = 0;
+  mCount = 0;
+  gCount = 0;
+  ggCount = 0;
+  vestidoCurtoCount = 0;
+  vestidoLongoCount = 0;
+  golaChockerCount = 0;
+  infantilCount = 0;
+  masculinoCount = 0;
+  filhoCount = 0;
+  curtoPCount = 0;
+  curtoMCount = 0;
+  curtoGCount = 0;
+  curtoGGCount = 0;
+  curtoInfantilCount = 0;
+  semMangaCount = 0;
+  kitPCount = 0;
+  kitMCount = 0;
+  kitGCount = 0;
+  kitGGCount = 0;
+  longoRegataCount = 0;
+  nozinhoCount = 0;
+  regataoMascCount = 0;
+
   constructor(private productService: ProductService, private router: Router) { }
 
   ngOnInit() {
@@ -83,15 +107,6 @@ export class DashboardComponent implements OnInit {
   }
 
   selectCheckBox(event: any) {
-    // if (event.target.checked) {
-    //   console.log("checked");
-
-    // } else {
-    //   console.log("not checked");
-    // }
-    // console.log(event.target);
-    // this.selectedIds.push(event.target.value);
-
     console.log(this.orders);
   }
 
@@ -121,8 +136,6 @@ export class DashboardComponent implements OnInit {
       }
     }
 
-    // Array.from(dict.values()).forEach(value => this.cu(value));
-
     this.createReport(dict)
     console.log("dicionario: ", dict);
   }
@@ -132,7 +145,6 @@ export class DashboardComponent implements OnInit {
     this.isRelatorioPedido = false;
 
     this.finalOrders = this.orders.filter(a => a.isChecked === true && a.Confirmed === false);
-
 
     for (var item = 0; item < this.finalOrders.length; item++) {
       var line = this.finalOrders[item].ClientName + ":\n";
@@ -149,8 +161,9 @@ export class DashboardComponent implements OnInit {
 
   cu(str: string) {
     var pqtd, mqtd, gqtd, ggqtd, vestcqtd, vestlqtd, mascqtd, kitmfqtd, filhoqtd, chocqtd, curtpqtd, curtmqtd, curtgqtd,
-      curtggqtd, curtinfqtd, semmangaqtd, kitpqtd, kitmqtd, kitgqtd, kitggqtd, longoregqtd, infantilqtd;
-    console.log(str);
+      curtggqtd, curtinfqtd, semmangaqtd, kitpqtd, kitmqtd, kitgqtd, kitggqtd, longoregqtd, infantilqtd, nozinhoqtd, regataoMascqtd;
+
+
     let regex = /([0-9]+P\s|[0-9]+P$)/g;
     pqtd = this.loop(str, "P", regex);
     regex = /([0-9]+M\s|[0-9]+M$)/g;
@@ -193,16 +206,19 @@ export class DashboardComponent implements OnInit {
     kitggqtd = this.loop(str, "KIT GG", regex);
     regex = /([0-9]+Longo regata\s|[0-9]+Longo regata$)/g;
     longoregqtd = this.loop(str, "Longo regata", regex);
-
     regex = /([0-9]+Infantil\s|[0-9]+Infantil$)/g;
-    infantilqtd = this.loop(str, "Infantil", regex);
+    infantilqtd = this.loop(str, "Infantil", regex);    
+    regex = /([0-9]+Nozinho\s|[0-9]+Nozinho$)/g;
+    nozinhoqtd = this.loop(str, "Nozinho", regex);    
+    regex = /([0-9]+Regatão Masculino\s|[0-9]+Regatão Masculino$)/g;
+    regataoMascqtd = this.loop(str, "Regatão Masculino", regex);
 
     return {
       P: pqtd, M: mqtd, G: gqtd, GG: ggqtd, VestC: vestcqtd, VestL: vestlqtd,
       Masc: mascqtd, Kit: kitmfqtd, Filho: filhoqtd, Chocker: chocqtd, CurtoP: curtpqtd,
       CurtoM: curtmqtd, CurtoG: curtgqtd, CurtoGG: curtggqtd, CurtoInfantil: curtinfqtd,
       SemManga: semmangaqtd, KitP: kitpqtd, KitM: kitmqtd, KitG: kitgqtd, KitGG: kitggqtd, LongoRegata: longoregqtd,
-      Infantil: infantilqtd
+      Infantil: infantilqtd, Nozinho: nozinhoqtd, RegataoMasculino: regataoMascqtd
     };
 
   }
@@ -222,13 +238,14 @@ export class DashboardComponent implements OnInit {
       }
     } else counter = 0;
 
+    this.finalSum(counter, type);
+
     var ret = (counter > 0 ? "" + counter + type : "")
     return ret;
   }
 
   createReport(dict: Map<string, string>) {
     this.finalReport.splice(0, this.finalReport.length);
-
 
     var counter = 1;
     Array.from(dict.entries()).forEach(entry => {
@@ -241,6 +258,44 @@ export class DashboardComponent implements OnInit {
 
     });
 
+    this.finalReport.push("--------------------------------------------------------------------------------------------------------------------------------");
+    this.finalReport.push("Total de Camisas P - " + this.pCount);
+    this.finalReport.push("Total de Camisas M - " + this.mCount);
+    this.finalReport.push("Total de Camisas G - " + this.gCount);
+    this.finalReport.push("Total de Camisas GG - " + this.ggCount);
+    this.finalReport.push("Total de Vestidos Curtos - " + this.vestidoCurtoCount);
+    this.finalReport.push("Total de Vestidos Longos - " + this.vestidoLongoCount);
+    this.finalReport.push("Total de Camisas Masculinas - " + this.masculinoCount);
+    this.finalReport.push("Total de Camisas filho - " + this.filhoCount);
+    this.finalReport.push("Total de Camisas Gola Chocker - " + this.golaChockerCount);
+    this.finalReport.push("Total de Vestidos Curtos p - " + this.curtoPCount);
+    this.finalReport.push("Total de Vestidos Curtos M - " + this.curtoMCount);
+    this.finalReport.push("Total de Vestidos Curtos G - " + this.curtoGCount);
+    this.finalReport.push("Total de Vestidos Curtos GG - " + this.curtoGGCount);
+    this.finalReport.push("Total de Vestidos curtos Infantil - " + this.curtoInfantilCount);
+    this.finalReport.push("Total de Regatas (Sem Manga) - " + this.semMangaCount);
+    this.finalReport.push("Total de Kits P - " + this.kitPCount);
+    this.finalReport.push("Total de Kits M - " + this.kitMCount);
+    this.finalReport.push("Total de Kits G - " + this.kitGCount);
+    this.finalReport.push("Total de Kits GG - " + this.kitGGCount);
+    this.finalReport.push("Total de Vestido Longo Regata - " + this.longoRegataCount);
+    this.finalReport.push("Total de Infantil - " + this.infantilCount);
+    this.finalReport.push("Total de Camisas Nozinho - " + this.nozinhoCount);
+    this.finalReport.push("Total de Camisas Regatão Masculino - " + this.regataoMascCount);
+
+    let total = this.pCount + this.mCount + this.gCount + this.ggCount + this.vestidoCurtoCount + this.vestidoLongoCount +  
+    this.masculinoCount +  this.filhoCount +  this.golaChockerCount +  this.curtoPCount +  this.curtoMCount +  
+    this.curtoGCount +  this.curtoGGCount + this.curtoInfantilCount +  this.semMangaCount +  this.kitPCount +  this.kitMCount + 
+    this.kitGCount +  this.kitGGCount +  this.longoRegataCount +  this.infantilCount +  this.nozinhoCount +  
+    this.regataoMascCount;
+
+    this.finalReport.push("Total: - " + total);
+
+    this.pCount = this.mCount = this.gCount = this.ggCount = this.vestidoCurtoCount = this.vestidoLongoCount =  
+    this.masculinoCount =  this.filhoCount =  this.golaChockerCount =  this.curtoPCount =  this.curtoMCount =  
+    this.curtoGCount =  this.curtoGGCount = this.curtoInfantilCount =  this.semMangaCount =  this.kitPCount =  this.kitMCount = 
+    this.kitGCount =  this.kitGGCount =  this.longoRegataCount =  this.infantilCount =  this.nozinhoCount =  
+    this.regataoMascCount = 0;
   }
 
   getSizes(objValues) {
@@ -289,7 +344,64 @@ export class DashboardComponent implements OnInit {
       ret = (ret != '' ? ret + ", " + objValues.LongoRegata : ret + objValues.LongoRegata);
     if (objValues.Infantil != '')
       ret = (ret != '' ? ret + ", " + objValues.Infantil : ret + objValues.Infantil);
+    if (objValues.Nozinho != '')
+      ret = (ret != '' ? ret + ", " + objValues.Nozinho : ret + objValues.Nozinho);
+    if (objValues.RegataoMasculino != '')
+      ret = (ret != '' ? ret + ", " + objValues.RegataoMasculino : ret + objValues.RegataoMasculino);
 
     return ret;
+  }
+
+  finalSum(counter:any, type:string) {
+
+    console.log("tipo: ", type, " counter = ", counter);
+
+    if (type == "P")
+      this.pCount+= counter;
+    else if (type == "M")
+      this.mCount+=counter;
+    else if (type == "G")
+      this.gCount+=counter;
+    else if (type == "GG") 
+      this.ggCount+=counter;
+    else if (type == "Vestido curto")
+      this.vestidoCurtoCount+=counter;
+    else if (type == "Vestido longo")
+      this.vestidoLongoCount+=counter;
+    else if (type == "Masculino")
+      this.masculinoCount+=counter;
+    else if (type == "Filho")
+      this.filhoCount+=counter;
+    else if (type == "Gola Chocker")
+      this.golaChockerCount+=counter;
+    else if (type == "Curto P")
+      this.curtoPCount+=counter;
+    else if (type == "Curto M")
+      this.curtoMCount+=counter;
+    else if (type == "Curto G")
+      this.curtoGCount+=counter;
+    else if (type == "Curto GG")
+      this.curtoGGCount+=counter;
+    else if (type == "Curto Infantil")
+      this.curtoInfantilCount+=counter;
+    else if (type == "Sem Manga")
+      this.semMangaCount+=counter;
+    else if (type == "KIT P")
+      this.kitPCount+=counter;
+    else if (type == "KIT M")
+      this.kitMCount+=counter;
+    else if (type == "KIT G")
+      this.kitGCount+=counter;
+    else if (type == "KIT GG")
+      this.kitGGCount+=counter;
+    else if (type == "Longo regata")
+      this.longoRegataCount+=counter;
+    else if (type == "Infantil")
+      this.infantilCount+=counter;
+    else if (type == "Nozinho")
+      this.nozinhoCount+=counter;
+    else if (type == "Regatão Masculino")
+      this.regataoMascCount+=counter;
+
   }
 }

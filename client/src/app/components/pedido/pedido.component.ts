@@ -38,6 +38,8 @@ export class PedidoComponent implements OnInit {
   kitGCount = 0;
   kitGGCount = 0;
   longoRegataCount = 0;
+  nozinhoCount = 0;
+  regataoMascCount = 0;
 
   referencia;
   mySource;
@@ -203,6 +205,11 @@ export class PedidoComponent implements OnInit {
       sizes = sizes == '' ? sizes + this.kitGGCount + "KIT GG" : sizes + " " + this.kitGGCount + "KIT GG";
     if (this.longoRegataCount > 0)
       sizes = sizes == '' ? sizes + this.longoRegataCount + "Longo regata" : sizes + " " + this.longoRegataCount + "Longo regata";
+    if (this.nozinhoCount > 0)
+    sizes = sizes == '' ? sizes + this.nozinhoCount + "Nozinho" : sizes + " " + this.nozinhoCount + "Nozinho";
+    if (this.regataoMascCount > 0)
+    sizes = sizes == '' ? sizes + this.regataoMascCount + "Regatão Masculino" : sizes + " " + this.regataoMascCount + "Regatão Masculino";
+
     return sizes;
   }
 
@@ -210,7 +217,8 @@ export class PedidoComponent implements OnInit {
     this.pCount = this.mCount = this.gCount = this.ggCount = this.vestidoCurtoCount = this.vestidoLongoCount =
       this.golaChockerCount = this.masculinoCount = this.filhoCount = this.infantilCount =
       this.curtoPCount = this.curtoMCount = this.curtoGCount = this.curtoGGCount = this.curtoInfantilCount = this.semMangaCount =
-      this.kitPCount = this.kitMCount = this.kitGCount = this.kitGGCount = this.longoRegataCount = 0;
+      this.kitPCount = this.kitMCount = this.kitGCount = this.kitGGCount = this.longoRegataCount = 
+      this.nozinhoCount = this.regataoMascCount = 0;
   }
 
   incrementP() {
@@ -381,8 +389,23 @@ export class PedidoComponent implements OnInit {
     this.longoRegataCount = (this.longoRegataCount == 0 ? 0 : this.longoRegataCount - 1);
   }
 
+  incrementNozinho() {
+    this.nozinhoCount++;
+  }
+
+  decrementNozinho() {
+    this.nozinhoCount = (this.nozinhoCount == 0 ? 0 : this.nozinhoCount - 1);
+  }
+
+  incrementRegataoMasculino() {
+    this.regataoMascCount++;
+  }
+
+  decrementRegataoMasculino() {
+    this.regataoMascCount = (this.regataoMascCount == 0 ? 0 : this.regataoMascCount - 1);
+  }
+
   valueChanged(newVal) {
-    console.log("Case 2: value is changed to ", newVal);
     this.selectedProduct = this.products.find(x => x.Reference == newVal);
   }
 

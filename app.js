@@ -47,10 +47,13 @@ app.use(function(err, req, res, next) {
 });
 
 
-mongoose.connect('mongodb://heitorfaraujo:capitustore123456@ds227332.mlab.com:27332/capitustore', { promiseLibrary: require('bluebird') })
+// mongoose.connect('mongodb://heitorfaraujo:capitustore123456@ds227332.mlab.com:27332/capitustore', { promiseLibrary: require('bluebird') })
+//   .then(() =>  console.log('connection successful'))
+//   .catch((err) => console.error(err));
+
+  mongoose.connect('mongodb+srv://heitorfaraujo:capitustore123456@capitustore.imd6d.mongodb.net/capitustore?retryWrites=true&w=majority', { promiseLibrary: require('bluebird') })
   .then(() =>  console.log('connection successful'))
   .catch((err) => console.error(err));
-
 
 // mongoose.connect('mongodb://localhost/Capitu', { promiseLibrary: require('bluebird') })
 // .then(() =>  console.log('connection successful'))

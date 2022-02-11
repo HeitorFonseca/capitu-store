@@ -26,7 +26,7 @@
     "@angular/platform-server": "6.0.2",
     "@angular/router": "6.0.2",
     "@ng-bootstrap/ng-bootstrap": "2.0.0",
-    "ajv": "6.2.1",
+    "ajv": "6.12.3",
     "ajv-keywords": "3.1.0",
     "blueimp-canvas-to-blob": "^3.14.0",
     "bootstrap": "4.1.0",
